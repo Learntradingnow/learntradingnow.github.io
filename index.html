@@ -320,6 +320,17 @@
   /* ---------- Ask Us button + modal ---------- */
   .ask-us-wrap{position:fixed;right:18px;bottom:20px;z-index:50;display:flex;flex-direction:column;
     align-items:flex-end;gap:8px}
+
+  /* ---------- Music toggle ---------- */
+  .music-toggle{position:fixed;left:18px;bottom:20px;z-index:50;display:flex;align-items:center;
+    justify-content:center;width:52px;height:52px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.15);
+    background:linear-gradient(135deg,var(--violet) 0%,var(--plasma) 100%);color:#fff;
+    cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:20px;
+    transition:filter .2s ease,transform .2s ease}
+  .music-toggle:hover{filter:brightness(1.12);transform:scale(1.05)}
+  .music-toggle.muted{background:var(--card);border-color:var(--card-line);color:var(--ink-dim)}
+  #ytplayer-wrap{position:fixed;bottom:-200px;left:-200px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
   .ask-us-badge{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.04em;
     color:var(--ink-dim);background:rgba(5,1,16,.85);border:1px solid var(--card-line);
     padding:5px 11px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
@@ -724,5 +735,42 @@
   })();
   document.getElementById('yr').textContent=new Date().getFullYear();
 </script>
+<!-- Background music -->
+<button class="music-toggle muted" id="musicToggle" title="Tap for sound" aria-label="Toggle music">🔇</button>
+<div id="ytplayer-wrap"><div id="ytplayer"></div></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let ytPlayer, ytReady = false, musicOn = false;
+  function onYouTubeIframeAPIReady(){
+    ytPlayer = new YT.Player('ytplayer', {
+      videoId: '4sV6oJYz3Fs',
+      playerVars: { autoplay:1, mute:1, loop:1, playlist:'4sV6oJYz3Fs', controls:0 },
+      events: {
+        onReady: function(e){
+          ytReady = true;
+          e.target.playVideo();
+        }
+      }
+    });
+  }
+  document.getElementById('musicToggle').addEventListener('click', function(){
+    if(!ytReady) return;
+    const btn = this;
+    if(musicOn){
+      ytPlayer.mute();
+      btn.textContent = '🔇';
+      btn.classList.add('muted');
+      musicOn = false;
+    } else {
+      ytPlayer.unMute();
+      ytPlayer.setVolume(60);
+      btn.textContent = '🔊';
+      btn.classList.remove('muted');
+      musicOn = true;
+    }
+  });
+</script>
+
 </body>
 </html>
