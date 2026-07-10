@@ -147,14 +147,12 @@
 
   .empty-state{text-align:center;color:var(--ink-faint);padding:50px 18px;border:1px dashed var(--card-line);border-radius:var(--radius)}
 
-  .trade-table{border:1px solid var(--card-line);border-radius:var(--radius);overflow:hidden;margin-top:16px}
-  .trade-row{display:grid;grid-template-columns:70px 1fr 1fr 1fr 74px 1fr 24px;gap:8px;padding:11px 15px;
-    align-items:center;font-size:12.5px;border-bottom:1px solid var(--card-line)}
-  .trade-row:last-child{border-bottom:none}
-  .trade-head{background:rgba(0,0,0,.15);font-family:"JetBrains Mono",monospace;font-size:10px;
-    color:var(--ink-faint);letter-spacing:.05em}
-  .tk{font-weight:700;color:var(--violet-bright);font-family:"JetBrains Mono",monospace}
-  .tdate{color:var(--ink-faint);font-size:11.5px}
+  .trade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:16px}
+  .trade-card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);overflow:hidden}
+  .trade-card-img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  .trade-card-body{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px}
+  .tk{font-weight:700;color:var(--violet-bright);font-family:"JetBrains Mono",monospace;font-size:14px}
+  .tdate{color:var(--ink-faint);font-size:11px;width:100%}
   .outcome{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:2px 7px;border-radius:5px;
     width:fit-content;text-transform:uppercase}
   .outcome.win{background:rgba(60,232,138,.15);color:var(--up)}
@@ -172,8 +170,6 @@
 
   @media (max-width:520px){
     .masonry{columns:1 100%}
-    .trade-row{grid-template-columns:56px 1fr 1fr 60px}
-    .trade-row span:nth-child(3),.trade-row span:nth-child(4),.trade-row span:nth-child(6){display:none}
     .form-row{grid-template-columns:1fr}
   }
 </style>
@@ -208,20 +204,19 @@
 
   <div id="addTradeCard" class="card" style="display:none; margin-top:16px;">
     <div class="form-title">Log a trade</div>
-    <div class="form-row">
+    <div class="form-row" style="grid-template-columns:1fr 1fr;">
       <input class="input" id="tradeTicker" placeholder="Ticker">
-      <input class="input" id="tradeEntry" placeholder="Entry">
       <select class="input" id="tradeOutcome">
         <option value="open">Open</option>
         <option value="win">Win</option>
         <option value="loss">Loss</option>
       </select>
     </div>
-    <div class="form-row" style="grid-template-columns:1fr 1fr;">
-      <input class="input" id="tradeSl" placeholder="Stop loss">
-      <input class="input" id="tradeTp" placeholder="Take profit">
+    <div class="file-row">
+      <button class="btn btn-ghost" type="button" id="tradeAttachBtn">Attach screenshot (optional)</button>
+      <input type="file" id="tradeFileInput" accept="image/*" hidden>
+      <img id="tradeFilePreview" class="file-preview" style="display:none;">
     </div>
-    <textarea class="input" id="tradeNotes" placeholder="Notes (optional)" rows="2"></textarea>
     <button class="btn btn-primary" id="addTradeBtn">Add trade</button>
   </div>
 
@@ -344,22 +339,18 @@
       wrap.innerHTML = `<div class="empty-state">No trades logged yet.</div>`;
       return;
     }
-    const rows = tradesCache.map(t => `
-      <div class="trade-row">
-        <span class="tk">${t.ticker}</span>
-        <span>${t.entry || "—"}</span>
-        <span>${t.sl || "—"}</span>
-        <span>${t.tp || "—"}</span>
-        <span class="outcome ${t.outcome}">${t.outcome}</span>
-        <span class="tdate">${fmtDate(t.date)}</span>
-        ${isAdmin ? `<button class="btn-tiny reject" data-remove-trade="${t.id}">✕</button>` : "<span></span>"}
+    const cards = tradesCache.map(t => `
+      <div class="trade-card">
+        ${t.imageBase64 ? `<img class="trade-card-img" src="${t.imageBase64}" alt="${t.ticker} trade">` : ""}
+        <div class="trade-card-body">
+          <span class="tk">${t.ticker}</span>
+          <span class="outcome ${t.outcome}">${t.outcome}</span>
+          <span class="tdate">${fmtDate(t.date)}</span>
+          ${isAdmin ? `<button class="btn-tiny reject" data-remove-trade="${t.id}">✕</button>` : ""}
+        </div>
       </div>
     `).join("");
-    wrap.innerHTML = `
-      <div class="trade-table">
-        <div class="trade-row trade-head"><span>Ticker</span><span>Entry</span><span>SL</span><span>TP</span><span>Outcome</span><span>Date</span><span></span></div>
-        ${rows}
-      </div>`;
+    wrap.innerHTML = `<div class="trade-grid">${cards}</div>`;
     wrap.querySelectorAll("[data-remove-trade]").forEach(btn => {
       btn.addEventListener("click", () => removeTrade(btn.dataset.removeTrade));
     });
@@ -607,24 +598,35 @@
     }
   });
 
+  let pendingTradeImageBase64 = null;
+  document.getElementById("tradeAttachBtn").addEventListener("click", () => document.getElementById("tradeFileInput").click());
+  document.getElementById("tradeFileInput").addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      pendingTradeImageBase64 = await resizeImage(file);
+      const preview = document.getElementById("tradeFilePreview");
+      preview.src = pendingTradeImageBase64;
+      preview.style.display = "block";
+    } catch (err) {
+      // non-critical — just skip the preview if the image can't be read
+    }
+  });
+
   document.getElementById("addTradeBtn").addEventListener("click", async () => {
     const ticker = document.getElementById("tradeTicker").value.trim().toUpperCase();
     if (!ticker) return;
     await addDoc(collection(db, "trades"), {
       ticker,
-      entry: document.getElementById("tradeEntry").value.trim(),
-      sl: document.getElementById("tradeSl").value.trim(),
-      tp: document.getElementById("tradeTp").value.trim(),
       outcome: document.getElementById("tradeOutcome").value,
-      notes: document.getElementById("tradeNotes").value.trim(),
+      imageBase64: pendingTradeImageBase64 || null,
       date: Date.now(),
     });
     document.getElementById("tradeTicker").value = "";
-    document.getElementById("tradeEntry").value = "";
-    document.getElementById("tradeSl").value = "";
-    document.getElementById("tradeTp").value = "";
-    document.getElementById("tradeNotes").value = "";
     document.getElementById("tradeOutcome").value = "open";
+    document.getElementById("tradeFilePreview").style.display = "none";
+    document.getElementById("tradeFileInput").value = "";
+    pendingTradeImageBase64 = null;
     await refreshAll();
   });
 
