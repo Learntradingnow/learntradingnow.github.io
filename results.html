@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balloutt Trades LLC — Verified Results</title>
+<meta name="description" content="Full-time options trader. Swings, LEAPS, 0DTE. Verified results from June–July 2026.">
+<meta name="theme-color" content="#0d0131">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0131'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-size='54' font-weight='bold' fill='%23a855f7'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050110;
+  --surface: #0c0225;
+  --card: rgba(168,85,247,.06);
+  --card-border: rgba(168,85,247,.15);
+  --card-hover: rgba(168,85,247,.12);
+  --violet: #a855f7;
+  --violet-dim: #7c3aed;
+  --violet-glow: rgba(168,85,247,.25);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,.12);
+  --ink: #f0eaff;
+  --ink-dim: #a89cc4;
+  --ink-faint: #5e5478;
+  --mono: "JetBrains Mono", monospace;
+  --sans: "Inter", -apple-system, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Top accent bar ─── */
+body::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--violet-dim), var(--violet), var(--violet-dim));
+}
+
+/* ─── Layout ─── */
+.wrap { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+
+/* ─── Header ─── */
+.header { text-align: center; margin-bottom: 48px; }
+.header h1 {
+  font-size: clamp(28px, 6vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.header h1 span { color: var(--violet); }
+.tagline {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--violet);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.date-range {
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin-top: 6px;
+}
+
+/* ─── Section bars ─── */
+.section-bar {
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+/* ─── Intro ─── */
+.intro {
+  font-size: 15px;
+  color: var(--ink-dim);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.intro strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Stat boxes ─── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px 12px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.stat:hover { border-color: rgba(168,85,247,.4); }
+.stat-num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: clamp(20px, 4vw, 28px);
+  color: var(--green);
+  line-height: 1.2;
+}
+.stat-num.accent { color: var(--violet); }
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 6px;
+}
+
+/* ─── Tables ─── */
+.table-wrap { overflow-x: auto; margin-bottom: 24px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--violet-dim);
+}
+thead th:last-child { text-align: right; }
+tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(168,85,247,.08);
+  color: var(--ink-dim);
+}
+tbody td:last-child { text-align: right; }
+tbody tr:hover { background: var(--card); }
+.rank {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--violet);
+  font-size: 12px;
+}
+.ticker { font-weight: 600; color: var(--ink); }
+.win {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--green);
+}
+.loss {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--red);
+}
+
+/* ─── Period header ─── */
+.period {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 24px 0 10px;
+}
+.period .pct { color: var(--green); }
+
+/* ─── Offers ─── */
+.offers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.offer {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.2s;
+}
+.offer:hover { border-color: rgba(168,85,247,.35); }
+.offer-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.offer-text h3 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.offer-text p { font-size: 13px; color: var(--ink-dim); line-height: 1.5; }
+
+/* ─── Connect ─── */
+.connect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0 24px;
+}
+.connect a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+.connect a:hover {
+  color: var(--violet);
+  border-color: var(--violet);
+  background: rgba(168,85,247,.08);
+}
+
+/* ─── Quote ─── */
+.quote {
+  text-align: center;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--violet);
+  padding: 24px 20px;
+  margin: 32px 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  line-height: 1.7;
+}
+
+/* ─── Footer ─── */
+.disclaimer {
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.footer {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 500px) {
+  .stats { grid-template-columns: 1fr; }
+  .connect { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="header">
+    <h1>Balloutt <span>Trades</span> LLC</h1>
+    <p class="tagline">Swings · LEAPS · 0DTE</p>
+    <p class="date-range">Verified results: June 16 – July 16, 2026</p>
+  </header>
+
+  <!-- ═══════════════ WHO I AM ═══════════════ -->
+  <div class="section-bar">Who I Am</div>
+  <p class="intro">
+    I'm <strong>Balloutt</strong> — full-time options trader and founder of
+    Balloutt Trades LLC. I trade options exclusively: swings, LEAPS, and 0DTE.
+    Every entry and every exit is posted live with real-time TP/SL levels,
+    tracked in %. I trade live, post receipts, and let the tape speak.
+  </p>
+
+  <!-- ═══════════════ HEADLINE STATS ═══════════════ -->
+  <!-- To edit a number: just change the text inside <div class="stat-num"> -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">+11,172%</div>
+      <div class="stat-label">June Return</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+219,829%</div>
+      <div class="stat-label">Best 8-Day Run</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num accent">86.7%</div>
+      <div class="stat-label">All Time Win Rate</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TOP 5 ═══════════════ -->
+  <div class="section-bar">Top 5 Trades</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Trade</th><th>Return</th></tr></thead>
+      <tbody>
+        <!-- To add a row: copy a <tr>...</tr> block and change the values -->
+        <tr><td class="rank">1</td><td class="ticker">META $575C 7/1</td><td class="win">+12,240%</td></tr>
+        <tr><td class="rank">2</td><td class="ticker">META $575C 7/2</td><td class="win">+4,011%</td></tr>
+        <tr><td class="rank">3</td><td class="ticker">META $575C 7/1</td><td class="win">+1,633%</td></tr>
+        <tr><td class="rank">4</td><td class="ticker">META $575C 7/2</td><td class="win">+1,144%</td></tr>
+        <tr><td class="rank">5</td><td class="ticker">TSLA $400C 7/6</td><td class="win">+1,008%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════ OTHER NOTABLE ═══════════════ -->
+  <div class="section-bar">Other Notable Wins</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trade</th><th>Return</th></tr></thead>
+      <tbody>
+        <tr><td class="ticker">AAPL 322.5C 7/17</td><td class="win">+705%</td></tr>
+        <tr><td class="ticker">CBRS Calls 7/2</td><td class="win">+500% / +385%</td></tr>
+        <tr><td class="ticker">BE Calls</td><td class="win">+481% / +416%</td></tr>
+        <tr><td class="ticker">TSLA 412.5P</td><td class="win">+442%</td></tr>
+        <tr><td class="ticker">SPCX Calls 7/2</td><td class="win">+370% / +250%</td></tr>
+        <tr><td class="ticker">TSLA 420C 7/10</td><td class="win">+120%</td></tr>
+        <tr><td class="ticker">TSLL Put</td><td class="win">+105%</td></tr>
+        <tr><td class="ticker">TSLA 410C 7/10</td><td class="win">+80%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════ WEEKLY BREAKDOWN ═══════════════ -->
+  <div class="section-bar">Week-by-Week Breakdown</div>
+
+  <p class="period">June 16 – 23: TSLA Focus — <span class="pct">+1,800%</span> total</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Position</th><th>Return</th></tr></thead>
+      <tbody>
+        <tr><td>Jun 16</td><td class="ticker">TSLA $410C 6/17</td><td class="win">+61.71%</td></tr>
+        <tr><td>Jun 17</td><td class="ticker">TSLA $410C 6/17</td><td class="win">+292.86%</td></tr>
+        <tr><td>Jun 18</td><td class="ticker">TSLA Calls (5 positions)</td><td class="win">+66% to +100%</td></tr>
+        <tr><td>Jun 22</td><td class="ticker">TSLA Puts (5 positions)</td><td class="win">+116% to +375%</td></tr>
+        <tr><td>Jun 22</td><td class="ticker">TSLA Calls (3 positions)</td><td class="win">+100% to +280%</td></tr>
+        <tr><td>Jun 23</td><td class="ticker">TSLA Calls at ~$382</td><td class="win">+32%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="period">July 1 – 7: The <span class="pct">+219,829%</span> Run — 86.7% win rate</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Ticker</th><th>Position</th><th>Return</th></tr></thead>
+      <tbody>
+        <tr><td class="ticker">META</td><td>$575C 7/1</td><td class="win">+12,240%</td></tr>
+        <tr><td class="ticker">META</td><td>$575C 7/2</td><td class="win">+4,011%</td></tr>
+        <tr><td class="ticker">META</td><td>$575C 7/1</td><td class="win">+1,633%</td></tr>
+        <tr><td class="ticker">META</td><td>$575C 7/2</td><td class="win">+1,144%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>$400C 7/6</td><td class="win">+1,008%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>412.5P</td><td class="win">+442%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>$400C 7/6</td><td class="win">+310%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>$400C 7/6</td><td class="win">+240%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>407.5C</td><td class="win">+205%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>415P 7/8</td><td class="win">+98%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>410C 7/8</td><td class="win">+30%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>405C</td><td class="win">+25%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>$400C</td><td class="loss">-14%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="period">July 13 – 17 — avg <span class="pct">~282.86%</span></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Ticker</th><th>Position</th><th>Return</th></tr></thead>
+      <tbody>
+        <tr><td class="ticker">AAPL</td><td>322.5C 7/17</td><td class="win">+705%</td></tr>
+        <tr><td class="ticker">META</td><td>Runner</td><td class="win">Up to +190%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>420C 7/10</td><td class="win">+120%</td></tr>
+        <tr><td class="ticker">TSLL</td><td>Put</td><td class="win">+105%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>Calls (runners)</td><td class="win">Up to +100%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>410C 7/10</td><td class="win">+80%</td></tr>
+        <tr><td class="ticker">SPCX</td><td>Call</td><td class="win">~70%</td></tr>
+        <tr><td class="ticker">AAPL</td><td>322.5C 7/13</td><td class="win">+50%</td></tr>
+        <tr><td class="ticker">ASTS</td><td>Swing Call</td><td class="win">+35%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>400C 7/13</td><td class="win">+32%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>Put</td><td class="win">+20%</td></tr>
+        <tr><td class="ticker">TSLA</td><td>410C 7/8</td><td class="loss">-30%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════ WHAT I BRING ═══════════════ -->
+  <div class="section-bar">What I Bring to the Table</div>
+  <div class="offers">
+    <div class="offer">
+      <div class="offer-icon">📡</div>
+      <div class="offer-text">
+        <h3>Live Options Alerts</h3>
+        <p>Every entry, every exit, every TP/SL — posted in real time</p>
+      </div>
+    </div>
+    <div class="offer">
+      <div class="offer-icon">🎯</div>
+      <div class="offer-text">
+        <h3>Full Spectrum</h3>
+        <p>Swings, LEAPS, and 0DTE — not a one-trick system</p>
+      </div>
+    </div>
+    <div class="offer">
+      <div class="offer-icon">📊</div>
+      <div class="offer-text">
+        <h3>Receipts on Everything</h3>
+        <p>Tracked in %, verified, transparent — no BS</p>
+      </div>
+    </div>
+    <div class="offer">
+      <div class="offer-icon">🧠</div>
+      <div class="offer-text">
+        <h3>1:1 Mentorship</h3>
+        <p>Lifetime access, real guidance from someone who actually trades</p>
+      </div>
+    </div>
+    <div class="offer">
+      <div class="offer-icon">🆓</div>
+      <div class="offer-text">
+        <h3>Free Community</h3>
+        <p>No paywall to start — prove the value first</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CONNECT ═══════════════ -->
+  <div class="section-bar">Connect</div>
+  <div class="connect">
+    <a href="https://discord.gg/YourInvite">Discord</a>
+    <a href="https://learntradingnow.github.io">Website</a>
+    <a href="https://instagram.com/BallouttTradesLLC">Instagram</a>
+    <a href="https://tiktok.com/@BallouttTrades">TikTok</a>
+    <a href="https://snapchat.com/add/Balloutt.bb">Snapchat</a>
+  </div>
+
+  <!-- ═══════════════ QUOTE ═══════════════ -->
+  <div class="quote">
+    "When your gains read like a phone number, you stop explaining yourself
+    — you just show the tape."
+  </div>
+
+  <!-- ═══════════════ DISCLAIMER ═══════════════ -->
+  <p class="disclaimer">
+    Not financial advice. Past performance does not guarantee future results.
+    Trading involves substantial risk of loss. Individual results vary.
+  </p>
+  <p class="footer">&copy; 2026 Balloutt Trades LLC</p>
+
+</div>
+</body>
+</html>
