@@ -574,17 +574,7 @@
       <span class="wall-chevron">+</span>
     </summary>
 
-    <!-- ===========================================
-         TO ADD A NEW SCREENSHOT:
-         1. Upload the image to your GitHub repo
-         2. Copy one of the lines below
-         3. Change the filename
-         4. Commit. Done.
-         TO REMOVE: just delete that line. Commit.
-         =========================================== -->
-    <div class="wall-grid" id="profitWall">
-      <img src="proof1.png" alt="Profit" onclick="openLightbox(this.src)">
-    </div>
+    <div class="wall-grid" id="profitWall"></div>
     <p class="wall-note">Individual results vary. Tap any image to enlarge.</p>
   </details>
 
@@ -883,10 +873,33 @@
     track.innerHTML=row()+row();
   })();
   document.getElementById('yr').textContent=new Date().getFullYear();
-  function openLightbox(src){
-    document.getElementById('lightboxImg').src=src;
-    document.getElementById('lightbox').classList.add('open');
-  }
+
+  // ============================================================
+  // PROFIT WALL — EDIT THIS LIST ONLY
+  // To add: upload your screenshot to GitHub, then add the filename below
+  // To remove: delete the line
+  // ============================================================
+  var proofs = [
+    "proof1.png.webp",
+  ];
+  // ============================================================
+
+  // Builds the grid automatically from the list above
+  (function(){
+    var grid=document.getElementById('profitWall');
+    proofs.forEach(function(file,i){
+      var img=document.createElement('img');
+      img.src=file;
+      img.alt='Profit screenshot';
+      img.style.animationDelay=(i*0.06)+'s';
+      img.onclick=function(){
+        document.getElementById('lightboxImg').src=this.src;
+        document.getElementById('lightbox').classList.add('open');
+      };
+      img.onerror=function(){this.style.display='none'};
+      grid.appendChild(img);
+    });
+  })();
 
   // Scroll-triggered fade-in animations
   (function(){
