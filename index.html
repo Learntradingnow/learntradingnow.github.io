@@ -874,30 +874,41 @@
   })();
   document.getElementById('yr').textContent=new Date().getFullYear();
 
-  // ============================================================
-  // PROFIT WALL — EDIT THIS LIST ONLY
-  // To add: upload your screenshot to GitHub, then add the filename below
-  // To remove: delete the line
-  // ============================================================
-  var proofs = [
-    "proof1.png.webp",
-  ];
-  // ============================================================
-
-  // Builds the grid automatically from the list above
+  // PROFIT WALL — fully automatic
+  // Just drag & drop images into the "proofs" folder on GitHub
+  // They show up here automatically. No editing needed. Ever.
   (function(){
     var grid=document.getElementById('profitWall');
-    proofs.forEach(function(file,i){
-      var img=document.createElement('img');
-      img.src=file;
-      img.alt='Profit screenshot';
-      img.style.animationDelay=(i*0.06)+'s';
-      img.onclick=function(){
-        document.getElementById('lightboxImg').src=this.src;
-        document.getElementById('lightbox').classList.add('open');
-      };
-      img.onerror=function(){this.style.display='none'};
-      grid.appendChild(img);
+    var api='https://api.github.com/repos/Learntradingnow/learntradingnow.github.io/contents/proofs';
+    var base='https://raw.githubusercontent.com/Learntradingnow/learntradingnow.github.io/main/proofs/';
+    var exts=['png','jpg','jpeg','webp','gif','bmp'];
+
+    fetch(api).then(function(r){
+      if(!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function(files){
+      var images=files.filter(function(f){
+        var ext=f.name.split('.').pop().toLowerCase();
+        return exts.indexOf(ext)!==-1;
+      });
+      if(images.length===0){
+        grid.innerHTML='<p style="color:#6f5f93;font-size:13px;text-align:center">No screenshots yet.</p>';
+        return;
+      }
+      images.forEach(function(f,i){
+        var img=document.createElement('img');
+        img.src=base+encodeURIComponent(f.name);
+        img.alt='Profit screenshot';
+        img.style.animationDelay=(i*0.06)+'s';
+        img.onclick=function(){
+          document.getElementById('lightboxImg').src=this.src;
+          document.getElementById('lightbox').classList.add('open');
+        };
+        img.onerror=function(){this.style.display='none'};
+        grid.appendChild(img);
+      });
+    }).catch(function(){
+      grid.innerHTML='<p style="color:#6f5f93;font-size:13px;text-align:center">Couldn\'t load screenshots.</p>';
     });
   })();
 
