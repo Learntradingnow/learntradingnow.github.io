@@ -165,6 +165,13 @@
   .tag{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     padding:3px 7px;border-radius:6px;background:var(--ember);color:#fff;line-height:1}
   .tag.disc{background:rgba(88,101,242,.22);color:#b9c0ff;border:1px solid rgba(88,101,242,.5)}
+  .tag.promo{background:rgba(255,200,0,.18);color:#ffd84d;border:1px solid rgba(255,200,0,.5);animation:promo-pulse 2s ease-in-out infinite}
+  @keyframes promo-pulse{0%,100%{box-shadow:0 0 4px rgba(255,200,0,.2)}50%{box-shadow:0 0 12px rgba(255,200,0,.45)}}
+  .link.feat.strix{background:linear-gradient(115deg,rgba(60,232,138,.14),rgba(255,200,0,.12));border-color:rgba(60,232,138,.35)}
+  .link.feat.strix:hover{border-color:rgba(60,232,138,.6);box-shadow:0 16px 42px -20px rgba(60,232,138,.6)}
+  .link.feat.strix .link__icon{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border-color:transparent;
+    box-shadow:0 8px 22px -8px rgba(34,197,94,.7)}
+  .link.feat.strix .link__title{font-size:17px}
   .tag.free{background:rgba(60,232,138,.16);color:var(--up);border:1px solid rgba(60,232,138,.45)}
 
   /* ---------- QR card ---------- */
@@ -228,8 +235,16 @@
 
   /* ---------- Recent Highlights ---------- */
   .highlights{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 6px;margin:0 -2px;
-    scrollbar-width:none;opacity:0;animation:rise .7s .48s ease forwards}
+    scrollbar-width:none;opacity:0;animation:rise .7s .48s ease forwards;scroll-behavior:smooth}
   .highlights::-webkit-scrollbar{display:none}
+  .hl-wrap{position:relative}
+  .hl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:36px;height:36px;
+    border-radius:50%;border:1px solid var(--card-line);background:rgba(5,1,16,.85);
+    color:var(--violet-bright);font-size:18px;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;backdrop-filter:blur(8px);transition:background .2s,border-color .2s,opacity .2s}
+  .hl-arrow:hover{background:rgba(168,85,247,.2);border-color:var(--violet)}
+  .hl-arrow.left{left:-6px}
+  .hl-arrow.right{right:-6px}
   .hl-card{flex:none;min-width:184px;padding:16px 18px;border-radius:var(--radius);
     background:linear-gradient(150deg,rgba(60,232,138,.10),var(--card));
     border:1px solid rgba(60,232,138,.28);backdrop-filter:blur(8px)}
@@ -243,6 +258,45 @@
   .hl-disclaimer{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-faint);
     font-style:italic;margin-top:8px;padding:0 2px}
   .hl-disclaimer-link{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+
+  /* ---------- Profit Wall ---------- */
+  .wall-toggle{margin:4px 0 18px}
+  .wall-summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+    gap:14px;padding:18px 20px;border-radius:var(--radius);
+    background:linear-gradient(115deg,rgba(60,232,138,.12),rgba(168,85,247,.08));
+    border:1px solid rgba(60,232,138,.35);backdrop-filter:blur(8px);
+    transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s}
+  .wall-summary:hover{transform:translateY(-2px);border-color:rgba(60,232,138,.6)}
+  .wall-summary::-webkit-details-marker{display:none}
+  .wall-summary-left{display:flex;align-items:center;gap:12px}
+  .wall-summary-icon{width:40px;height:40px;border-radius:10px;flex:none;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--up),#16a34a);color:#fff;font-size:18px;
+    box-shadow:0 8px 22px -8px rgba(60,232,138,.6)}
+  .wall-summary-text{font-family:"Hanken Grotesk",sans-serif;font-size:16px;font-weight:700;color:var(--ink)}
+  .wall-summary-sub{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-faint);margin-top:2px}
+  .wall-toggle[open] .wall-summary{border-color:rgba(60,232,138,.6)}
+  .wall-toggle[open] .wall-chevron{transform:rotate(45deg);background:var(--up);color:#052e16;border-color:var(--up)}
+  .wall-chevron{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1px solid rgba(60,232,138,.4);
+    display:flex;align-items:center;justify-content:center;color:var(--up);font-size:14px;
+    transition:transform .25s ease,background .25s ease}
+  .wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;
+    margin-top:16px;padding:4px}
+  .wall-grid img{width:100%;border-radius:12px;border:1px solid var(--card-line);cursor:pointer;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+  .wall-grid img:hover{transform:scale(1.03);border-color:rgba(60,232,138,.5);
+    box-shadow:0 12px 30px -10px rgba(60,232,138,.4)}
+  .wall-note{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-faint);
+    text-align:center;margin-top:10px}
+  /* Lightbox */
+  .lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(5,1,16,.92);
+    backdrop-filter:blur(6px);align-items:center;justify-content:center;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:90vw;max-height:90vh;border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6)}
+
+  /* ---------- Glow pulse on featured cards ---------- */
+  @keyframes card-glow{0%,100%{box-shadow:0 0 0 0 rgba(60,232,138,.15)}50%{box-shadow:0 0 20px 4px rgba(60,232,138,.2)}}
+  .link.feat.strix{animation:card-glow 3s ease-in-out infinite}
 
   /* ---------- Pricing ---------- */
   .pricing{display:flex;flex-direction:column;gap:14px;opacity:0;animation:rise .7s .54s ease forwards}
@@ -293,6 +347,61 @@
     border-bottom:1px solid rgba(255,255,255,.12);transition:filter .2s ease}
   @keyframes barflow{to{background-position:200% 0}}
   .join-bar:hover{filter:brightness(1.08)}
+  .join-bar::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+    animation:bar-shine 4s ease-in-out infinite}
+  @keyframes bar-shine{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+
+  /* ---------- Scroll-triggered animations ---------- */
+  .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .fade-up.visible{opacity:1;transform:none}
+  .fade-up:nth-child(2){transition-delay:.08s}
+  .fade-up:nth-child(3){transition-delay:.16s}
+  .fade-up:nth-child(4){transition-delay:.24s}
+  .fade-up:nth-child(5){transition-delay:.32s}
+
+  /* stat counter pop */
+  @keyframes count-pop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  .stats__item.visible .stats__num{animation:count-pop .5s ease forwards}
+
+  /* highlight card entrance */
+  @keyframes slide-in{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+  .hl-card.visible{animation:slide-in .5s ease forwards}
+  .hl-card:nth-child(2).visible{animation-delay:.12s}
+  .hl-card:nth-child(3).visible{animation-delay:.24s}
+
+  /* profit wall image pop-in */
+  @keyframes img-pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  .wall-grid img{opacity:0}
+  .wall-toggle[open] .wall-grid img{animation:img-pop .4s ease forwards}
+  .wall-toggle[open] .wall-grid img:nth-child(2){animation-delay:.06s}
+  .wall-toggle[open] .wall-grid img:nth-child(3){animation-delay:.12s}
+  .wall-toggle[open] .wall-grid img:nth-child(4){animation-delay:.18s}
+  .wall-toggle[open] .wall-grid img:nth-child(5){animation-delay:.24s}
+  .wall-toggle[open] .wall-grid img:nth-child(6){animation-delay:.3s}
+
+  /* price card hover lift */
+  .price-card{transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+  .price-card:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.5);
+    box-shadow:0 14px 36px -16px rgba(168,85,247,.5)}
+
+  /* step hover slide */
+  .step{transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,background .25s,padding-left .25s}
+  .step:hover{padding-left:20px}
+
+  /* FAQ answer slide */
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
+  .faq-item[open] .faq-a{max-height:200px}
+
+  /* floating particles behind header */
+  .particle{position:fixed;border-radius:50%;pointer-events:none;z-index:1;
+    background:radial-gradient(circle,rgba(168,85,247,.3),transparent);filter:blur(1px);
+    animation:float-up linear infinite}
+  @keyframes float-up{
+    0%{transform:translateY(0) scale(1);opacity:0}
+    10%{opacity:.6}
+    90%{opacity:.6}
+    100%{transform:translateY(-100vh) scale(.5);opacity:0}
+  }
   .join-bar .arrow{transition:transform .25s ease}
   .join-bar:hover .arrow{transform:translateX(3px)}
 
@@ -379,7 +488,7 @@
 
 <div class="tape"><div class="tape__track" id="tape"></div></div>
 
-<a class="join-bar" href="https://discord.gg/y8WGBS8tHP" target="_blank" rel="noopener">
+<a class="join-bar" href="https://discord.gg/j823dz4HVd" target="_blank" rel="noopener">
   🔥 Join the Free Server — no cost to start <span class="arrow">→</span>
 </a>
 
@@ -394,6 +503,7 @@
     <h1 class="name">Balloutt <em>Trades</em></h1>
     <span class="llc">— Balloutt Trades LLC —</span>
     <div class="handle"><span class="dot"></span>@BallouttTradesLLC</div>
+    <!-- EDIT: Change your bio text below -->
     <p class="bio">When your gains read like a phone number, you stop explaining
       yourself — you just show the tape.<br><br>
       <strong>Top 0.1%</strong> trader results. Every entry, every exit, tracked in %.<br>
@@ -414,39 +524,18 @@
     </a>
     <span class="stats__item stats__item--static">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span class="stats__num">32K</span>
+      <span class="stats__num">41K</span>
       <span class="stats__label">Total Reach</span>
     </span>
   </div>
 
-  <div class="rule"><span>How It Works</span></div>
-  <div class="steps">
-    <a class="step" href="https://discord.gg/y8WGBS8tHP" target="_blank" rel="noopener">
-      <span class="step__num">01</span>
-      <span class="step__body">
-        <span class="step__title">Join Free</span>
-        <span class="step__sub">Free Server · no cost to start</span>
-      </span>
-    </a>
-    <a class="step" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
-      <span class="step__num">02</span>
-      <span class="step__body">
-        <span class="step__title">Try Alerts</span>
-        <span class="step__sub">Double Trouble Bundle · $450/mo</span>
-      </span>
-    </a>
-    <a class="step" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
-      <span class="step__num">03</span>
-      <span class="step__body">
-        <span class="step__title">Buy Mentorship</span>
-        <span class="step__sub">Lifetime access · 1:1 guidance</span>
-      </span>
-    </a>
-  </div>
-
   <div class="rule"><span>Recent Highlights</span></div>
   <!-- Add / edit cards here — each one is a portfolio challenge result -->
-  <div class="highlights">
+  <div class="hl-wrap">
+  <button class="hl-arrow left" onclick="document.getElementById('hlScroll').scrollBy({left:-220,behavior:'smooth'})" aria-label="Scroll left">‹</button>
+  <button class="hl-arrow right" onclick="document.getElementById('hlScroll').scrollBy({left:220,behavior:'smooth'})" aria-label="Scroll right">›</button>
+  <div class="highlights" id="hlScroll">
+    <!-- EDIT: Change numbers/dates below. Copy a card to add more. Delete one to remove. -->
     <div class="hl-card">
       <div class="hl-pct">+219,829.85%</div>
       <div class="hl-label">Portfolio Challenge</div>
@@ -470,10 +559,180 @@
       </div>
     </div>
   </div>
+  </div>
   <p class="hl-disclaimer">Individual results vary — see <a href="#riskDisclosure" class="hl-disclaimer-link">Risk Disclosure</a> below.</p>
+
+  <details class="wall-toggle">
+    <summary class="wall-summary">
+      <span class="wall-summary-left">
+        <span class="wall-summary-icon">📸</span>
+        <span>
+          <div class="wall-summary-text">Profit Wall</div>
+          <div class="wall-summary-sub">Screenshots from me &amp; members — tap to see receipts</div>
+        </span>
+      </span>
+      <span class="wall-chevron">+</span>
+    </summary>
+
+    <!-- ============================================================
+         HOW TO ADD SCREENSHOTS:
+         1. Upload images to your GitHub repo (Add file → Upload files)
+            into a folder called "profits/" (create it first)
+         2. Copy a line below and change the filename
+         3. To REMOVE one, just delete that <img> line
+         4. Commit — live in ~1 minute
+         ============================================================ -->
+    <div class="wall-grid" id="profitWall">
+      <!-- MY PROFITS -->
+      <img src="profits/example1.png" alt="Profit screenshot" onclick="openLightbox(this.src)">
+      <img src="profits/example2.png" alt="Profit screenshot" onclick="openLightbox(this.src)">
+      <img src="profits/example3.png" alt="Profit screenshot" onclick="openLightbox(this.src)">
+
+      <!-- MEMBER PROFITS — screenshots from people who took my trades -->
+      <img src="profits/member1.png" alt="Member profit" onclick="openLightbox(this.src)">
+      <img src="profits/member2.png" alt="Member profit" onclick="openLightbox(this.src)">
+      <img src="profits/member3.png" alt="Member profit" onclick="openLightbox(this.src)">
+    </div>
+    <p class="wall-note">Individual results vary. Tap any image to enlarge.</p>
+  </details>
+
+  <!-- Lightbox for full-screen image viewing -->
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+    <img id="lightboxImg" src="" alt="Enlarged screenshot">
+  </div>
+
+  <div class="rule"><span>Join Free — Start Here</span></div>
+  <div class="links">
+    <!-- EDIT: Change Discord invite links and server names below -->
+    <a class="link feat" href="https://discord.gg/j823dz4HVd" target="_blank" rel="noopener">
+      <span class="link__icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
+      </span>
+      <div class="link__body">
+        <div class="link__title">Balloutt Trades Server <span class="tag free">Free</span></div>
+        <div class="link__sub">Main server — join 41K+ traders, no cost to start</div>
+      </div>
+      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="link" href="https://discord.gg/9YXBKQHMyY" target="_blank" rel="noopener">
+      <span class="link__icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
+      </span>
+      <div class="link__body">
+        <div class="link__title">Top Tier Trading Arsenal</div>
+        <div class="link__sub">Extended community &amp; resources</div>
+      </div>
+      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="link" href="https://discord.gg/9YXBKQHMyY" target="_blank" rel="noopener">
+      <span class="link__icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
+      </span>
+      <div class="link__body">
+        <div class="link__title">Links Room</div>
+        <div class="link__sub">All links, tools &amp; resources in one place</div>
+      </div>
+      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+
+  <div class="rule"><span>How It Works</span></div>
+  <div class="steps">
+    <a class="step" href="https://discord.gg/j823dz4HVd" target="_blank" rel="noopener">
+      <span class="step__num">01</span>
+      <span class="step__body">
+        <span class="step__title">Join Free</span>
+        <span class="step__sub">Free Server · no cost to start</span>
+      </span>
+    </a>
+    <a class="step" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
+      <span class="step__num">02</span>
+      <span class="step__body">
+        <span class="step__title">Try Alerts</span>
+        <span class="step__sub">Double Trouble Bundle · $450/mo</span>
+      </span>
+    </a>
+    <a class="step" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
+      <span class="step__num">03</span>
+      <span class="step__body">
+        <span class="step__title">Buy Mentorship</span>
+        <span class="step__sub">Lifetime access · 1:1 guidance</span>
+      </span>
+    </a>
+  </div>
+
+  <details class="pricing-toggle" id="pricingToggle">
+    <summary class="pricing-summary">
+      <span class="pricing-summary-left">
+        <span class="pricing-summary-icon">💳</span>
+        <span>
+          <div class="pricing-summary-text">Shop</div>
+          <div class="pricing-summary-sub">Mentorship &amp; Alerts — tap to expand</div>
+        </span>
+      </span>
+      <span class="faq-chevron">+</span>
+    </summary>
+
+    <!-- EDIT: Change prices, descriptions, and payment links below.
+         When Stripe is ready, replace the href URLs with your Stripe Payment Links
+         and change "DM to Purchase" to "Buy Now". -->
+    <div class="pricing">
+
+      <div class="price-card feat">
+        <div class="price-top">
+          <span class="price-name">Lifetime Mentorship</span>
+        </div>
+        <div class="price-amt">$2,500 <small>one-time</small></div>
+        <p class="price-desc">1:1 mentorship, live trading sessions, my personal trades, my full watchlist, and more — lifetime access, paid once.</p>
+        <ul class="price-plans">
+          <li><span>One-time payment</span><span>$2,500</span></li>
+          <li><span>3-month plan</span><span>$1,200/mo</span></li>
+          <li><span>8-month plan</span><span>$600/mo</span></li>
+          <li><span>16-month plan</span><span>$350/mo</span></li>
+          <li><span>30-month plan</span><span>$200/mo</span></li>
+          <li class="note">Cancel anytime after 4 months</li>
+        </ul>
+        <!-- STRIPE: replace this href with your Stripe Payment Link when ready -->
+        <a class="price-cta" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">💎 DM to Purchase</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-top">
+          <span class="price-name">Double Trouble Bundle</span>
+        </div>
+        <div class="price-amt">$450 <small>/mo</small></div>
+        <p class="price-desc">I'm Balloutt, a full-time options trader working alongside another analyst — two sets of eyes on every trade, with real-time TP/SL recalculations that adapt instantly to market conditions.</p>
+        <ul class="price-list">
+          <li>0DTE</li>
+          <li>Swing trades</li>
+          <li>LEAPS</li>
+          <li>Whale alerts</li>
+          <li>Heatmap plays</li>
+        </ul>
+        <p class="price-desc" style="margin-top:-6px">With two analysts, you're getting more coverage, stronger execution, and two perspectives on every setup.</p>
+        <!-- STRIPE: replace this href with your Stripe Payment Link when ready -->
+        <a class="price-cta" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">🔥 DM to Purchase</a>
+      </div>
+
+    </div>
+  </details>
 
   <div class="rule"><span>Tools &amp; Signals</span></div>
   <div class="links">
+
+    <a class="link feat strix" href="https://strixoptionsfunding.com/?ref=balloutt" target="_blank" rel="noopener">
+      <span class="link__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </span>
+      <div class="link__body">
+        <div class="link__title">Strix Options Funding <span class="tag promo">USE CODE BTLLC</span></div>
+        <div class="link__sub">strixoptionsfunding.com &middot; Get funded to trade options</div>
+      </div>
+      <svg class="spark" viewBox="0 0 90 34" preserveAspectRatio="none"><path d="M0 28 L10 20 L22 24 L34 10 L48 16 L60 4 L74 12 L90 2"/></svg>
+      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
 
     <a class="link feat" href="https://www.traderdaddy.pro/?ref=42KYBSFS" target="_blank" rel="noopener">
       <span class="link__icon">
@@ -561,101 +820,6 @@
     </div>
   </div>
 
-  <div class="rule"><span>Community · Discord</span></div>
-  <div class="links">
-
-    <a class="link" href="https://discord.gg/QzTg8Y4bNW" target="_blank" rel="noopener">
-      <span class="link__icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
-      </span>
-      <div class="link__body">
-        <div class="link__title">The Portal to All <span class="tag disc">Main</span></div>
-        <div class="link__sub">The flagship community server</div>
-      </div>
-      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-
-   
-
-    <a class="link feat" href="https://discord.gg/y8WGBS8tHP" target="_blank" rel="noopener">
-      <span class="link__icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
-      </span>
-      <div class="link__body">
-        <div class="link__title">Free Server · Mentorship <span class="tag free">Free</span></div>
-        <div class="link__sub">Start here — no cost to join</div>
-      </div>
-      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-  </div>
-
-  <div class="rule"><span>Meet My Partner</span></div>
-  <div class="links">
-    <a class="link feat" href="https://nimble-stat-link-pulse.base44.app/" target="_blank" rel="noopener">
-      <span class="link__icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-      </span>
-      <div class="link__body">
-        <div class="link__title">Sunless <span class="tag">Live VC</span></div>
-        <div class="link__sub">0DTE live in voice — Top 1% results · Click here →</div>
-      </div>
-      <svg class="spark" viewBox="0 0 90 34" preserveAspectRatio="none"><path d="M0 22 L14 18 L26 24 L38 10 L52 16 L64 6 L78 12 L90 4"/></svg>
-      <span class="link__cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-  </div>
-
-  <details class="pricing-toggle" id="pricingToggle">
-    <summary class="pricing-summary">
-      <span class="pricing-summary-left">
-        <span class="pricing-summary-icon">💳</span>
-        <span>
-          <div class="pricing-summary-text">View Pricing</div>
-          <div class="pricing-summary-sub">Mentorship &amp; Alerts — tap to expand</div>
-        </span>
-      </span>
-      <span class="faq-chevron">+</span>
-    </summary>
-
-    <!-- Edit amounts / copy any time — everything below is plain text -->
-    <div class="pricing">
-
-      <div class="price-card feat">
-        <div class="price-top">
-          <span class="price-name">Lifetime Mentorship</span>
-        </div>
-        <div class="price-amt">$2,500 <small>one-time</small></div>
-        <p class="price-desc">1:1 mentorship, live trading sessions, my personal trades, my full watchlist, and more — lifetime access, paid once.</p>
-        <ul class="price-plans">
-          <li><span>One-time payment</span><span>$2,500</span></li>
-          <li><span>3-month plan</span><span>$1,200/mo</span></li>
-          <li><span>8-month plan</span><span>$600/mo</span></li>
-          <li><span>16-month plan</span><span>$350/mo</span></li>
-          <li><span>30-month plan</span><span>$200/mo</span></li>
-          <li class="note">Cancel anytime after 4 months</li>
-        </ul>
-        <a class="price-cta" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">Apply for Mentorship</a>
-      </div>
-
-      <div class="price-card">
-        <div class="price-top">
-          <span class="price-name">Double Trouble Bundle</span>
-        </div>
-        <div class="price-amt">$450 <small>/mo</small></div>
-        <p class="price-desc">I'm Balloutt, a full-time options trader working alongside another analyst — two sets of eyes on every trade, with real-time TP/SL recalculations that adapt instantly to market conditions.</p>
-        <ul class="price-list">
-          <li>0DTE</li>
-          <li>Swing trades</li>
-          <li>LEAPS</li>
-          <li>Whale alerts</li>
-          <li>Heatmap plays</li>
-        </ul>
-        <p class="price-desc" style="margin-top:-6px">With two analysts, you're getting more coverage, stronger execution, and two perspectives on every setup.</p>
-        <a class="price-cta" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">Get Alerts Access</a>
-      </div>
-
-    </div>
-  </details>
-
   <nav class="socials">
     <a class="soc" href="https://www.instagram.com/BallouttTradesLLC/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
@@ -666,7 +830,7 @@
     <a class="soc" href="https://www.snapchat.com/add/BallouttTradesLLC" target="_blank" rel="noopener" aria-label="Snapchat">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9 0 .8-.1 1.6-.1 2 .3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2 0-.4-.1-1.2-.1-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>
     </a>
-    <a class="soc" href="https://discord.gg/y8WGBS8tHP" target="_blank" rel="noopener" aria-label="Discord">
+    <a class="soc" href="https://discord.gg/j823dz4HVd" target="_blank" rel="noopener" aria-label="Discord">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6ZM8.4 13c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Zm7.2 0c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.7 1.9-1.7 1.9Z"/></svg>
     </a>
     <a class="soc" href="https://x.com/BallouttTrades" target="_blank" rel="noopener" aria-label="X">
@@ -727,6 +891,38 @@
     track.innerHTML=row()+row();
   })();
   document.getElementById('yr').textContent=new Date().getFullYear();
+  function openLightbox(src){
+    document.getElementById('lightboxImg').src=src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  // Scroll-triggered fade-in animations
+  (function(){
+    const observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})
+    },{threshold:0.15});
+    document.querySelectorAll('.link,.step,.price-card,.faq-item,.stats__item,.hl-card,.wall-toggle,.rule').forEach(function(el){
+      el.classList.add('fade-up');
+      observer.observe(el);
+    });
+  })();
+
+  // Floating particles
+  (function(){
+    function spawn(){
+      var p=document.createElement('div');
+      p.className='particle';
+      var size=Math.random()*4+2;
+      p.style.width=size+'px';
+      p.style.height=size+'px';
+      p.style.left=Math.random()*100+'vw';
+      p.style.bottom='-10px';
+      p.style.animationDuration=(Math.random()*8+6)+'s';
+      document.body.appendChild(p);
+      setTimeout(function(){p.remove()},14000);
+    }
+    setInterval(spawn,2000);
+  })();
 </script>
 <!-- Background music -->
 <button class="music-toggle muted" id="musicToggle" title="Tap for sound" aria-label="Toggle music">🔇</button>
