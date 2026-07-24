@@ -279,9 +279,10 @@
   .wall-chevron{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1px solid rgba(60,232,138,.4);
     display:flex;align-items:center;justify-content:center;color:var(--up);font-size:14px;
     transition:transform .25s ease,background .25s ease}
-  .wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;
-    margin-top:16px;padding:4px}
+  .wall-grid{column-count:3;column-gap:10px;margin-top:16px;padding:4px}
+  @media(max-width:500px){.wall-grid{column-count:2}}
   .wall-grid img{width:100%;border-radius:12px;border:1px solid var(--card-line);cursor:pointer;
+    margin-bottom:10px;display:block;break-inside:avoid;
     transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
   .wall-grid img:hover{transform:scale(1.03);border-color:rgba(60,232,138,.5);
     box-shadow:0 12px 30px -10px rgba(60,232,138,.4)}
