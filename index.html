@@ -1387,31 +1387,28 @@
     scheduleNext();
   })();
 
-  // ============= ANIME.JS ANIMATIONS =============
+  // ============= ANIME.JS — FULL CAPABILITIES =============
 
-  // scroll observer helper — fires anime animation when element enters viewport
-  function onScroll(selector, animProps, options){
-    var opts=options||{};
+  // --- SCROLL OBSERVER ENGINE ---
+  function scrollReveal(selector, animProps, opts){
+    var o=opts||{};
+    var els=document.querySelectorAll(selector);
+    if(!els.length) return;
+    els.forEach(function(el){el.style.opacity='0';el.style.willChange='transform,opacity'});
     var observer=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(!e.isIntersecting) return;
         observer.unobserve(e.target);
         anime(Object.assign({targets:e.target},animProps));
       });
-    },{threshold:opts.threshold||0.15});
-    document.querySelectorAll(selector).forEach(function(el){
-      // set initial invisible state
-      el.style.opacity='0';
-      observer.observe(el);
-    });
+    },{threshold:o.threshold||0.12});
+    els.forEach(function(el){observer.observe(el)});
   }
-
-  // batch scroll observer — staggers a group when ANY of them enter
-  function onScrollBatch(selector, animProps, options){
-    var opts=options||{};
-    var elements=document.querySelectorAll(selector);
-    if(!elements.length) return;
-    elements.forEach(function(el){el.style.opacity='0'});
+  function scrollRevealBatch(selector, animProps, opts){
+    var o=opts||{};
+    var els=document.querySelectorAll(selector);
+    if(!els.length) return;
+    els.forEach(function(el){el.style.opacity='0';el.style.willChange='transform,opacity'});
     var fired=false;
     var observer=new IntersectionObserver(function(entries){
       if(fired) return;
@@ -1420,90 +1417,144 @@
         fired=true;
         anime(Object.assign({targets:selector},animProps));
       });
-    },{threshold:opts.threshold||0.12});
-    elements.forEach(function(el){observer.observe(el)});
+    },{threshold:o.threshold||0.1});
+    els.forEach(function(el){observer.observe(el)});
   }
 
-  // --- Page load: fade in the whole wrap ---
-  anime({
-    targets:'.wrap',
-    opacity:[0,1],
-    translateY:[30,0],
-    duration:1000,
-    easing:'easeOutCubic'
+  // --- TIMELINE: orchestrated page load sequence ---
+  // name → bio → stats → highlights → toggles, all precisely timed
+  var loadTimeline = anime.timeline({
+    easing:'easeOutExpo'
   });
 
-  // --- Avatar: gentle float ---
+  // 1. Avatar drops in and bounces
+  loadTimeline.add({
+    targets:'.avatar',
+    scale:[0,1],
+    opacity:[0,1],
+    rotate:[-15,0],
+    duration:1200,
+    easing:'spring(1,70,8,0)'
+  });
+
+  // 2. Name slides up
+  loadTimeline.add({
+    targets:'.name',
+    translateY:[40,0],
+    opacity:[0,1],
+    duration:800,
+  },'-=800');// overlap with avatar
+
+  // 3. LLC tag slides up
+  loadTimeline.add({
+    targets:'.llc',
+    translateY:[20,0],
+    opacity:[0,1],
+    duration:600,
+  },'-=500');
+
+  // 4. Bio words appear one by one
+  var bioEl=document.querySelector('.bio');
+  if(bioEl){
+    var bioText=bioEl.textContent;
+    var bioWords=bioText.split(/\s+/);
+    bioEl.innerHTML=bioWords.map(function(w){return '<span style="display:inline-block;opacity:0">'+w+'</span>'}).join(' ');
+    loadTimeline.add({
+      targets:'.bio span',
+      opacity:[0,1],
+      translateY:[12,0],
+      duration:400,
+      delay:anime.stagger(30),
+      easing:'easeOutCubic'
+    },'-=300');
+  }
+
+  // 5. Ticker tape slides in
+  loadTimeline.add({
+    targets:'.ticker-wrap',
+    opacity:[0,1],
+    translateY:[10,0],
+    duration:500,
+  },'-=200');
+
+  // --- AVATAR: continuous spring float ---
   anime({
     targets:'.avatar',
-    translateY:[-6,4,-6],
-    rotateY:[-3,3,-3],
-    duration:6000,
-    easing:'easeInOutSine',
+    translateY:function(){return anime.random(-7,7)},
+    rotateZ:function(){return anime.random(-2,2)},
+    duration:function(){return anime.random(3000,5000)},
+    easing:'spring(1,40,12,0)',
+    loop:true,
+    direction:'alternate',
+  });
+
+  // --- AVATAR RING: continuous spin (supplements CSS) ---
+  anime({
+    targets:'.avatar__ring',
+    rotate:'1turn',
+    duration:12000,
+    easing:'linear',
     loop:true
   });
 
-  // --- Stats: pop in with spring ---
-  onScrollBatch('.stats__item',{
-    scale:[0.6,1],
+  // --- STATS: spring pop with stagger on scroll ---
+  scrollRevealBatch('.stats__item',{
+    scale:[0.5,1],
+    opacity:[0,1],
+    duration:1000,
+    delay:anime.stagger(100,{start:0}),
+    easing:'spring(1,85,10,0)'
+  });
+
+  // --- HIGHLIGHT CARDS: slide in from right with spring stagger ---
+  scrollRevealBatch('.hl-card',{
+    translateX:[80,0],
+    opacity:[0,1],
+    duration:1000,
+    delay:anime.stagger(150,{start:0}),
+    easing:'spring(1,70,10,0)'
+  });
+
+  // --- SECTION TOGGLES: slide up on scroll ---
+  scrollReveal('.section-toggle',{
+    translateY:[40,0],
     opacity:[0,1],
     duration:800,
-    delay:anime.stagger(120),
-    easing:'spring(1, 80, 12, 0)'
+    easing:'spring(1,80,12,0)'
   });
-
-  // --- Highlight cards: slide in from right with spring ---
-  onScrollBatch('.hl-card',{
-    translateX:[70,0],
+  scrollReveal('.wall-toggle',{
+    translateY:[40,0],
     opacity:[0,1],
-    duration:900,
-    delay:anime.stagger(140),
-    easing:'spring(1, 75, 10, 0)'
+    duration:800,
+    easing:'spring(1,80,12,0)'
+  });
+  scrollReveal('.pricing-toggle',{
+    translateY:[40,0],
+    opacity:[0,1],
+    duration:800,
+    easing:'spring(1,80,12,0)'
   });
 
-  // --- FAQ items: slide up ---
-  onScrollBatch('.faq-item',{
+  // --- FAQ ITEMS: stagger spring ---
+  scrollRevealBatch('.faq-item',{
     translateY:[35,0],
     opacity:[0,1],
     duration:700,
     delay:anime.stagger(80),
-    easing:'spring(1, 80, 12, 0)'
+    easing:'spring(1,80,12,0)'
   });
 
-  // --- Section toggles: slide up ---
-  onScroll('.section-toggle',{
-    translateY:[30,0],
-    opacity:[0,1],
-    duration:700,
-    easing:'easeOutCubic'
-  });
-
-  // --- Profit wall toggle: slide up ---
-  onScroll('.wall-toggle',{
-    translateY:[30,0],
-    opacity:[0,1],
-    duration:700,
-    easing:'easeOutCubic'
-  });
-
-  // --- Pricing toggle: slide up ---
-  onScroll('.pricing-toggle',{
-    translateY:[30,0],
-    opacity:[0,1],
-    duration:700,
-    easing:'easeOutCubic'
-  });
-
-  // --- Social icons: pop in with bounce ---
-  onScrollBatch('.soc',{
+  // --- SOCIAL ICONS: pop in with bounce stagger ---
+  scrollRevealBatch('.soc',{
     scale:[0,1],
+    rotate:[90,0],
     opacity:[0,1],
     duration:600,
-    delay:anime.stagger(60),
-    easing:'spring(1, 90, 14, 0)'
+    delay:anime.stagger(50),
+    easing:'spring(1,100,14,0)'
   });
 
-  // --- Content animates in when toggles open ---
+  // --- TOGGLE CONTENT: animate children when opened ---
   document.querySelectorAll('.section-toggle,.pricing-toggle,.wall-toggle').forEach(function(toggle){
     toggle.addEventListener('toggle',function(){
       if(!toggle.open) return;
@@ -1511,19 +1562,20 @@
       if(items.length){
         anime({
           targets:items,
-          translateY:[30,0],
+          translateY:[35,0],
+          scale:[0.95,1],
           opacity:[0,1],
-          duration:600,
-          delay:anime.stagger(80),
-          easing:'spring(1, 80, 12, 0)'
+          duration:700,
+          delay:anime.stagger(70,{start:50}),
+          easing:'spring(1,80,10,0)'
         });
       }
     });
   });
 
-  // --- Count-up numbers with Anime.js ---
+  // --- COUNT-UP NUMBERS: spring-eased with Anime.js ---
   document.querySelectorAll('[data-target]').forEach(function(el){
-    el.style.opacity='1'; // don't hide these
+    el.style.opacity='1';
     var target=parseFloat(el.dataset.target);
     var prefix=el.dataset.prefix||'';
     var suffix=el.dataset.suffix||'';
@@ -1537,7 +1589,7 @@
         anime({
           targets:obj,
           val:target,
-          duration:2200,
+          duration:2500,
           easing:'easeOutExpo',
           round:target>=10?1:10,
           update:function(){
@@ -1550,6 +1602,77 @@
       });
     },{threshold:0.3});
     observer.observe(el);
+  });
+
+  // --- HOVER ANIMATIONS: spring-based interactive effects ---
+  // Links: lift + glow on hover
+  document.querySelectorAll('.link,.step,.price-card').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,translateY:-5,scale:1.015,duration:400,easing:'spring(1,90,12,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,translateY:0,scale:1,duration:600,easing:'spring(1,60,14,0)'});
+    });
+  });
+
+  // Social icons: spin on hover
+  document.querySelectorAll('.soc').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,rotate:'1turn',scale:1.2,duration:600,easing:'spring(1,90,10,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,rotate:0,scale:1,duration:500,easing:'spring(1,70,14,0)'});
+    });
+  });
+
+  // Highlight cards: tilt on hover
+  document.querySelectorAll('.hl-card').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,rotateY:-6,rotateX:4,translateY:-5,duration:500,easing:'spring(1,80,10,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,rotateY:0,rotateX:0,translateY:0,duration:600,easing:'spring(1,60,14,0)'});
+    });
+  });
+
+  // Stats: pulse on hover
+  document.querySelectorAll('.stats__item').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,scale:1.08,duration:300,easing:'spring(1,100,10,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,scale:1,duration:400,easing:'spring(1,70,14,0)'});
+    });
+  });
+
+  // --- SVG ICON LINE DRAW on scroll ---
+  scrollRevealBatch('.link__icon svg',{
+    strokeDashoffset:[anime.setDashoffset,0],
+    opacity:[0,1],
+    duration:1200,
+    delay:anime.stagger(100),
+    easing:'easeOutQuart'
+  });
+
+  // --- SPARK LINE DRAW: the mini chart lines in link cards ---
+  document.querySelectorAll('.spark path').forEach(function(path){
+    var len=path.getTotalLength?path.getTotalLength():100;
+    path.style.strokeDasharray=len;
+    path.style.strokeDashoffset=len;
+  });
+  scrollRevealBatch('.spark path',{
+    strokeDashoffset:[anime.setDashoffset,0],
+    duration:1500,
+    delay:anime.stagger(200),
+    easing:'easeOutCubic'
   });
 
   // 3D card tilt on mouse move (kept from before)
