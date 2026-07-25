@@ -710,8 +710,7 @@
   .contact-meta{display:flex;flex-direction:column}
   .contact-meta .contact-handle{color:var(--ink-faint);font-size:11px;font-family:"JetBrains Mono",monospace}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -1388,71 +1387,169 @@
     scheduleNext();
   })();
 
-  // ============= GSAP ANIMATIONS =============
-  gsap.registerPlugin(ScrollTrigger);
+  // ============= ANIME.JS ANIMATIONS =============
 
-  // Only animate elements NOT inside a closed details toggle
-  function visibleOnly(selector){
-    return gsap.utils.toArray(selector).filter(function(el){
-      return !el.closest('details:not([open]) .section-content');
+  // scroll observer helper — fires anime animation when element enters viewport
+  function onScroll(selector, animProps, options){
+    var opts=options||{};
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        observer.unobserve(e.target);
+        anime(Object.assign({targets:e.target},animProps));
+      });
+    },{threshold:opts.threshold||0.15});
+    document.querySelectorAll(selector).forEach(function(el){
+      // set initial invisible state
+      el.style.opacity='0';
+      observer.observe(el);
     });
   }
 
-  // Stats items pop in with bounce
-  gsap.utils.toArray('.stats__item').forEach(function(el,i){
-    gsap.from(el,{
-      scrollTrigger:{trigger:el,start:'top 90%'},
-      scale:.7,opacity:0,duration:.6,ease:'back.out(2)',delay:i*0.1
-    });
+  // batch scroll observer — staggers a group when ANY of them enter
+  function onScrollBatch(selector, animProps, options){
+    var opts=options||{};
+    var elements=document.querySelectorAll(selector);
+    if(!elements.length) return;
+    elements.forEach(function(el){el.style.opacity='0'});
+    var fired=false;
+    var observer=new IntersectionObserver(function(entries){
+      if(fired) return;
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        fired=true;
+        anime(Object.assign({targets:selector},animProps));
+      });
+    },{threshold:opts.threshold||0.12});
+    elements.forEach(function(el){observer.observe(el)});
+  }
+
+  // --- Page load: fade in the whole wrap ---
+  anime({
+    targets:'.wrap',
+    opacity:[0,1],
+    translateY:[30,0],
+    duration:1000,
+    easing:'easeOutCubic'
   });
 
-  // Highlight cards slide in from right with stagger
-  gsap.utils.toArray('.hl-card').forEach(function(el,i){
-    gsap.from(el,{
-      scrollTrigger:{trigger:el,start:'top 90%'},
-      x:60,opacity:0,duration:.7,ease:'back.out(1.7)',delay:i*0.12
-    });
+  // --- Avatar: gentle float ---
+  anime({
+    targets:'.avatar',
+    translateY:[-6,4,-6],
+    rotateY:[-3,3,-3],
+    duration:6000,
+    easing:'easeInOutSine',
+    loop:true
   });
 
-  // Section toggles and standalone elements
-  visibleOnly('.wall-toggle,.faq-item').forEach(function(el,i){
-    gsap.from(el,{
-      scrollTrigger:{trigger:el,start:'top 88%'},
-      y:40,opacity:0,duration:.7,ease:'back.out(1.4)',delay:(i%4)*0.08
-    });
+  // --- Stats: pop in with spring ---
+  onScrollBatch('.stats__item',{
+    scale:[0.6,1],
+    opacity:[0,1],
+    duration:800,
+    delay:anime.stagger(120),
+    easing:'spring(1, 80, 12, 0)'
   });
 
-  // Section content animate in when ANY toggle is opened
+  // --- Highlight cards: slide in from right with spring ---
+  onScrollBatch('.hl-card',{
+    translateX:[70,0],
+    opacity:[0,1],
+    duration:900,
+    delay:anime.stagger(140),
+    easing:'spring(1, 75, 10, 0)'
+  });
+
+  // --- FAQ items: slide up ---
+  onScrollBatch('.faq-item',{
+    translateY:[35,0],
+    opacity:[0,1],
+    duration:700,
+    delay:anime.stagger(80),
+    easing:'spring(1, 80, 12, 0)'
+  });
+
+  // --- Section toggles: slide up ---
+  onScroll('.section-toggle',{
+    translateY:[30,0],
+    opacity:[0,1],
+    duration:700,
+    easing:'easeOutCubic'
+  });
+
+  // --- Profit wall toggle: slide up ---
+  onScroll('.wall-toggle',{
+    translateY:[30,0],
+    opacity:[0,1],
+    duration:700,
+    easing:'easeOutCubic'
+  });
+
+  // --- Pricing toggle: slide up ---
+  onScroll('.pricing-toggle',{
+    translateY:[30,0],
+    opacity:[0,1],
+    duration:700,
+    easing:'easeOutCubic'
+  });
+
+  // --- Social icons: pop in with bounce ---
+  onScrollBatch('.soc',{
+    scale:[0,1],
+    opacity:[0,1],
+    duration:600,
+    delay:anime.stagger(60),
+    easing:'spring(1, 90, 14, 0)'
+  });
+
+  // --- Content animates in when toggles open ---
   document.querySelectorAll('.section-toggle,.pricing-toggle,.wall-toggle').forEach(function(toggle){
     toggle.addEventListener('toggle',function(){
       if(!toggle.open) return;
-      var content=toggle.querySelectorAll('.link,.step,.price-card,.wall-grid img');
-      if(content.length){
-        gsap.from(content,{
-          y:25,opacity:0,duration:.5,ease:'back.out(1.4)',stagger:0.08
+      var items=toggle.querySelectorAll('.link,.step,.price-card,.wall-grid img');
+      if(items.length){
+        anime({
+          targets:items,
+          translateY:[30,0],
+          opacity:[0,1],
+          duration:600,
+          delay:anime.stagger(80),
+          easing:'spring(1, 80, 12, 0)'
         });
       }
     });
   });
 
-  // GSAP-powered count-up with smooth easing
-  gsap.utils.toArray('[data-target]').forEach(function(el){
+  // --- Count-up numbers with Anime.js ---
+  document.querySelectorAll('[data-target]').forEach(function(el){
+    el.style.opacity='1'; // don't hide these
     var target=parseFloat(el.dataset.target);
     var prefix=el.dataset.prefix||'';
     var suffix=el.dataset.suffix||'';
     var obj={val:0};
-    gsap.to(obj,{
-      val:target,
-      duration:2.2,
-      ease:'power2.out',
-      scrollTrigger:{trigger:el,start:'top 85%'},
-      onUpdate:function(){
-        var v=obj.val;
-        var display=target>=1000?Math.floor(v).toLocaleString():
-                    target%1===0?Math.floor(v):v.toFixed(1);
-        el.textContent=prefix+display+suffix;
-      }
-    });
+    var fired=false;
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting||fired) return;
+        fired=true;
+        observer.unobserve(e.target);
+        anime({
+          targets:obj,
+          val:target,
+          duration:2200,
+          easing:'easeOutExpo',
+          round:target>=10?1:10,
+          update:function(){
+            var v=obj.val;
+            var display=target>=1000?Math.floor(v).toLocaleString():
+                        target%1===0?Math.floor(v):v.toFixed(1);
+            el.textContent=prefix+display+suffix;
+          }
+        });
+      });
+    },{threshold:0.3});
+    observer.observe(el);
   });
 
   // 3D card tilt on mouse move (kept from before)
