@@ -8,32 +8,45 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0131'/%3E%3Cg stroke='%23a855f7' stroke-width='8' stroke-linecap='round'%3E%3Cline x1='30' y1='68' x2='30' y2='32'/%3E%3Cline x1='50' y1='78' x2='50' y2='46'/%3E%3Cline x1='70' y1='58' x2='70' y2='22'/%3E%3C/g%3E%3Ccircle cx='38' cy='44' r='5' fill='%233ce88a'/%3E%3Ccircle cx='62' cy='44' r='5' fill='%23ff3b4e'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.waves.min.js"></script>
+<!-- Lenis v1.3.25, embedded directly (no CDN call) so smooth-scroll never depends on network reachability -->
+<script>(function(){var e=`1.3.25`;function t(e,t,n){return Math.max(e,Math.min(t,n))}function n(e,t,n){return(1-n)*e+n*t}function r(e,t,r,i){return n(e,t,1-Math.exp(-r*i))}function i(e,t){return(e%t+t)%t}var a=class{isRunning=!1;value=0;from=0;to=0;currentTime=0;lerp;duration;easing;onUpdate;advance(e){if(!this.isRunning)return;let n=!1;if(this.duration&&this.easing){this.currentTime+=e;let r=t(0,this.currentTime/this.duration,1);n=r>=1;let i=n?1:this.easing(r);this.value=this.from+(this.to-this.from)*i}else this.lerp?(this.value=r(this.value,this.to,this.lerp*60,e),Math.round(this.value)===Math.round(this.to)&&(this.value=this.to,n=!0)):(this.value=this.to,n=!0);n&&this.stop(),this.onUpdate?.(this.value,n)}stop(){this.isRunning=!1}fromTo(e,t,{lerp:n,duration:r,easing:i,onStart:a,onUpdate:o}){this.from=this.value=e,this.to=t,this.lerp=n,this.duration=r,this.easing=i,this.currentTime=0,this.isRunning=!0,a?.(),this.onUpdate=o}};function o(e,t){let n;return function(...r){clearTimeout(n),n=setTimeout(()=>{n=void 0,e.apply(this,r)},t)}}var s=class{width=0;height=0;scrollHeight=0;scrollWidth=0;debouncedResize;wrapperResizeObserver;contentResizeObserver;constructor(e,t,{autoResize:n=!0,debounce:r=250}={}){this.wrapper=e,this.content=t,n&&(this.debouncedResize=o(this.resize,r),this.wrapper instanceof Window?window.addEventListener(`resize`,this.debouncedResize):(this.wrapperResizeObserver=new ResizeObserver(this.debouncedResize),this.wrapperResizeObserver.observe(this.wrapper)),this.contentResizeObserver=new ResizeObserver(this.debouncedResize),this.contentResizeObserver.observe(this.content)),this.resize()}destroy(){this.wrapperResizeObserver?.disconnect(),this.contentResizeObserver?.disconnect(),this.wrapper===window&&this.debouncedResize&&window.removeEventListener(`resize`,this.debouncedResize)}resize=()=>{this.onWrapperResize(),this.onContentResize()};onWrapperResize=()=>{this.wrapper instanceof Window?(this.width=window.innerWidth,this.height=window.innerHeight):(this.width=this.wrapper.clientWidth,this.height=this.wrapper.clientHeight)};onContentResize=()=>{this.wrapper instanceof Window?(this.scrollHeight=this.content.scrollHeight,this.scrollWidth=this.content.scrollWidth):(this.scrollHeight=this.wrapper.scrollHeight,this.scrollWidth=this.wrapper.scrollWidth)};get limit(){return{x:this.scrollWidth-this.width,y:this.scrollHeight-this.height}}},c=class{events={};emit(e,...t){let n=this.events[e]||[];for(let e=0,r=n.length;e<r;e++)n[e]?.(...t)}on(e,t){return this.events[e]?this.events[e].push(t):this.events[e]=[t],()=>{this.events[e]=this.events[e]?.filter(e=>t!==e)}}off(e,t){this.events[e]=this.events[e]?.filter(e=>t!==e)}destroy(){this.events={}}};let l={passive:!1};function u(e,t){return e===1?16.666666666666668:e===2?t:1}var d=class{touchStart={x:0,y:0};lastDelta={x:0,y:0};window={width:0,height:0};emitter=new c;constructor(e,t={wheelMultiplier:1,touchMultiplier:1}){this.element=e,this.options=t,window.addEventListener(`resize`,this.onWindowResize),this.onWindowResize(),this.element.addEventListener(`wheel`,this.onWheel,l),this.element.addEventListener(`touchstart`,this.onTouchStart,l),this.element.addEventListener(`touchmove`,this.onTouchMove,l),this.element.addEventListener(`touchend`,this.onTouchEnd,l)}on(e,t){return this.emitter.on(e,t)}destroy(){this.emitter.destroy(),window.removeEventListener(`resize`,this.onWindowResize),this.element.removeEventListener(`wheel`,this.onWheel,l),this.element.removeEventListener(`touchstart`,this.onTouchStart,l),this.element.removeEventListener(`touchmove`,this.onTouchMove,l),this.element.removeEventListener(`touchend`,this.onTouchEnd,l)}onTouchStart=e=>{let{clientX:t,clientY:n}=e.targetTouches?e.targetTouches[0]:e;this.touchStart.x=t,this.touchStart.y=n,this.lastDelta={x:0,y:0},this.emitter.emit(`scroll`,{deltaX:0,deltaY:0,event:e})};onTouchMove=e=>{let{clientX:t,clientY:n}=e.targetTouches?e.targetTouches[0]:e,r=-(t-this.touchStart.x)*this.options.touchMultiplier,i=-(n-this.touchStart.y)*this.options.touchMultiplier;this.touchStart.x=t,this.touchStart.y=n,this.lastDelta={x:r,y:i},this.emitter.emit(`scroll`,{deltaX:r,deltaY:i,event:e})};onTouchEnd=e=>{this.emitter.emit(`scroll`,{deltaX:this.lastDelta.x,deltaY:this.lastDelta.y,event:e})};onWheel=e=>{let{deltaX:t,deltaY:n,deltaMode:r}=e,i=u(r,this.window.width),a=u(r,this.window.height);t*=i,n*=a,t*=this.options.wheelMultiplier,n*=this.options.wheelMultiplier,this.emitter.emit(`scroll`,{deltaX:t,deltaY:n,event:e})};onWindowResize=()=>{this.window={width:window.innerWidth,height:window.innerHeight}}};let f=e=>Math.min(1,1.001-2**(-10*e));var p=class{_isScrolling=!1;_isStopped=!1;_isLocked=!1;_preventNextNativeScrollEvent=!1;_resetVelocityTimeout=null;_rafId=null;_isDraggingSelection=!1;isTouching;isIos;time=0;userData={};lastVelocity=0;velocity=0;direction=0;options;targetScroll;animatedScroll;animate=new a;emitter=new c;dimensions;virtualScroll;constructor({wrapper:t=window,content:n=document.documentElement,eventsTarget:r=t,smoothWheel:i=!0,syncTouch:a=!1,syncTouchLerp:o=.075,touchInertiaExponent:c=1.7,duration:l,easing:u,lerp:p=.1,infinite:m=!1,orientation:h=`vertical`,gestureOrientation:g=h===`horizontal`?`both`:`vertical`,touchMultiplier:_=1,wheelMultiplier:v=1,autoResize:y=!0,prevent:b,virtualScroll:x,overscroll:S=!0,autoRaf:C=!1,anchors:w=!1,autoToggle:T=!1,allowNestedScroll:E=!1,__experimental__naiveDimensions:D=!1,naiveDimensions:O=D,stopInertiaOnNavigate:k=!1}={}){window.lenisVersion=e,window.lenis||(window.lenis={}),window.lenis.version=e,h===`horizontal`&&(window.lenis.horizontal=!0),a===!0&&(window.lenis.touch=!0),this.isIos=/(iPad|iPhone|iPod)/g.test(navigator.userAgent),(!t||t===document.documentElement)&&(t=window),typeof l==`number`&&typeof u!=`function`?u=f:typeof u==`function`&&typeof l!=`number`&&(l=1),this.options={wrapper:t,content:n,eventsTarget:r,smoothWheel:i,syncTouch:a,syncTouchLerp:o,touchInertiaExponent:c,duration:l,easing:u,lerp:p,infinite:m,gestureOrientation:g,orientation:h,touchMultiplier:_,wheelMultiplier:v,autoResize:y,prevent:b,virtualScroll:x,overscroll:S,autoRaf:C,anchors:w,autoToggle:T,allowNestedScroll:E,naiveDimensions:O,stopInertiaOnNavigate:k},this.dimensions=new s(t,n,{autoResize:y}),this.updateClassName(),this.targetScroll=this.animatedScroll=this.actualScroll,this.options.wrapper.addEventListener(`scroll`,this.onNativeScroll),this.options.wrapper.addEventListener(`scrollend`,this.onScrollEnd,{capture:!0}),(this.options.anchors||this.options.stopInertiaOnNavigate)&&this.options.wrapper.addEventListener(`click`,this.onClick),this.options.wrapper.addEventListener(`pointerdown`,this.onPointerDown),this.virtualScroll=new d(r,{touchMultiplier:_,wheelMultiplier:v}),this.virtualScroll.on(`scroll`,this.onVirtualScroll),this.options.autoToggle&&(this.checkOverflow(),this.rootElement.addEventListener(`transitionend`,this.onTransitionEnd)),this.options.autoRaf&&(this._rafId=requestAnimationFrame(this.raf))}destroy(){this.emitter.destroy(),this.options.wrapper.removeEventListener(`scroll`,this.onNativeScroll),this.options.wrapper.removeEventListener(`scrollend`,this.onScrollEnd,{capture:!0}),this.options.wrapper.removeEventListener(`pointerdown`,this.onPointerDown),(this.options.anchors||this.options.stopInertiaOnNavigate)&&this.options.wrapper.removeEventListener(`click`,this.onClick),this.virtualScroll.destroy(),this.dimensions.destroy(),this.cleanUpClassName(),this._rafId&&cancelAnimationFrame(this._rafId)}on(e,t){return this.emitter.on(e,t)}off(e,t){return this.emitter.off(e,t)}onScrollEnd=e=>{e instanceof CustomEvent||(this.isScrolling===`smooth`||this.isScrolling===!1)&&e.stopPropagation()};dispatchScrollendEvent=()=>{this.options.wrapper.dispatchEvent(new CustomEvent(`scrollend`,{bubbles:this.options.wrapper===window,detail:{lenisScrollEnd:!0}}))};get overflow(){let e=this.isHorizontal?`overflow-x`:`overflow-y`;return getComputedStyle(this.rootElement)[e]}checkOverflow(){[`hidden`,`clip`].includes(this.overflow)?this.internalStop():this.internalStart()}onTransitionEnd=e=>{e.propertyName?.includes(`overflow`)&&e.target===this.rootElement&&this.checkOverflow()};setScroll(e){this.isHorizontal?this.options.wrapper.scrollTo({left:e,behavior:`instant`}):this.options.wrapper.scrollTo({top:e,behavior:`instant`})}onClick=e=>{let t=e.composedPath().filter(e=>e instanceof HTMLAnchorElement&&e.href).map(e=>new URL(e.href)),n=new URL(window.location.href);if(this.options.anchors){let e=t.find(e=>n.host===e.host&&n.pathname===e.pathname&&e.hash);if(e){let t=typeof this.options.anchors==`object`&&this.options.anchors?this.options.anchors:void 0,n=decodeURIComponent(e.hash);this.scrollTo(n,t);return}}if(this.options.stopInertiaOnNavigate&&t.some(e=>n.host===e.host&&n.pathname!==e.pathname)){this.reset();return}};onPointerDown=e=>{e.button===1&&this.reset()};isTouchOnSelectionHandle(e){let t=window.getSelection();if(!t||t.isCollapsed||t.rangeCount===0)return!1;let n=e.targetTouches[0]??e.changedTouches[0];if(!n)return!1;let r=t.getRangeAt(0).getClientRects();if(r.length===0)return!1;let i=r[0],a=r[r.length-1],o=Math.hypot(n.clientX-i.left,n.clientY-i.top)<=40,s=Math.hypot(n.clientX-a.right,n.clientY-a.bottom)<=40;return o||s}onVirtualScroll=e=>{if(typeof this.options.virtualScroll==`function`&&this.options.virtualScroll(e)===!1)return;let{deltaX:t,deltaY:n,event:r}=e;if(this.emitter.emit(`virtual-scroll`,{deltaX:t,deltaY:n,event:r}),r.ctrlKey||r.lenisStopPropagation)return;let i=r.type.includes(`touch`),a=r.type.includes(`wheel`);if(i&&this.isIos&&(r.type===`touchstart`&&(this._isDraggingSelection=this.isTouchOnSelectionHandle(r)),this._isDraggingSelection)){r.type===`touchend`&&(this._isDraggingSelection=!1);return}this.isTouching=r.type===`touchstart`||r.type===`touchmove`;let o=t===0&&n===0;if(this.options.syncTouch&&i&&r.type===`touchstart`&&o&&!this.isStopped&&!this.isLocked){this.reset();return}let s=this.options.gestureOrientation===`vertical`&&n===0||this.options.gestureOrientation===`horizontal`&&t===0;if(o||s)return;let c=r.composedPath();c=c.slice(0,c.indexOf(this.rootElement));let l=this.options.prevent,u=Math.abs(t)>=Math.abs(n)?`horizontal`:`vertical`;if(c.find(e=>e instanceof HTMLElement&&(typeof l==`function`&&l?.(e)||e.hasAttribute?.(`data-lenis-prevent`)||u===`vertical`&&e.hasAttribute?.(`data-lenis-prevent-vertical`)||u===`horizontal`&&e.hasAttribute?.(`data-lenis-prevent-horizontal`)||i&&e.hasAttribute?.(`data-lenis-prevent-touch`)||a&&e.hasAttribute?.(`data-lenis-prevent-wheel`)||this.options.allowNestedScroll&&this.hasNestedScroll(e,{deltaX:t,deltaY:n}))))return;if(this.isStopped||this.isLocked){r.cancelable&&r.preventDefault();return}if(!(this.options.syncTouch&&i||this.options.smoothWheel&&a)){this.isScrolling=`native`,this.animate.stop(),r.lenisStopPropagation=!0;return}let d=n;this.options.gestureOrientation===`both`?d=Math.abs(n)>Math.abs(t)?n:t:this.options.gestureOrientation===`horizontal`&&(d=t),(!this.options.overscroll||this.options.infinite||this.options.wrapper!==window&&this.limit>0&&(this.animatedScroll>0&&this.animatedScroll<this.limit||this.animatedScroll===0&&n>0||this.animatedScroll===this.limit&&n<0))&&(r.lenisStopPropagation=!0),r.cancelable&&r.preventDefault();let f=i&&this.options.syncTouch,p=i&&r.type===`touchend`;p&&(d=Math.sign(d)*Math.abs(this.velocity)**this.options.touchInertiaExponent),this.scrollTo(this.targetScroll+d,{programmatic:!1,...f?{lerp:p?this.options.syncTouchLerp:1}:{lerp:this.options.lerp,duration:this.options.duration,easing:this.options.easing}})};resize(){this.dimensions.resize(),this.animatedScroll=this.targetScroll=this.actualScroll,this.emit()}emit(){this.emitter.emit(`scroll`,this)}onNativeScroll=()=>{if(this._resetVelocityTimeout!==null&&(clearTimeout(this._resetVelocityTimeout),this._resetVelocityTimeout=null),this._preventNextNativeScrollEvent){this._preventNextNativeScrollEvent=!1;return}if(this.isScrolling===!1||this.isScrolling===`native`){let e=this.animatedScroll;this.animatedScroll=this.targetScroll=this.actualScroll,this.lastVelocity=this.velocity,this.velocity=this.animatedScroll-e,this.direction=Math.sign(this.animatedScroll-e),this.isStopped||(this.isScrolling=`native`),this.emit(),this.velocity!==0&&(this._resetVelocityTimeout=setTimeout(()=>{this.lastVelocity=this.velocity,this.velocity=0,this.isScrolling=!1,this.emit()},400))}};reset(){this.isLocked=!1,this.isScrolling=!1,this.animatedScroll=this.targetScroll=this.actualScroll,this.lastVelocity=this.velocity=0,this.animate.stop()}start(){if(this.isStopped){if(this.options.autoToggle){this.rootElement.style.removeProperty(`overflow`);return}this.internalStart()}}internalStart(){this.isStopped&&(this.reset(),this.isStopped=!1,this.emit())}stop(){if(!this.isStopped){if(this.options.autoToggle){this.rootElement.style.setProperty(`overflow`,`clip`);return}this.internalStop()}}internalStop(){this.isStopped||(this.reset(),this.isStopped=!0,this.emit())}raf=e=>{let t=e-(this.time||e);this.time=e,this.animate.advance(t*.001),this.options.autoRaf&&(this._rafId=requestAnimationFrame(this.raf))};scrollTo(e,{offset:n=0,immediate:r=!1,lock:i=!1,programmatic:a=!0,lerp:o=a?this.options.lerp:void 0,duration:s=a?this.options.duration:void 0,easing:c=a?this.options.easing:void 0,onStart:l,onComplete:u,force:d=!1,userData:p}={}){if((this.isStopped||this.isLocked)&&!d)return;let m=e,h=n;if(typeof m==`string`&&[`top`,`left`,`start`,`#`].includes(m))m=0;else if(typeof m==`string`&&[`bottom`,`right`,`end`].includes(m))m=this.limit;else{let e=null;if(typeof m==`string`?(e=m.startsWith(`#`)?document.getElementById(m.slice(1)):document.querySelector(m),e||(m===`#top`?m=0:console.warn(`Lenis: Target not found`,m))):m instanceof HTMLElement&&m?.nodeType&&(e=m),e){if(this.options.wrapper!==window){let e=this.rootElement.getBoundingClientRect();h-=this.isHorizontal?e.left:e.top}let t=e.getBoundingClientRect(),n=getComputedStyle(e),r=this.isHorizontal?Number.parseFloat(n.scrollMarginLeft):Number.parseFloat(n.scrollMarginTop),i=getComputedStyle(this.rootElement),a=this.isHorizontal?Number.parseFloat(i.scrollPaddingLeft):Number.parseFloat(i.scrollPaddingTop);m=(this.isHorizontal?t.left:t.top)+this.animatedScroll-(Number.isNaN(r)?0:r)-(Number.isNaN(a)?0:a)}}if(typeof m==`number`){if(m+=h,this.options.infinite){if(a){this.targetScroll=this.animatedScroll=this.scroll;let e=m-this.animatedScroll;e>this.limit/2?m-=this.limit:e<-this.limit/2&&(m+=this.limit)}}else m=t(0,m,this.limit);if(m===this.targetScroll){l?.(this),u?.(this);return}if(this.userData=p??{},r){this.animatedScroll=this.targetScroll=m,this.setScroll(this.scroll),this.reset(),this.preventNextNativeScrollEvent(),this.emit(),u?.(this),this.userData={},requestAnimationFrame(()=>{this.dispatchScrollendEvent()});return}a||(this.targetScroll=m),typeof s==`number`&&typeof c!=`function`?c=f:typeof c==`function`&&typeof s!=`number`&&(s=1),this.animate.fromTo(this.animatedScroll,m,{duration:s,easing:c,lerp:o,onStart:()=>{i&&(this.isLocked=!0),this.isScrolling=`smooth`,l?.(this)},onUpdate:(e,t)=>{this.isScrolling=`smooth`,this.lastVelocity=this.velocity,this.velocity=e-this.animatedScroll,this.direction=Math.sign(this.velocity),this.animatedScroll=e,this.setScroll(this.scroll),a&&(this.targetScroll=e),t||this.emit(),t&&(this.reset(),this.emit(),u?.(this),this.userData={},requestAnimationFrame(()=>{this.dispatchScrollendEvent()}),this.preventNextNativeScrollEvent())}})}}preventNextNativeScrollEvent(){this._preventNextNativeScrollEvent=!0,requestAnimationFrame(()=>{this._preventNextNativeScrollEvent=!1})}hasNestedScroll(e,{deltaX:t,deltaY:n}){let r=Date.now();e._lenis||={};let i=e._lenis,a,o,s,c,l,u,d,f,p,m;if(r-(i.time??0)>2e3){i.time=Date.now();let t=window.getComputedStyle(e);if(i.computedStyle=t,a=[`auto`,`overlay`,`scroll`].includes(t.overflowX),o=[`auto`,`overlay`,`scroll`].includes(t.overflowY),l=[`auto`].includes(t.overscrollBehaviorX),u=[`auto`].includes(t.overscrollBehaviorY),i.hasOverflowX=a,i.hasOverflowY=o,!(a||o))return!1;d=e.scrollWidth,f=e.scrollHeight,p=e.clientWidth,m=e.clientHeight,s=d>p,c=f>m,i.isScrollableX=s,i.isScrollableY=c,i.scrollWidth=d,i.scrollHeight=f,i.clientWidth=p,i.clientHeight=m,i.hasOverscrollBehaviorX=l,i.hasOverscrollBehaviorY=u}else s=i.isScrollableX,c=i.isScrollableY,a=i.hasOverflowX,o=i.hasOverflowY,d=i.scrollWidth,f=i.scrollHeight,p=i.clientWidth,m=i.clientHeight,l=i.hasOverscrollBehaviorX,u=i.hasOverscrollBehaviorY;if(!(a&&s||o&&c))return!1;let h=Math.abs(t)>=Math.abs(n)?`horizontal`:`vertical`,g,_,v,y,b,x;if(h===`horizontal`)g=Math.round(e.scrollLeft),_=d-p,v=t,y=a,b=s,x=l;else if(h===`vertical`)g=Math.round(e.scrollTop),_=f-m,v=n,y=o,b=c,x=u;else return!1;return!x&&(g>=_||g<=0)?!0:(v>0?g<_:g>0)&&y&&b}get rootElement(){return this.options.wrapper===window?document.documentElement:this.options.wrapper}get limit(){return this.options.naiveDimensions?this.isHorizontal?this.rootElement.scrollWidth-this.rootElement.clientWidth:this.rootElement.scrollHeight-this.rootElement.clientHeight:this.dimensions.limit[this.isHorizontal?`x`:`y`]}get isHorizontal(){return this.options.orientation===`horizontal`}get actualScroll(){let e=this.options.wrapper;return this.isHorizontal?e.scrollX??e.scrollLeft:e.scrollY??e.scrollTop}get scroll(){return this.options.infinite?i(this.animatedScroll,this.limit):this.animatedScroll}get progress(){return this.limit===0?1:this.scroll/this.limit}get isScrolling(){return this._isScrolling}set isScrolling(e){this._isScrolling!==e&&(this._isScrolling=e,this.updateClassName())}get isStopped(){return this._isStopped}set isStopped(e){this._isStopped!==e&&(this._isStopped=e,this.updateClassName())}get isLocked(){return this._isLocked}set isLocked(e){this._isLocked!==e&&(this._isLocked=e,this.updateClassName())}get isSmooth(){return this.isScrolling===`smooth`}get className(){let e=`lenis`;return this.options.autoToggle&&(e+=` lenis-autoToggle`),this.isStopped&&(e+=` lenis-stopped`),this.isLocked&&(e+=` lenis-locked`),this.isScrolling&&(e+=` lenis-scrolling`),this.isScrolling===`smooth`&&(e+=` lenis-smooth`),e}updateClassName(){this.cleanUpClassName(),this.className.split(` `).forEach(e=>{this.rootElement.classList.add(e)})}cleanUpClassName(){for(let e of Array.from(this.rootElement.classList))(e===`lenis`||e.startsWith(`lenis-`))&&this.rootElement.classList.remove(e)}};globalThis.Lenis=p,globalThis.Lenis.prototype=p.prototype})();</script>
 <style>
-:root{--bg:#050110;--ink:#f0eaff;--dim:#a89cc4;--faint:#5e5478;--v:#a855f7;--vb:#c99bff;
+:root{--bg:#050110;--ink:#ffffff;--dim:#ece6f9;--faint:#c9befa;--v:#a855f7;--vb:#c99bff;
   --up:#3ce88a;--cyan:#22d3ee;--ember:#ff3b4e;--gold:#ffc93c;--card:rgba(168,85,247,.04);--bdr:rgba(168,85,247,.12);
   --flame:#3ce88a}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110;scroll-snap-type:y proximity}
+html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110}
 body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* scroll container — each scene is 300vh tall for scroll room */
-.scroll-spacer{height:300vh;position:relative;scroll-snap-align:start}
-.scroll-spacer.short{height:200vh}
+.scroll-spacer{height:220vh;position:relative}
+.scroll-spacer.short{height:150vh}
 
 /* sticky viewport — pins content while you scroll through the spacer */
-.sticky-frame{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sticky-frame{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3}
+.hero-anchor-top{align-items:flex-start;padding-top:clamp(60px,14vh,140px)} /* so "Balloutt Trades LLC" shows immediately, no scroll needed */
 .frame-inner{max-width:600px;width:100%;padding:0 24px;position:relative;z-index:2}
 
 /* central animated ring — the "turntable" like anime.js has */
-.ring-container{position:fixed;top:50%;left:55%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;opacity:0}
+.ring-container{position:fixed;top:50%;left:55%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;opacity:0}
+
+/* dark overlay — sits between the moving Vanta background and all foreground content */
+.dark-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:rgba(5,1,16,.48)}
 .ring-container svg{width:min(500px,70vw);height:min(500px,70vw)}
 #candleGroup .num,#candleGroup .word{paint-order:stroke;stroke:#050110;stroke-width:3px;stroke-linejoin:round}
 #candleGroup .word{font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 #formPlus{filter:drop-shadow(0 0 18px rgba(168,85,247,.55))}
 
-/* particle galaxy canvas — tiny drifting violet dots, sits at the very back */
-#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.8}
+/* Vanta 3D waves — the deep background layer, in brand violet, cyan-tinted via overlay below */
+#vantaBg{position:fixed;inset:0;z-index:0;pointer-events:none}
+#tickerCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+.vanta-cyan-tint{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse at 25% 15%,rgba(34,211,238,.20),transparent 55%),
+             radial-gradient(ellipse at 80% 88%,rgba(34,211,238,.14),transparent 60%)}
 
 /* soft corner gradient orbs — depth without competing with the section theme-glow */
 .corner-orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(80px);
@@ -78,7 +91,7 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 }
 
 /* floating profit-wall screenshots drifting through the blank side margins */
-.float-proof{position:fixed;bottom:-160px;z-index:1;pointer-events:none;width:110px;border-radius:12px;
+.float-proof{position:fixed;bottom:-160px;z-index:1;pointer-events:none;width:100px;border-radius:12px;
   border:1px solid rgba(168,85,247,.25);box-shadow:0 12px 30px -10px rgba(0,0,0,.6);
   animation:float-proof-rise linear forwards;opacity:0}
 @keyframes float-proof-rise{
@@ -87,12 +100,13 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   88%{opacity:.4}
   100%{transform:translateY(-118vh) translateX(var(--drift,30px)) rotate(4deg);opacity:0}
 }
-@media(max-width:900px){.float-proof{display:none}} /* not enough blank space on mobile to justify it */
+@media(max-width:1200px){.float-proof{display:none}} /* not enough blank space to justify it below this width */
 
 /* floating stat badges — key numbers/taglines drifting through the same side margins */
-.float-badge{position:fixed;bottom:-60px;z-index:1;pointer-events:none;white-space:nowrap;
-  font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;letter-spacing:.02em;
-  padding:8px 14px;border-radius:999px;background:rgba(10,2,36,.55);
+.float-badge{position:fixed;bottom:-60px;z-index:1;pointer-events:none;white-space:normal;
+  max-width:160px;text-align:center;line-height:1.35;
+  font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;letter-spacing:.02em;
+  padding:8px 12px;border-radius:14px;background:rgba(10,2,36,.55);
   border:1px solid rgba(168,85,247,.3);backdrop-filter:blur(8px);
   animation:float-badge-rise linear forwards;opacity:0}
 @keyframes float-badge-rise{
@@ -101,7 +115,7 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   88%{opacity:.55}
   100%{transform:translateY(-118vh) translateX(var(--drift,25px));opacity:0}
 }
-@media(max-width:900px){.float-badge{display:none}}
+@media(max-width:1200px){.float-badge{display:none}}
 
 /* scroll progress */
 .progress{position:fixed;top:0;left:0;height:3px;z-index:999;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up));width:0%}
@@ -110,11 +124,13 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 .scene-text{opacity:0;transform:translateY(30px)}
 .scene-text>*{opacity:0;transform:translateY(24px)}
 .scene-title{font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px;
-  text-shadow:0 3px 20px rgba(0,0,0,.75)}
+  text-shadow:0 1px 3px rgba(0,0,0,.9),0 4px 26px rgba(0,0,0,.85)}
 .scene-title em{font-style:normal;color:var(--vb)}
-.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px;
+  text-shadow:0 1px 3px rgba(0,0,0,.9),0 3px 20px rgba(0,0,0,.8)}
 .scene-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--faint);margin-bottom:14px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px;
+  text-shadow:0 1px 3px rgba(0,0,0,.9),0 2px 14px rgba(0,0,0,.8)}
 
 /* cards */
 .card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
@@ -125,8 +141,11 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 .card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:26px;color:var(--up)}
 .card-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:4px}
 
+/* proof wall wrapper — sits outside .scene-text now, always fully visible */
+.proof-wall-wrap{margin-top:20px;position:relative;z-index:2}
+
 /* auto-scrolling proof wall */
-.proof-strip{overflow:hidden;margin:20px -24px 0;padding:10px 0;position:relative}
+.proof-strip{overflow:hidden;margin:0 -24px;padding:10px 0;position:relative}
 .proof-strip::before,.proof-strip::after{content:"";position:absolute;top:0;bottom:0;width:50px;z-index:2;pointer-events:none}
 .proof-strip::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
 .proof-strip::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
@@ -210,10 +229,32 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   padding:8px 14px;color:var(--ink);font-size:12px;outline:none}
 .chat-send{width:32px;height:32px;border-radius:50%;background:var(--v);border:none;color:#fff;cursor:pointer}
 @media(max-width:500px){.ring-container{left:50%}.frame-inner{padding:0 16px}}
+/* ═══════ Intro — candlestick chart spells out the brand name on load ═══════ */
+body.intro-lock{overflow:hidden}
+#introOverlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  transition:opacity .85s ease;cursor:pointer}
+#introOverlay.fade-out{opacity:0;pointer-events:none}
+#introSvg{width:min(92vw,720px);height:auto;overflow:visible}
+#introSvg .candle{filter:drop-shadow(0 0 6px currentColor)}
+.intro-progress{width:min(60vw,320px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden}
+.intro-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up))}
+.intro-caption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.35em;
+  text-transform:uppercase;color:var(--faint);opacity:0;transition:opacity .6s ease}
+.intro-caption.show{opacity:1}
 </style>
 </head>
 <body>
-<canvas id="particleCanvas"></canvas>
+<!-- ═══════ Intro — candlesticks spell out the brand name, then fade into the site ═══════ -->
+<div id="introOverlay">
+  <svg id="introSvg" viewBox="0 0 100 20" preserveAspectRatio="xMidYMid meet"></svg>
+  <div class="intro-progress"><div class="intro-progress-bar" id="introProgressBar"></div></div>
+  <p class="intro-caption" id="introCaption">// entering the portal</p>
+</div>
+
+<div id="vantaBg"></div>
+<canvas id="tickerCanvas"></canvas>
+<div class="vanta-cyan-tint"></div>
 <div class="corner-orb tl"></div>
 <div class="corner-orb tr"></div>
 <div class="corner-orb bl"></div>
@@ -221,6 +262,7 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 <div class="progress" id="prog"></div>
 <div class="grid-bg"></div>
 <div class="theme-glow" id="themeGlow"></div>
+<div class="dark-overlay"></div>
 
 <!-- Central animated ring that transforms as you scroll -->
 <div class="ring-container" id="ring">
@@ -258,7 +300,7 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 
 <!-- SCENE 1: HERO (scroll spacer 300vh, sticky content) -->
 <div class="scroll-spacer" id="s1">
-  <div class="sticky-frame">
+  <div class="sticky-frame hero-anchor-top">
     <div class="frame-inner">
       <div class="scene-text" id="t1">
         <p class="scene-label" style="color:var(--up)">// balloutt trades llc</p>
@@ -282,7 +324,10 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
           <div class="card" id="c2"><div class="card-pct">+11,172%</div><div class="card-label">June 2026 Recap</div></div>
           <div class="card" id="c3"><div class="card-pct">+12,240%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
         </div>
-
+      </div>
+      <!-- proof wall lives OUTSIDE the scroll-gated text block, so it's always fully visible —
+           it used to inherit the fade-in opacity of #t2 and could look "hidden" until scrolled just right -->
+      <div class="proof-wall-wrap">
         <div class="proof-strip"><div class="proof-track" id="proofTrack"></div></div>
         <p class="proof-label">Receipts from me &amp; members — tap to enlarge</p>
       </div>
@@ -355,54 +400,250 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 </div>
 
 <script>
-// ═══════ PARTICLE GALAXY BACKGROUND — small violet dots drifting behind everything ═══════
+// ═══════ INTRO — candlesticks spell out "BALLOUTT TRADES LLC" letter by letter, then fade ═══════
+// Runs first and depends on nothing external (no GSAP/Vanta/Lenis needed), so it always plays.
+// Exposed as window.playIntro() so it can be replayed on demand from the console —
+// useful in preview tools that hot-reload the same page instead of doing a fresh load.
+function playIntro(){
+  var overlay=document.getElementById('introOverlay');
+  var svg=document.getElementById('introSvg');
+  var progressBar=document.getElementById('introProgressBar');
+  var caption=document.getElementById('introCaption');
+  if(!overlay||!svg){ console.warn('playIntro(): intro elements not found in the DOM'); return; }
+
+  svg.innerHTML=''; // clear any candles from a previous run
+  overlay.classList.remove('fade-out');
+  overlay.style.display='flex';
+  if(progressBar) progressBar.style.width='0%';
+  if(caption) caption.classList.remove('show');
+
+  console.log('%cplayIntro() started','color:#a855f7;font-weight:bold');
+  document.body.classList.add('intro-lock');
+
+  // 5x7 dot-matrix font — only the letters this brand name actually needs
+  var FONT={
+    A:['01110','10001','10001','11111','10001','10001','10001'],
+    B:['11110','10001','10001','11110','10001','10001','11110'],
+    C:['01111','10000','10000','10000','10000','10000','01111'],
+    D:['11110','10001','10001','10001','10001','10001','11110'],
+    E:['11111','10000','10000','11110','10000','10000','11111'],
+    L:['10000','10000','10000','10000','10000','10000','11111'],
+    O:['01110','10001','10001','10001','10001','10001','01110'],
+    R:['11110','10001','10001','11110','10100','10010','10001'],
+    S:['01111','10000','10000','01110','00001','00001','11110'],
+    T:['11111','00100','00100','00100','00100','00100','00100'],
+    U:['10001','10001','10001','10001','10001','10001','01110']
+  };
+
+  var TEXT='BALLOUTT TRADES LLC';
+  var ROWS=7, COLS=5, CELL=10, LETTER_GAP=1, SPACE_W=3;
+
+  var upColor=getComputedStyle(document.documentElement).getPropertyValue('--up').trim()||'#3ce88a';
+  var downColor=getComputedStyle(document.documentElement).getPropertyValue('--ember').trim()||'#ff3b4e';
+
+  // lay out every candle's grid position, and which character index (letter) it belongs to
+  var candles=[], cursorX=0, byChar={};
+  TEXT.split('').forEach(function(ch,ci){
+    if(ch===' '){ cursorX+=SPACE_W*CELL; return; }
+    var pattern=FONT[ch];
+    if(!pattern) { cursorX+=(COLS+LETTER_GAP)*CELL; return; }
+    for(var row=0;row<ROWS;row++){
+      for(var col=0;col<COLS;col++){
+        if(pattern[row][col]==='1'){
+          var idx=candles.length;
+          candles.push({x:cursorX+col*CELL, row:row, up:Math.random()>0.32});
+          (byChar[ci]=byChar[ci]||[]).push(idx);
+        }
+      }
+    }
+    cursorX+=(COLS+LETTER_GAP)*CELL;
+  });
+  var totalW=cursorX-(LETTER_GAP*CELL), totalH=ROWS*CELL;
+  svg.setAttribute('viewBox','0 0 '+totalW+' '+totalH);
+
+  var candleEls=candles.map(function(c){
+    var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('class','candle');
+    rect.setAttribute('x',c.x+1);
+    rect.setAttribute('width',CELL-2);
+    rect.setAttribute('y',c.row*CELL+CELL/2);
+    rect.setAttribute('height',0);
+    rect.setAttribute('rx',1.4);
+    rect.setAttribute('fill',c.up?upColor:downColor);
+    rect.style.color=c.up?upColor:downColor; // for the drop-shadow(currentColor) filter
+    rect.setAttribute('opacity',0);
+    rect.style.transition='height .26s cubic-bezier(.22,1.4,.36,1), y .26s cubic-bezier(.22,1.4,.36,1), opacity .18s ease';
+    svg.appendChild(rect);
+    return rect;
+  });
+
+  var letterOrder=Object.keys(byChar).map(Number).sort(function(a,b){return a-b});
+  var LETTER_DELAY=165, CANDLE_STAGGER=13;
+
+  letterOrder.forEach(function(chIndex,li){
+    byChar[chIndex].forEach(function(candleIdx,ci){
+      setTimeout(function(){
+        var el=candleEls[candleIdx], c=candles[candleIdx];
+        el.setAttribute('opacity',1);
+        el.setAttribute('height',CELL-3);
+        el.setAttribute('y',c.row*CELL+1.5);
+      }, li*LETTER_DELAY+ci*CANDLE_STAGGER);
+    });
+  });
+
+  var totalDuration=letterOrder.length*LETTER_DELAY+450;
+
+  var startTime=performance.now();
+  function tickProgress(){
+    var elapsed=performance.now()-startTime;
+    var pct=Math.min(100,(elapsed/totalDuration)*100);
+    if(progressBar) progressBar.style.width=pct+'%';
+    if(elapsed<totalDuration) requestAnimationFrame(tickProgress);
+  }
+  requestAnimationFrame(tickProgress);
+
+  if(caption) setTimeout(function(){ caption.classList.add('show'); },250);
+
+  function finishIntro(){
+    if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
+    overlay.classList.add('fade-out');
+    document.body.classList.remove('intro-lock');
+    console.log('%cplayIntro() finished','color:#3ce88a;font-weight:bold');
+    setTimeout(function(){ overlay.style.display='none'; },900);
+  }
+  setTimeout(finishIntro, totalDuration+600);
+  overlay.addEventListener('click',finishIntro); // tap anywhere to skip
+}
+window.playIntro=playIntro;
+playIntro();
+
+// ═══════ MARKET TICKER BACKGROUND — drifting symbols/prices layered over the Vanta waves ═══════
 (function(){
-  var canvas=document.getElementById('particleCanvas');
+  var canvas=document.getElementById('tickerCanvas');
   if(!canvas) return;
   var ctx=canvas.getContext('2d');
-  var W,H,particles=[];
+  var W,H,items=[];
   var isMobile=window.innerWidth<700;
-  var COUNT=isMobile?35:80;
+  var COUNT=isMobile?14:26;
 
-  function resize(){
-    W=canvas.width=window.innerWidth;
-    H=canvas.height=window.innerHeight;
+  var SYMBOLS=['SPY','QQQ','TSLA','NVDA','META','AAPL','AMZN','MSFT','0DTE','SPX'];
+  var upColor='60,232,138', downColor='255,59,78';
+  var CONTENT_HALF_WIDTH=340; // keeps clear of the centered 600px content column + buffer
+
+  function inContentZone(x){
+    var mid=W/2;
+    return x>mid-CONTENT_HALF_WIDTH && x<mid+CONTENT_HALF_WIDTH;
   }
+
+  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
   window.addEventListener('resize',resize);
   resize();
 
-  function makeParticle(){
+  function randomX(){
+    // pick a spot in the left or right margin only, never in the centered content column
+    var mid=W/2, margin=mid-CONTENT_HALF_WIDTH;
+    if(margin<40) return Math.random()*W; // narrow screens: no safe margin, just scatter (content itself won't collide since it's full-width there)
+    var onLeft=Math.random()>0.5;
+    return onLeft ? Math.random()*margin : (mid+CONTENT_HALF_WIDTH)+Math.random()*margin;
+  }
+
+  function makeItem(){
+    var up=Math.random()>0.4;
+    var kind=Math.random()>0.5?'symbol':'pct';
+    var text=kind==='symbol'
+      ? SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)]+' '+(up?'+':'-')+(Math.random()*4+0.2).toFixed(1)+'%'
+      : (up?'+':'-')+'$'+formatAmt(Math.floor(Math.random()*4000+80));
     return{
-      x:Math.random()*W,
+      x:randomX(),
       y:Math.random()*H,
-      r:1+Math.random()*2, // 1–3px
-      vx:(Math.random()-0.5)*0.9,   // fast-ish drift
-      vy:(Math.random()-0.5)*0.9,
-      baseA:0.15+Math.random()*0.45,
-      twSpeed:0.04+Math.random()*0.06, // twinkle speed
-      twPhase:Math.random()*Math.PI*2
+      vx:(Math.random()-0.5)*0.18,
+      vy:-(0.08+Math.random()*0.16), // slow upward drift, like a rising ticker wall
+      size:10+Math.random()*4,
+      text:text,
+      color:up?upColor:downColor,
+      baseA:0.16+Math.random()*0.22,
+      twSpeed:0.01+Math.random()*0.02,
+      twPhase:Math.random()*Math.PI*2,
+      life:0,
+      maxLife:600+Math.random()*400
     };
   }
-  for(var i=0;i<COUNT;i++) particles.push(makeParticle());
+  for(var i=0;i<COUNT;i++){ var it=makeItem(); it.life=Math.random()*it.maxLife; items.push(it); }
 
   function tick(){
     ctx.clearRect(0,0,W,H);
-    particles.forEach(function(p){
-      p.x+=p.vx; p.y+=p.vy;
-      // wrap around edges
-      if(p.x<-5) p.x=W+5; if(p.x>W+5) p.x=-5;
-      if(p.y<-5) p.y=H+5; if(p.y>H+5) p.y=-5;
-      p.twPhase+=p.twSpeed;
-      var a=p.baseA*(0.6+0.4*Math.sin(p.twPhase));
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(201,155,255,'+a.toFixed(3)+')';
-      ctx.fill();
+    ctx.font='600 12px "JetBrains Mono", monospace';
+    ctx.textBaseline='middle';
+    items.forEach(function(it,idx){
+      it.x+=it.vx; it.y+=it.vy; it.life++;
+      if(it.x<-60) it.x=W+60; if(it.x>W+60) it.x=-60;
+      if(it.y<-20 || it.life>it.maxLife){ items[idx]=makeItem(); items[idx].y=H+20; return; }
+      if(inContentZone(it.x)) return; // never draw over the readable content column
+      it.twPhase+=it.twSpeed;
+      var fade=Math.min(1, Math.min(it.life/60, (it.maxLife-it.life)/60)); // fade in/out at ends of life
+      var a=it.baseA*(0.7+0.3*Math.sin(it.twPhase))*fade;
+      ctx.font='600 '+it.size+'px "JetBrains Mono", monospace';
+      ctx.fillStyle='rgba('+it.color+','+a.toFixed(3)+')';
+      ctx.fillText(it.text, it.x, it.y);
     });
     requestAnimationFrame(tick);
   }
   tick();
 })();
+
+// ═══════ LIBRARY AVAILABILITY CHECKS — a blocked/failed CDN must never blank the whole page ═══════
+var hasGSAP=(typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined');
+var hasLenis=(typeof Lenis!=='undefined');
+var hasVanta=(typeof VANTA!=='undefined');
+
+// ═══════ LENIS — smooth scrolling, wired to GSAP's ticker so it stays in sync with ScrollTrigger ═══════
+if(hasGSAP){
+  try{ gsap.registerPlugin(ScrollTrigger); }
+  catch(e){ console.warn('GSAP/ScrollTrigger failed to initialize:',e); hasGSAP=false; }
+}
+if(hasLenis){
+  try{
+    var lenis=new Lenis({
+      duration:1.2,
+      easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},
+      smoothWheel:true
+    });
+    if(hasGSAP){
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(function(time){ lenis.raf(time*1000); });
+      gsap.ticker.lagSmoothing(0);
+    }else{
+      // GSAP isn't available to drive Lenis's ticker — run its own rAF loop instead
+      (function raf(time){ lenis.raf(time); requestAnimationFrame(raf); })(0);
+    }
+  }catch(e){ console.warn('Lenis failed to initialize, falling back to native scroll:',e); hasLenis=false; }
+}else{
+  console.warn('Lenis did not load (CDN blocked or unreachable) — using native scroll instead.');
+}
+
+// ═══════ VANTA — 3D waves background, darkened so text stays readable ═══════
+if(hasVanta){
+  try{
+    VANTA.WAVES({
+      el:'#vantaBg',
+      mouseControls:true,
+      touchControls:true,
+      gyroControls:false,
+      minHeight:200.00,
+      minWidth:200.00,
+      scale:1.0,
+      scaleMobile:1.0,
+      color:0x0d0131,     // darker violet-black — was too light against text before
+      shininess:25,       // lower shininess = fewer bright highlight patches
+      waveHeight:18,
+      waveSpeed:1.2,
+      zoom:0.7
+    });
+  }catch(e){ console.warn('Vanta failed to initialize — background falls back to the orbs/glow only:',e); }
+}else{
+  console.warn('Vanta/Three.js did not load (CDN blocked or unreachable) — background falls back to the orbs/glow only.');
+}
+
 
 // ═══════ SCROLL-SYNCED ANIMATION ENGINE ═══════
 var ring=document.getElementById('ring');
@@ -429,9 +670,7 @@ function onFrame(){
   var docH=document.documentElement.scrollHeight-window.innerHeight;
   prog.style.width=(scrollY/docH*100)+'%';
 
-  // ring rotation synced to scroll — visible from the very top, brighter as you scroll
   var globalProgress=scrollY/docH;
-  ring.style.opacity=clamp(0.35+globalProgress*3,0.35,0.8);
   arc1.setAttribute('transform','rotate('+(globalProgress*720)+' 200 200)');
   arc2.setAttribute('transform','rotate('+(180-globalProgress*540)+' 200 200)');
   arc3.setAttribute('transform','rotate('+(globalProgress*360)+' 200 200)');
@@ -444,35 +683,37 @@ function onFrame(){
   // candlestick chart builds into a green uptrend as you scroll toward the bottom
   updateCandles(globalProgress);
 
-  // per-scene animations + figure out which scene is currently active (for the theme)
-  var activeIndex=0, followP=0;
+  // per-scene: continuous scroll-tied fade for the text block + figure out which
+  // scene is currently active (for the theme). The one-time stagger/spring reveals
+  // are handled separately below via ScrollTrigger when available, or a plain-JS
+  // fallback right here when it isn't.
+  var activeIndex=0, followP=0, heroP=0;
   scenes.forEach(function(s,i){
     var rect=s.el.getBoundingClientRect();
     var enter=-rect.top/(s.el.offsetHeight-window.innerHeight);
     var p=clamp(enter,0,1);
     if(p>0.15) activeIndex=i;
+    if(i===0) heroP=p;
     if(i===4) followP=p;
 
-    // text reveal: show from 10% to 30% of scene scroll
     var textP=clamp((p-0.05)/0.25,0,1);
     s.text.style.opacity=textP;
     s.text.style.transform='translateY('+(30*(1-textP))+'px)';
 
-    // fade + slide + stagger with spring physics — fires once, the first time
-    // this section is at least 10% scrolled into view
-    if(p>0.1&&!s.fired){
+    if(!hasGSAP && p>0.1 && !s.fired){
       s.fired=true;
-      // stagger the section's own label / title / subtitle / CTA in first
-      anime({targets:s.text.children,opacity:[0,1],translateY:[24,0],duration:750,
-        delay:anime.stagger(120),easing:'spring(1,80,11,0)'});
-      // then stagger whatever cards/links/shop tiles/socials live inside it
-      s.items.forEach(function(sel){
-        var els=document.querySelectorAll(sel);
-        anime({targets:els,opacity:[0,1],translateY:[40,0],duration:700,delay:anime.stagger(150,{start:250}),
-          easing:'spring(1,80,10,0)'});
-      });
+      revealSceneVanilla(s);
     }
   });
+
+  // ring is the hero's centerpiece and reappears briefly for the Follow section's
+  // "+" reveal — everywhere in between (Highlights/Join/Shop) it fades down to a
+  // near-invisible floor so it never sits on top of readable cards/links/tiles again
+  var ringOpacity=Math.max(
+    clamp(0.78*(1-heroP),0.04,0.8),
+    clamp(followP*0.65,0,0.65)
+  );
+  ring.style.opacity=ringOpacity;
 
   // in the Follow section, the candlestick chart dissolves into the "+" mark
   candleGroup.style.opacity=1-followP;
@@ -485,6 +726,50 @@ function onFrame(){
 }
 requestAnimationFrame(onFrame);
 
+// plain CSS-transition stagger reveal — used automatically if GSAP/ScrollTrigger
+// couldn't load, so the page never just sits blank waiting on a CDN
+function revealSceneVanilla(s){
+  var BOUNCE='cubic-bezier(.22,1.4,.36,1)'; // back-out curve, approximates a spring
+  Array.prototype.forEach.call(s.text.children,function(el,i){
+    setTimeout(function(){
+      el.style.transition='opacity .7s '+BOUNCE+', transform .7s '+BOUNCE;
+      el.style.opacity=1;
+      el.style.transform='translateY(0)';
+    },i*120);
+  });
+  s.items.forEach(function(sel){
+    var els=document.querySelectorAll(sel);
+    els.forEach(function(el,i){
+      setTimeout(function(){
+        el.style.transition='opacity .7s '+BOUNCE+', transform .7s '+BOUNCE;
+        el.style.opacity=1;
+        el.style.transform='translateY(0)';
+      },250+i*150);
+    });
+  });
+}
+
+// fade + slide + stagger with spring-like physics (GSAP elastic ease), fired once per
+// section via real ScrollTrigger instances — only set up if GSAP actually loaded
+if(hasGSAP){
+  scenes.forEach(function(s){
+    ScrollTrigger.create({
+      trigger:s.el,
+      start:'top 80%',
+      once:true,
+      onEnter:function(){
+        gsap.to(s.text.children,{opacity:1,y:0,duration:0.8,stagger:0.12,ease:'elastic.out(1,0.65)'});
+        s.items.forEach(function(sel){
+          var els=document.querySelectorAll(sel);
+          if(!els.length) return;
+          gsap.to(els,{opacity:1,y:0,duration:0.75,stagger:0.15,delay:0.25,ease:'elastic.out(1,0.6)'});
+        });
+      }
+    });
+  });
+}
+
+
 // ═══════ SCROLL-DRIVEN CANDLESTICK CHART — builds into a green uptrend by the bottom ═══════
 //
 // EDIT ME: change amt / up / word for each candle to control exactly how the chart
@@ -492,6 +777,13 @@ requestAnimationFrame(onFrame);
 // scaled automatically so any numbers you use always fit) AND the dollar figure shown
 // above the candle. `word` always shows underneath the candle — set it to whatever
 // you want (a phase name, a status, anything).
+// formats big numbers as 1.9K / 21.6K etc. instead of spelling out 1,900 / 21,604
+function formatAmt(n){
+  if(n>=1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'')+'M';
+  if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  return String(n);
+}
+
 var CANDLE_STORY=[
   {amt:1432, up:false, word:'Start'},
   {amt:1900, up:true,  word:'Adjusting'},
@@ -540,12 +832,10 @@ var updateCandles=(function(){
       numLbl.setAttribute('opacity',revealP);
       numLbl.setAttribute('y',y-12);
       numLbl.setAttribute('fill',color);
-      numLbl.textContent=(data.up?'+$':'−$')+data.amt.toLocaleString();
+      numLbl.textContent=(data.up?'+$':'−$')+formatAmt(data.amt);
 
-      // word always shown below the baseline once it starts growing
-      wordLbl.setAttribute('opacity',revealP);
-      wordLbl.setAttribute('fill',color);
-      wordLbl.textContent=data.word||'';
+      // word labels removed per request — candles now only show the top dollar figure
+      wordLbl.setAttribute('opacity',0);
     });
   };
 })();
@@ -590,9 +880,8 @@ function updateTheme(activeIndex){
   }
 }
 
-// initial hero reveal
-anime.timeline({easing:'easeOutExpo'})
-  .add({targets:'#t1',opacity:[0,1],translateY:[40,0],duration:1200},200);
+// (hero's reveal is now handled by the ScrollTrigger loop above — it fires immediately
+// on load since the hero section is already past its "top 80%" trigger point at scrollY=0)
 
 // disclaimer scroll
 (function(){var t=document.getElementById('discT');if(!t)return;
@@ -656,14 +945,23 @@ var STAT_BADGES=[
 ];
 
 (function(){
-  if(window.innerWidth<900) return; // no real blank space to use on narrow/mobile screens
   var lastSpawnY=0, spawnEvery=340; // px of scroll between spawns
+  var CONTENT_HALF_WIDTH=324; // 600px content column + 24px padding, half of that plus a small gap
 
-  function placeSide(el){
+  function safeMargin(){
+    return Math.floor((window.innerWidth/2)-CONTENT_HALF_WIDTH);
+  }
+
+  // returns false if there isn't enough blank room to place anything safely
+  function placeSide(el,elemWidth){
+    var margin=safeMargin();
+    if(margin<elemWidth+24) return false; // not enough room — bail out rather than overlap content
     var onLeft=Math.random()>0.5;
-    el.style.left=onLeft?(2+Math.random()*8)+'vw':'';
-    el.style.right=onLeft?'':(2+Math.random()*8)+'vw';
-    el.style.setProperty('--drift',(Math.random()*40-20)+'px');
+    var offset=8+Math.random()*(margin-elemWidth-16); // stays fully within the blank margin
+    el.style.left=onLeft?offset+'px':'';
+    el.style.right=onLeft?'':offset+'px';
+    el.style.setProperty('--drift',(Math.random()*30-15)+'px'); // small drift, kept safely inside the margin
+    return true;
   }
 
   function spawnFloatingProof(){
@@ -673,7 +971,7 @@ var STAT_BADGES=[
     img.className='float-proof';
     img.src=url;
     img.alt='Profit screenshot';
-    placeSide(img);
+    if(!placeSide(img,100)) return;
     var dur=13+Math.random()*7;
     img.style.animationDuration=dur+'s';
     img.onerror=function(){this.remove()};
@@ -686,7 +984,7 @@ var STAT_BADGES=[
     badge.className='float-badge';
     badge.textContent=STAT_BADGES[Math.floor(Math.random()*STAT_BADGES.length)];
     badge.style.color=getComputedStyle(document.documentElement).getPropertyValue('--flame').trim()||'#c99bff';
-    placeSide(badge);
+    if(!placeSide(badge,160)) return;
     var dur=12+Math.random()*6;
     badge.style.animationDuration=dur+'s';
     document.body.appendChild(badge);
@@ -694,6 +992,7 @@ var STAT_BADGES=[
   }
 
   window.addEventListener('scroll',function(){
+    if(safeMargin()<120) return; // screen too narrow for any of this to fit without overlapping content
     var y=window.pageYOffset;
     if(Math.abs(y-lastSpawnY)>spawnEvery){
       lastSpawnY=y;
