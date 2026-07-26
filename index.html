@@ -3,468 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Balloutt Trades LLC — Enter the Portal</title>
-<meta name="description" content="Top 0.1% trader results. Live options alerts, 1:1 mentorship. Every entry, every exit, tracked in %.">
+<title>Balloutt Trades LLC</title>
 <meta name="theme-color" content="#0d0131">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0131'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-size='54' font-weight='bold' fill='%23a855f7'%3EB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <style>
-:root{
-  --bg:#050110;--surface:#0a0224;--ink:#f0eaff;--dim:#a89cc4;--faint:#5e5478;
-  --violet:#a855f7;--vbright:#c99bff;--plasma:#7c3aed;--ember:#ff3b4e;--up:#3ce88a;
-  --cyan:#22d3ee;--card:rgba(168,85,247,.04);--border:rgba(168,85,247,.12);--radius:16px;
-}
+:root{--bg:#050110;--ink:#f0eaff;--dim:#a89cc4;--faint:#5e5478;--v:#a855f7;--vb:#c99bff;
+  --up:#3ce88a;--cyan:#22d3ee;--ember:#ff3b4e;--card:rgba(168,85,247,.04);--bdr:rgba(168,85,247,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-snap-type:y proximity;scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:#050110}
-::-webkit-scrollbar-thumb{background:rgba(168,85,247,.3);border-radius:10px}
-body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110}
+body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── Scroll progress ── */
-.scroll-bar{position:fixed;top:0;left:0;height:3px;z-index:999;
-  background:linear-gradient(90deg,var(--violet),var(--cyan),var(--up));width:0%}
+/* scroll container — each scene is 300vh tall for scroll room */
+.scroll-spacer{height:300vh;position:relative}
+.scroll-spacer.short{height:200vh}
 
-/* ── Sections ── */
-.scene{min-height:100vh;scroll-snap-align:start;position:relative;display:flex;
-  align-items:center;justify-content:center;padding:60px 20px;overflow:hidden}
-.scene-inner{max-width:560px;width:100%;position:relative;z-index:2}
+/* sticky viewport — pins content while you scroll through the spacer */
+.sticky-frame{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame-inner{max-width:600px;width:100%;padding:0 24px;position:relative;z-index:2}
 
-/* ── Grid overlay ── */
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+/* central animated ring — the "turntable" like anime.js has */
+.ring-container{position:fixed;top:50%;left:55%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;opacity:0}
+.ring-container svg{width:min(500px,70vw);height:min(500px,70vw)}
+
+/* grid bg */
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;
   background-image:linear-gradient(rgba(168,85,247,.3) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(168,85,247,.3) 1px,transparent 1px);background-size:60px 60px}
+  linear-gradient(90deg,rgba(168,85,247,.3) 1px,transparent 1px);background-size:50px 50px}
 
-/* ── Background glow ── */
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none}
-.bg-glow::before{content:"";position:absolute;width:60vw;height:60vw;top:-20vw;left:-10vw;
-  border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.2),transparent 65%);filter:blur(60px)}
-.bg-glow::after{content:"";position:absolute;width:50vw;height:50vw;bottom:-20vw;right:-10vw;
-  border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.1),transparent 65%);filter:blur(60px)}
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;height:3px;z-index:999;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up));width:0%}
 
-/* ── Hero ── */
-.hero{text-align:center}
-.avatar{width:120px;height:120px;margin:0 auto 24px;position:relative}
-.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid rgba(168,85,247,.4);
-  box-shadow:0 0 0 5px rgba(5,1,16,.9),0 0 50px -10px rgba(168,85,247,.5)}
-.avatar-ring{position:absolute;inset:-8px;border-radius:50%;
-  background:conic-gradient(var(--violet),var(--ember),var(--cyan),var(--violet));
-  animation:spin 10s linear infinite;opacity:.7;filter:blur(.5px)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hero h1{font-size:clamp(32px,8vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
-.hero h1 em{font-style:normal;color:var(--vbright)}
-.hero .tagline{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--faint);margin:8px 0 20px}
-.hero .bio{color:var(--dim);font-size:15px;line-height:1.65;max-width:400px;margin:0 auto 28px}
-.cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;
-  background:linear-gradient(135deg,var(--violet),var(--plasma));color:#fff;text-decoration:none;
-  font-weight:700;font-size:14px;border:none;cursor:pointer;
-  box-shadow:0 8px 30px -8px rgba(168,85,247,.5);transition:filter .2s,transform .2s}
-.cta:hover{filter:brightness(1.1);transform:translateY(-2px)}
+/* scene content */
+.scene-text{opacity:0;transform:translateY(30px)}
+.scene-title{font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px}
+.scene-title em{font-style:normal;color:var(--vb)}
+.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px}
+.scene-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px}
 
-/* ── Stats ── */
-.stats-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px}
-.stat{padding:14px 20px;border-radius:var(--radius);background:var(--card);border:1px solid var(--border);
-  backdrop-filter:blur(12px);text-align:center;min-width:100px;text-decoration:none;color:var(--ink);
+/* cards */
+.card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.card{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--bdr);
+  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);color:inherit;text-decoration:none;display:block;cursor:pointer;
   transition:transform .3s,border-color .3s,box-shadow .3s}
-.stat:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4);box-shadow:0 12px 30px -12px rgba(168,85,247,.4)}
-.stat-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:20px;display:block}
-.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-top:4px}
+.card:hover{transform:translateY(-3px)!important;border-color:rgba(168,85,247,.4);box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
+.card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:26px;color:var(--up)}
+.card-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:4px}
 
-/* ── Cards ── */
-.card-grid{display:flex;flex-direction:column;gap:14px}
-.card{padding:20px;border-radius:var(--radius);background:var(--card);border:1px solid var(--border);
-  backdrop-filter:blur(12px);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .4s}
-.card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.45);
-  box-shadow:0 20px 50px -20px rgba(168,85,247,.5)}
-.card.green{border-color:rgba(60,232,138,.2);background:linear-gradient(135deg,rgba(60,232,138,.06),var(--card))}
-.card.green:hover{border-color:rgba(60,232,138,.45);box-shadow:0 20px 50px -20px rgba(60,232,138,.4)}
-.card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:28px;color:var(--up)}
-.card-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-top:6px}
-.card-sub{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);margin-top:8px}
+/* links */
+.link{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
+  background:var(--card);border:1px solid var(--bdr);color:var(--ink);text-decoration:none;
+  backdrop-filter:blur(12px);opacity:0;transform:translateX(-30px);
+  transition:transform .3s,border-color .3s,box-shadow .3s}
+.link:hover{transform:translateY(-3px)!important;border-color:rgba(168,85,247,.4);box-shadow:0 12px 30px -12px rgba(168,85,247,.4)}
+.link-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+  background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff}
+.link-icon svg{width:18px;height:18px}
+.link-title{font-weight:600;font-size:14px}
+.link-sub{font-size:10px;color:var(--faint);font-family:"JetBrains Mono",monospace;margin-top:2px}
+.link.strix .link-icon{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.tag{font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;
+  background:rgba(255,200,0,.15);color:#ffd84d;border:1px solid rgba(255,200,0,.4)}
 
-/* ── Links ── */
-.link-list{display:flex;flex-direction:column;gap:12px}
-.link-card{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:var(--radius);
-  background:var(--card);border:1px solid var(--border);color:var(--ink);text-decoration:none;
-  backdrop-filter:blur(12px);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .4s}
-.link-card:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.45);
-  box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
-.link-card.feat{background:linear-gradient(115deg,rgba(168,85,247,.1),rgba(34,211,238,.05));border-color:rgba(168,85,247,.3)}
-.link-card.strix{background:linear-gradient(115deg,rgba(60,232,138,.08),rgba(255,200,0,.05));border-color:rgba(60,232,138,.25)}
-.link-icon{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
-  background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2);color:var(--vbright)}
-.link-icon svg{width:20px;height:20px}
-.link-card.feat .link-icon{background:linear-gradient(135deg,var(--violet),var(--plasma));color:#fff;border:none}
-.link-card.strix .link-icon{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none}
-.link-title{font-weight:600;font-size:15px}
-.link-sub{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint);margin-top:2px}
-.tag{font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;padding:3px 7px;border-radius:5px;margin-left:6px}
-.tag-promo{background:rgba(255,200,0,.15);color:#ffd84d;border:1px solid rgba(255,200,0,.4)}
-.tag-free{background:rgba(60,232,138,.12);color:var(--up);border:1px solid rgba(60,232,138,.35)}
-.tag-feat{background:var(--ember);color:#fff}
-.link-arrow{margin-left:auto;color:var(--faint);flex-shrink:0;transition:transform .3s,color .3s}
-.link-card:hover .link-arrow{transform:translateX(4px);color:var(--vbright)}
+/* socials */
+.socials{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.soc{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;
+  background:var(--card);border:1px solid var(--bdr);color:var(--dim);text-decoration:none;
+  font-family:"JetBrains Mono",monospace;font-size:10px;opacity:0;
+  transition:transform .3s,color .3s,border-color .3s}
+.soc svg{width:16px;height:16px;flex-shrink:0}
+.soc:hover{transform:translateY(-3px);color:var(--vb);border-color:rgba(168,85,247,.4)}
 
-/* ── Socials ── */
-.socials{display:flex;justify-content:center;gap:12px;margin-top:30px}
-.soc{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-  background:var(--card);border:1px solid var(--border);color:var(--dim);text-decoration:none;
-  backdrop-filter:blur(12px);transition:transform .3s,color .3s,border-color .3s,box-shadow .3s}
-.soc svg{width:20px;height:20px}
-.soc:hover{transform:translateY(-4px) scale(1.05);color:var(--vbright);border-color:rgba(168,85,247,.5);
-  box-shadow:0 8px 24px -8px rgba(168,85,247,.5)}
+/* shop */
+.shop{padding:20px;border-radius:14px;border:1px solid var(--bdr);background:var(--card);
+  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);margin-top:12px;
+  color:inherit;text-decoration:none;display:block;cursor:pointer;
+  transition:transform .3s,border-color .3s,box-shadow .3s}
+.shop:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4);box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
+.shop.feat{border-color:rgba(168,85,247,.3);background:linear-gradient(115deg,rgba(168,85,247,.08),rgba(34,211,238,.04))}
+.shop-name{font-weight:700;font-size:16px}
+.shop-price{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:20px;color:var(--vb);margin:4px 0}
+.shop-price small{font-size:11px;color:var(--faint)}
+.shop-desc{font-size:12px;color:var(--dim);line-height:1.5;margin-bottom:12px}
+.shop-cta{display:block;width:100%;padding:10px;border-radius:999px;text-align:center;
+  background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px}
 
-/* ── Section headers ── */
-.scene-title{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--faint);margin-bottom:20px;text-align:center}
-.section-head{font-size:clamp(22px,5vw,32px);font-weight:800;text-align:center;margin-bottom:30px;letter-spacing:-.01em}
-.section-head em{font-style:normal;color:var(--vbright)}
+/* disclaimer */
+.disc-bar{overflow:hidden;padding:8px 0;border-top:1px solid var(--bdr);margin-top:20px}
+.disc-track{display:inline-flex;gap:30px;animation:dscroll 18s linear infinite;white-space:nowrap;
+  font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--faint)}
+@keyframes dscroll{to{transform:translateX(-50%)}}
+.foot{text-align:center;font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--faint);margin-top:12px}
 
-/* ── Gain toasts ── */
-.gain-toast{position:fixed;right:16px;z-index:60;padding:10px 16px;border-radius:12px;
-  backdrop-filter:blur(14px);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;
-  display:flex;align-items:center;gap:8px;pointer-events:none;white-space:nowrap;
-  background:rgba(60,232,138,.1);border:1px solid rgba(60,232,138,.25);color:var(--up);
-  box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:toast-in .5s cubic-bezier(.2,.8,.2,1) forwards}
-.gain-toast.exit{animation:toast-out .4s ease forwards}
-.gain-toast.big{background:rgba(60,232,138,.15);border-color:rgba(60,232,138,.45);font-size:14px}
-@keyframes toast-in{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:none}}
-@keyframes toast-out{from{opacity:1}to{opacity:0;transform:translateX(30px)}}
-
-/* ── Candle formations ── */
-.candle-group{position:fixed;pointer-events:none;z-index:0;opacity:.08;display:flex;align-items:flex-end;gap:3px}
-.candle-group.rising{animation:candle-rise linear infinite}
-.candle-group.falling{animation:candle-fall linear infinite}
-@keyframes candle-rise{0%{transform:translateY(0);opacity:0}8%{opacity:.08}85%{opacity:.08}100%{transform:translateY(-110vh);opacity:0}}
-@keyframes candle-fall{0%{transform:translateY(0);opacity:0}8%{opacity:.06}85%{opacity:.06}100%{transform:translateY(110vh);opacity:0}}
-
-/* ── AI Chat ── */
-.chat-btn{position:fixed;right:18px;bottom:20px;z-index:80;width:54px;height:54px;border-radius:999px;
-  border:1px solid rgba(168,85,247,.3);background:linear-gradient(135deg,var(--violet),var(--plasma));
-  color:#fff;cursor:pointer;display:grid;place-items:center;font-size:22px;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);animation:pulse-glow 2.5s ease-in-out infinite}
-@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,.4),0 8px 24px rgba(0,0,0,.4)}
-  70%{box-shadow:0 0 0 14px transparent,0 8px 24px rgba(0,0,0,.4)}}
-.chat-panel{position:fixed;right:16px;bottom:84px;z-index:80;width:360px;max-width:calc(100vw - 32px);
-  height:480px;max-height:60vh;border-radius:20px;background:var(--surface);
-  border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);
-  display:none;flex-direction:column;overflow:hidden;backdrop-filter:blur(16px)}
+/* chat */
+.chat-btn{position:fixed;right:16px;bottom:16px;z-index:80;width:50px;height:50px;border-radius:999px;
+  border:1px solid rgba(168,85,247,.3);background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;
+  cursor:pointer;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.chat-panel{position:fixed;right:14px;bottom:76px;z-index:80;width:340px;max-width:calc(100vw - 28px);
+  height:440px;max-height:55vh;border-radius:18px;background:rgba(10,2,36,.95);
+  border:1px solid var(--bdr);box-shadow:0 16px 50px rgba(0,0,0,.5);display:none;flex-direction:column;
+  backdrop-filter:blur(16px)}
 .chat-panel.open{display:flex}
-.chat-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.chat-head h3{font-size:14px;font-weight:700}
-.chat-head .status{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--up);
-  display:flex;align-items:center;gap:5px}
-.chat-head .status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--up)}
-.chat-close{background:none;border:1px solid var(--border);border-radius:50%;width:28px;height:28px;
-  color:var(--faint);cursor:pointer;font-size:14px;display:grid;place-items:center}
-.chat-messages{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5}
-.chat-msg.bot{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.12);align-self:flex-start;color:var(--dim)}
-.chat-msg.user{background:linear-gradient(135deg,var(--violet),var(--plasma));color:#fff;align-self:flex-end}
-.chat-input-wrap{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px}
-.chat-input{flex:1;background:rgba(168,85,247,.06);border:1px solid var(--border);border-radius:999px;
-  padding:10px 16px;color:var(--ink);font-size:13px;outline:none}
-.chat-input::placeholder{color:var(--faint)}
-.chat-input:focus{border-color:rgba(168,85,247,.4)}
-.chat-send{width:36px;height:36px;border-radius:50%;background:var(--violet);border:none;color:#fff;
-  cursor:pointer;display:grid;place-items:center;flex-shrink:0}
-.chat-typing{font-size:12px;color:var(--faint);font-style:italic;padding:4px 0}
-
-/* ── Disclaimer ── */
-.disc{text-align:center;font-size:11px;color:var(--faint);line-height:1.6;margin-top:30px;
-  padding:16px;border-radius:var(--radius);border:1px solid var(--border)}
-.foot{text-align:center;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint);margin-top:20px}
-
-@media(max-width:500px){
-  .scene{padding:40px 16px}
-  .stats-row{flex-direction:column;align-items:center}
-  .chat-panel{right:8px;bottom:80px;width:calc(100vw - 16px)}
-}
+.chat-head{padding:12px 16px;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
+.chat-head h3{font-size:13px}.chat-close{background:none;border:1px solid var(--bdr);border-radius:50%;
+  width:26px;height:26px;color:var(--faint);cursor:pointer;font-size:12px}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.chat-msg{max-width:82%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.5}
+.chat-msg.bot{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.1);align-self:flex-start;color:var(--dim)}
+.chat-msg.user{background:var(--v);color:#fff;align-self:flex-end}
+.chat-input-wrap{padding:10px 12px;border-top:1px solid var(--bdr);display:flex;gap:6px}
+.chat-input{flex:1;background:rgba(168,85,247,.06);border:1px solid var(--bdr);border-radius:999px;
+  padding:8px 14px;color:var(--ink);font-size:12px;outline:none}
+.chat-send{width:32px;height:32px;border-radius:50%;background:var(--v);border:none;color:#fff;cursor:pointer}
+@media(max-width:500px){.ring-container{left:50%}.frame-inner{padding:0 16px}}
 </style>
 </head>
 <body>
-<div class="scroll-bar" id="scrollBar"></div>
+<div class="progress" id="prog"></div>
 <div class="grid-bg"></div>
-<div class="bg-glow"></div>
 
-<!-- ═══════════════════ SCENE 1: HERO ═══════════════════ -->
-<section class="scene" id="hero">
-  <div class="scene-inner hero">
-    <div class="avatar">
-      <div class="avatar-ring"></div>
-      <img src="profile.png" alt="Balloutt">
-    </div>
-    <h1>Balloutt <em>Trades</em></h1>
-    <p class="tagline">Full-Time Options Trader · Swings · LEAPS · 0DTE</p>
-    <p class="bio">When your gains read like a phone number, you stop explaining yourself — you just show the tape. <strong style="color:var(--vbright)">Top 0.1%</strong> trader results. Every entry, every exit, tracked in %.</p>
-    <div class="stats-row">
-      <a class="stat" href="https://www.snapchat.com/add/Balloutt.bb"><span class="stat-num" data-target="2" data-suffix="K">0</span><span class="stat-label">Snapchat</span></a>
-      <a class="stat" href="https://www.tiktok.com/@BallouttTrades"><span class="stat-num" data-target="1" data-suffix="K">0</span><span class="stat-label">TikTok</span></a>
-      <span class="stat"><span class="stat-num" data-target="41" data-suffix="K">0</span><span class="stat-label">Total Reach</span></span>
-    </div>
-    <div style="margin-top:28px">
-      <a class="cta" href="https://discord.gg/j823dz4HVd">🔥 Enter the Portal</a>
-    </div>
-  </div>
-</section>
+<!-- Central animated ring that transforms as you scroll -->
+<div class="ring-container" id="ring">
+  <svg viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(168,85,247,.15)" stroke-width="1"/>
+    <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(168,85,247,.1)" stroke-width="1"/>
+    <circle id="rArc1" cx="200" cy="200" r="180" fill="none" stroke="var(--v)" stroke-width="3" stroke-dasharray="280 850" stroke-linecap="round" opacity=".6"/>
+    <circle id="rArc2" cx="200" cy="200" r="160" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-dasharray="200 810" stroke-linecap="round" opacity=".5" transform="rotate(120 200 200)"/>
+    <circle id="rArc3" cx="200" cy="200" r="190" fill="none" stroke="var(--up)" stroke-width="2" stroke-dasharray="150 1050" stroke-linecap="round" opacity=".4" transform="rotate(240 200 200)"/>
+    <circle id="rDot" cx="200" cy="30" r="4" fill="var(--v)" opacity=".8"/>
+    <!-- inner chart line -->
+    <path id="rChart" d="M100 240 L130 220 L160 230 L190 180 L220 200 L250 150 L280 170 L310 130" fill="none" stroke="var(--up)" stroke-width="2" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400" opacity=".7"/>
+  </svg>
+</div>
 
-<!-- ═══════════════════ SCENE 2: HIGHLIGHTS ═══════════════════ -->
-<section class="scene" id="highlights">
-  <div class="scene-inner">
-    <p class="scene-title">// verified results</p>
-    <h2 class="section-head">Recent <em>Highlights</em></h2>
-    <div class="card-grid">
-      <div class="card green">
-        <div class="card-pct" data-target="219829" data-prefix="+" data-suffix="%">0</div>
-        <div class="card-label">Portfolio Challenge</div>
-        <div class="card-sub">Jun 29 11:00 AM → Jul 7 1:00 PM</div>
-      </div>
-      <div class="card green">
-        <div class="card-pct" data-target="11172" data-prefix="+" data-suffix="%">0</div>
-        <div class="card-label">June 2026 Recap</div>
-        <div class="card-sub">Total reported gain · day-by-day in Discord</div>
-      </div>
-      <div class="card green">
-        <div class="card-pct" data-target="12240" data-prefix="+" data-suffix="%">0</div>
-        <div class="card-label">META Runners · Jul 1</div>
-        <div class="card-sub">$575C 7/1 — single trade</div>
+<!-- SCENE 1: HERO (scroll spacer 300vh, sticky content) -->
+<div class="scroll-spacer" id="s1">
+  <div class="sticky-frame">
+    <div class="frame-inner">
+      <div class="scene-text" id="t1">
+        <p class="scene-label" style="color:var(--up)">// balloutt trades llc</p>
+        <h1 class="scene-title">When your gains read like a <em>phone number.</em></h1>
+        <p class="scene-sub">Full-time options trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
+        <a href="https://discord.gg/j823dz4HVd" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:12px 24px;border-radius:999px;background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px">🔥 Enter the Portal</a>
       </div>
     </div>
-    <p style="font-size:11px;color:var(--faint);text-align:center;margin-top:14px;font-style:italic">Individual results vary. Not financial advice.</p>
-  </div>
-</section>
-
-<!-- ═══════════════════ SCENE 3: JOIN & TRADE ═══════════════════ -->
-<section class="scene" id="join">
-  <div class="scene-inner">
-    <p class="scene-title">// get started</p>
-    <h2 class="section-head">Join <em>Free</em></h2>
-    <div class="link-list">
-      <a class="link-card feat" href="https://discord.gg/j823dz4HVd">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
-        <div><div class="link-title">Balloutt Trades Server <span class="tag tag-free">Free</span></div><div class="link-sub">Main server — join 41K+ traders</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
-        <div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
-        <div><div class="link-title">Links Room</div><div class="link-sub">Referral links, tools &amp; partner discounts</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════ SCENE 4: TOOLS ═══════════════════ -->
-<section class="scene" id="tools">
-  <div class="scene-inner">
-    <p class="scene-title">// tools &amp; signals</p>
-    <h2 class="section-head">Trading <em>Arsenal</em></h2>
-    <div class="link-list">
-      <a class="link-card strix" href="https://strixoptionsfunding.com/?ref=balloutt">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
-        <div><div class="link-title">Strix Options Funding <span class="tag tag-promo">USE CODE BTLLC</span></div><div class="link-sub">Get funded to trade options</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card feat" href="https://www.traderdaddy.pro/?ref=42KYBSFS">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></span>
-        <div><div class="link-title">TraderDaddy Pro <span class="tag tag-feat">Featured</span></div><div class="link-sub">Options flow, heatmap &amp; AI signals</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card" href="https://www.traderdaddy.pro/td-indicator?ref=42KYBSFS">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/><path d="M18 4h2v2"/></svg></span>
-        <div><div class="link-title">TD Indicator</div><div class="link-sub">Custom TradingView indicator · real-time signals</div></div>
-        <span class="link-arrow">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════ SCENE 5: ABOUT ═══════════════════ -->
-<section class="scene" id="about" style="min-height:auto;padding-bottom:100px">
-  <div class="scene-inner">
-    <p class="scene-title">// connect</p>
-    <h2 class="section-head">Follow <em>Balloutt</em></h2>
-    <nav class="socials">
-      <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg></a>
-      <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg></a>
-      <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9 0 .8-.1 1.6-.1 2 .3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2 0-.4-.1-1.2-.1-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg></a>
-      <a class="soc" href="https://discord.gg/j823dz4HVd"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></a>
-      <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg></a>
-    </nav>
-    <div class="disc" style="margin-top:30px">
-      <b>Risk disclosure.</b> Content is for educational purposes only and is not financial advice. Trading involves substantial risk of loss. Some links are affiliate links.
-    </div>
-    <div class="foot">© <span id="yr">2026</span> Balloutt Trades LLC</div>
-  </div>
-</section>
-
-<!-- AI Chat -->
-<button class="chat-btn" id="chatBtn" onclick="document.getElementById('chatPanel').classList.toggle('open')">💬</button>
-<div class="chat-panel" id="chatPanel">
-  <div class="chat-head">
-    <div><h3>Balloutt AI</h3><span class="status">Online</span></div>
-    <button class="chat-close" onclick="document.getElementById('chatPanel').classList.remove('open')">✕</button>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">Hey! I'm the Balloutt AI assistant. Ask me anything about our alerts, mentorship, pricing, or how to get started. 🚀</div>
-  </div>
-  <div class="chat-input-wrap">
-    <input class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">↑</button>
   </div>
 </div>
 
+<!-- SCENE 2: HIGHLIGHTS -->
+<div class="scroll-spacer" id="s2">
+  <div class="sticky-frame">
+    <div class="frame-inner">
+      <div class="scene-text" id="t2">
+        <p class="scene-label">// verified results</p>
+        <h1 class="scene-title">Recent <em>Highlights</em></h1>
+        <div class="card-row">
+          <a class="card" id="c1" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+219,829%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></a>
+          <a class="card" id="c2" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+11,172%</div><div class="card-label">June 2026 Recap</div></a>
+          <a class="card" id="c3" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+12,240%</div><div class="card-label">META $575C 7/1 · Single Trade</div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 3: JOIN FREE -->
+<div class="scroll-spacer short" id="s3">
+  <div class="sticky-frame">
+    <div class="frame-inner">
+      <div class="scene-text" id="t3">
+        <p class="scene-label">// get started free</p>
+        <h1 class="scene-title">Join <em>Free</em></h1>
+        <div class="card-row">
+          <a class="link" href="https://discord.gg/j823dz4HVd"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Balloutt Trades Server</div><div class="link-sub">Main server · 41K+ traders · free</div></div></a>
+          <a class="link" href="https://discord.gg/9YXBKQHMyY"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div></a>
+          <a class="link strix" href="https://strixoptionsfunding.com/?ref=balloutt"><span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><div><div class="link-title">Strix Options Funding <span class="tag">BTLLC</span></div><div class="link-sub">Get funded to trade options</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 4: SHOP -->
+<div class="scroll-spacer short" id="s4">
+  <div class="sticky-frame">
+    <div class="frame-inner">
+      <div class="scene-text" id="t4">
+        <p class="scene-label">// invest in yourself</p>
+        <h1 class="scene-title">Shop</h1>
+        <a class="shop feat" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener"><div class="shop-name">Lifetime Mentorship</div><div class="shop-price">$2,500 <small>one-time</small></div><div class="shop-desc">1:1 live sessions, my personal trades, full watchlist — lifetime access. Plans from $200/mo.</div><span class="shop-cta">💎 DM to Purchase</span></a>
+        <a class="shop" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener"><div class="shop-name">Double Trouble Bundle</div><div class="shop-price">$450 <small>/mo</small></div><div class="shop-desc">Two analysts, real-time alerts with TP/SL. 0DTE, swings, LEAPS, whale alerts.</div><span class="shop-cta">🔥 DM to Purchase</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 5: FOLLOW -->
+<div class="scroll-spacer short" id="s5">
+  <div class="sticky-frame">
+    <div class="frame-inner">
+      <div class="scene-text" id="t5">
+        <p class="scene-label">// connect</p>
+        <h1 class="scene-title">Follow <em>Balloutt</em></h1>
+        <nav class="socials">
+          <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg>@Balloutt.on.bizz</a>
+          <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg>@BallouttTrades</a>
+          <a class="soc" href="https://discord.gg/j823dz4HVd"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
+          <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg>@BallouttTrades</a>
+          <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9v2c.3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2v-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>@Balloutt.bb</a>
+        </nav>
+        <div class="disc-bar"><div class="disc-track" id="discT"></div></div>
+        <div class="foot">© 2026 Balloutt Trades LLC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chat -->
+<button class="chat-btn" onclick="document.getElementById('cp').classList.toggle('open')">💬</button>
+<div class="chat-panel" id="cp">
+  <div class="chat-head"><h3>Balloutt AI</h3><button class="chat-close" onclick="document.getElementById('cp').classList.remove('open')">✕</button></div>
+  <div class="chat-msgs" id="cm"><div class="chat-msg bot">Hey! Ask me about alerts, mentorship, pricing, or how to join. 🚀</div></div>
+  <div class="chat-input-wrap"><input class="chat-input" id="ci" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')chat()"><button class="chat-send" onclick="chat()">↑</button></div>
+</div>
+
 <script>
-document.getElementById('yr').textContent=new Date().getFullYear();
+// ═══════ SCROLL-SYNCED ANIMATION ENGINE ═══════
+var ring=document.getElementById('ring');
+var arc1=document.getElementById('rArc1');
+var arc2=document.getElementById('rArc2');
+var arc3=document.getElementById('rArc3');
+var rDot=document.getElementById('rDot');
+var rChart=document.getElementById('rChart');
+var prog=document.getElementById('prog');
+var scenes=[
+  {el:document.getElementById('s1'),text:document.getElementById('t1'),items:[],fired:false},
+  {el:document.getElementById('s2'),text:document.getElementById('t2'),items:['#c1','#c2','#c3'],fired:false},
+  {el:document.getElementById('s3'),text:document.getElementById('t3'),items:['#s3 .link'],fired:false},
+  {el:document.getElementById('s4'),text:document.getElementById('t4'),items:['#s4 .shop'],fired:false},
+  {el:document.getElementById('s5'),text:document.getElementById('t5'),items:['#s5 .soc'],fired:false},
+];
 
-// ═══════ SCROLL PROGRESS ═══════
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  document.getElementById('scrollBar').style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';
-},{passive:true});
+function lerp(a,b,t){return a+(b-a)*Math.max(0,Math.min(1,t))}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 
-// ═══════ ANIME.JS TIMELINE: PAGE LOAD ═══════
-var loadTL=anime.timeline({easing:'easeOutExpo'});
-loadTL.add({targets:'.avatar',scale:[0,1],opacity:[0,1],rotate:[-15,0],duration:1200,easing:'spring(1,70,8,0)'})
-.add({targets:'.hero h1',translateY:[40,0],opacity:[0,1],duration:800},'-=800')
-.add({targets:'.tagline',translateY:[20,0],opacity:[0,1],duration:600},'-=500')
-.add({targets:'.bio',translateY:[15,0],opacity:[0,1],duration:600},'-=300')
-.add({targets:'.cta',scale:[0.8,1],opacity:[0,1],duration:500,easing:'spring(1,80,10,0)'},'-=200');
+function onFrame(){
+  var scrollY=window.pageYOffset;
+  var docH=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(scrollY/docH*100)+'%';
 
-// ═══════ SCROLL OBSERVER ═══════
-function onScroll(sel,props,opts){
-  var o=opts||{};
-  document.querySelectorAll(sel).forEach(function(el){
-    el.style.opacity='0';el.style.willChange='transform,opacity';
-    new IntersectionObserver(function(entries,obs){
-      entries.forEach(function(e){if(e.isIntersecting){obs.unobserve(e.target);anime(Object.assign({targets:e.target},props))}});
-    },{threshold:o.threshold||0.1}).observe(el);
+  // ring rotation synced to scroll
+  var globalProgress=scrollY/docH;
+  ring.style.opacity=clamp(globalProgress*5,0,0.7);
+  arc1.setAttribute('transform','rotate('+(globalProgress*720)+' 200 200)');
+  arc2.setAttribute('transform','rotate('+(180-globalProgress*540)+' 200 200)');
+  arc3.setAttribute('transform','rotate('+(globalProgress*360)+' 200 200)');
+
+  // chart line draws based on scroll
+  var chartDraw=clamp(globalProgress*2.5,0,1);
+  rChart.setAttribute('stroke-dashoffset',400-(chartDraw*400));
+
+  // dot orbits
+  var angle=globalProgress*Math.PI*6;
+  rDot.setAttribute('cx',200+Math.cos(angle)*180);
+  rDot.setAttribute('cy',200+Math.sin(angle)*180);
+
+  // per-scene animations
+  scenes.forEach(function(s,i){
+    var rect=s.el.getBoundingClientRect();
+    var enter=-rect.top/(s.el.offsetHeight-window.innerHeight);
+    var p=clamp(enter,0,1);
+
+    // text reveal: show from 10% to 30% of scene scroll
+    var textP=clamp((p-0.05)/0.25,0,1);
+    s.text.style.opacity=textP;
+    s.text.style.transform='translateY('+(30*(1-textP))+'px)';
+
+    // items stagger in once, the first time this scene is at least 10% scrolled into view
+    if(s.items.length&&p>0.1&&!s.fired){
+      s.fired=true;
+      s.items.forEach(function(sel){
+        var els=document.querySelectorAll(sel);
+        anime({targets:els,opacity:[0,1],translateY:[40,0],duration:700,
+          delay:anime.stagger(150),easing:'spring(1,80,10,0)'});
+      });
+    }
   });
+
+  requestAnimationFrame(onFrame);
 }
-function onScrollBatch(sel,props){
-  var els=document.querySelectorAll(sel);if(!els.length)return;
-  els.forEach(function(el){el.style.opacity='0'});
-  var fired=false;
-  var obs=new IntersectionObserver(function(entries){
-    if(fired)return;entries.forEach(function(e){if(e.isIntersecting){fired=true;anime(Object.assign({targets:sel},props))}});
-  },{threshold:0.1});
-  els.forEach(function(el){obs.observe(el)});
-}
+requestAnimationFrame(onFrame);
 
-// Stats spring pop
-onScrollBatch('.stat',{scale:[0.5,1],opacity:[0,1],duration:900,delay:anime.stagger(100),easing:'spring(1,85,10,0)'});
+// initial hero reveal
+anime.timeline({easing:'easeOutExpo'})
+  .add({targets:'#t1',opacity:[0,1],translateY:[40,0],duration:1200},200);
 
-// Section titles slide
-onScroll('.scene-title',{translateY:[20,0],opacity:[0,1],duration:600,easing:'easeOutCubic'});
-onScroll('.section-head',{translateY:[30,0],opacity:[0,1],duration:700,easing:'easeOutCubic'});
-
-// Profit cards stagger from bottom with spring
-onScrollBatch('.card',{translateY:[60,0],opacity:[0,1],duration:800,delay:anime.stagger(150),easing:'spring(1,70,10,0)'});
-
-// Link cards slide in
-onScroll('.link-card',{translateX:[-40,0],opacity:[0,1],duration:700,easing:'spring(1,80,12,0)'});
-
-// Social icons pop + spin
-onScrollBatch('.soc',{scale:[0,1],rotate:[90,0],opacity:[0,1],duration:600,delay:anime.stagger(50),easing:'spring(1,100,14,0)'});
-
-// Disclaimer fade
-onScroll('.disc',{opacity:[0,1],duration:800,easing:'easeOutCubic'});
-
-// ═══════ COUNT-UP NUMBERS ═══════
-document.querySelectorAll('[data-target]').forEach(function(el){
-  el.style.opacity='1';
-  var target=parseFloat(el.dataset.target),prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'',obj={val:0},fired=false;
-  new IntersectionObserver(function(entries,obs){entries.forEach(function(e){
-    if(!e.isIntersecting||fired)return;fired=true;obs.unobserve(e.target);
-    anime({targets:obj,val:target,duration:2200,easing:'easeOutExpo',round:target>=10?1:10,
-      update:function(){el.textContent=prefix+(target>=1000?Math.floor(obj.val).toLocaleString():target%1===0?Math.floor(obj.val):obj.val.toFixed(1))+suffix}});
-  })},{threshold:0.3}).observe(el);
-});
-
-// ═══════ HOVER ANIMATIONS (SPRING) ═══════
-document.querySelectorAll('.link-card,.card,.stat').forEach(function(el){
-  el.addEventListener('mouseenter',function(){anime.remove(el);anime({targets:el,translateY:-5,scale:1.015,duration:400,easing:'spring(1,90,12,0)'})});
-  el.addEventListener('mouseleave',function(){anime.remove(el);anime({targets:el,translateY:0,scale:1,duration:500,easing:'spring(1,60,14,0)'})});
-});
-document.querySelectorAll('.soc').forEach(function(el){
-  el.addEventListener('mouseenter',function(){anime.remove(el);anime({targets:el,rotate:'1turn',scale:1.2,duration:600,easing:'spring(1,90,10,0)'})});
-  el.addEventListener('mouseleave',function(){anime.remove(el);anime({targets:el,rotate:0,scale:1,duration:500,easing:'spring(1,70,14,0)'})});
-});
-
-// ═══════ AVATAR FLOAT ═══════
-anime({targets:'.avatar',translateY:function(){return anime.random(-6,6)},rotateZ:function(){return anime.random(-2,2)},
-  duration:function(){return anime.random(3000,5000)},easing:'spring(1,40,12,0)',loop:true,direction:'alternate'});
-
-// ═══════ CANDLE FORMATIONS ═══════
-(function(){
-  function candle(type,h,w){
-    var wt=4+Math.random()*8,wb=3+Math.random()*6,tot=wt+h+wb;
-    var c=type==='up'?'#26a69a':'#ef5350',fill=type==='up'?'none':c,stroke=type==='up'?c:'none';
-    return '<svg width="'+w+'" height="'+tot+'" viewBox="0 0 '+w+' '+tot+'"><line x1="'+(w/2)+'" y1="0" x2="'+(w/2)+'" y2="'+wt+'" stroke="'+c+'" stroke-width="1"/><rect x=".5" y="'+wt+'" width="'+(w-1)+'" height="'+h+'" rx="1" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1" opacity=".7"/><line x1="'+(w/2)+'" y1="'+(wt+h)+'" x2="'+(w/2)+'" y2="'+tot+'" stroke="'+c+'" stroke-width="1"/></svg>';
-  }
-  function spawn(type){
-    var g=document.createElement('div');g.className='candle-group '+(type==='up'?'rising':'falling');
-    var n=3+Math.floor(Math.random()*4),step=type==='up'?-(5+Math.random()*8):(5+Math.random()*8);
-    for(var i=0;i<n;i++){var d=document.createElement('div');d.style.marginBottom=(step*i)+'px';d.innerHTML=candle(type,20+Math.random()*25,7+Math.random()*5);g.appendChild(d)}
-    g.style.left=Math.random()*90+'vw';var dur=14+Math.random()*12;g.style.animationDuration=dur+'s';
-    if(type==='up')g.style.bottom='-120px';else g.style.top='-120px';
-    document.body.appendChild(g);setTimeout(function(){g.remove()},dur*1000);
-  }
-  setInterval(function(){spawn('up')},4000);setInterval(function(){spawn('down')},6000);
-  spawn('up');setTimeout(function(){spawn('up')},1000);setTimeout(function(){spawn('down')},500);
+// disclaimer scroll
+(function(){var t=document.getElementById('discT');if(!t)return;
+  var txt='⚠️ Not financial advice · Past performance ≠ future results · Trading involves risk · Some links are affiliate links · Individual results vary';
+  t.innerHTML=(txt+' · ').repeat(4);
 })();
 
-// ═══════ GAIN TOASTS ═══════
-(function(){
-  var tickers=['TSLA','META','AAPL','SPY','NVDA','AMD','GOOGL','AMZN','NFLX','PLTR','COIN'];
-  var types=['Calls','Puts','0DTE','Swing','Runner'];
-  function rGain(){var r=Math.random()*100;if(r<80)return 10+Math.floor(Math.random()*101);if(r<90)return parseFloat((1+Math.random()*8).toFixed(1));if(r<95)return 110+Math.floor(Math.random()*91);if(r<98)return 200+Math.floor(Math.random()*201);return 400+Math.floor(Math.random()*201)}
-  var slot=0;
-  function toast(){
-    var g=rGain(),t=document.createElement('div');t.className='gain-toast'+(g>=300?' big':'');
-    t.innerHTML=(g>=300?'🔥':'📈')+' <b>+'+g.toLocaleString()+'%</b> <span style="opacity:.6">'+tickers[Math.floor(Math.random()*tickers.length)]+' '+types[Math.floor(Math.random()*types.length)]+'</span>';
-    t.style.bottom=(20+(slot%3)*58)+'px';slot++;document.body.appendChild(t);
-    setTimeout(function(){t.classList.add('exit')},3500);setTimeout(function(){t.remove()},4000);
-  }
-  setTimeout(toast,3000);(function next(){setTimeout(function(){toast();next()},5000+Math.random()*4000)})();
-})();
-
-// ═══════ AI CHATBOT ═══════
-var chatKB={
-  'price|cost|how much|pricing|mentorship price':'Lifetime Mentorship is $2,500 one-time (or payment plans from $200/mo). The Double Trouble Alert Bundle is $450/mo. DM @balloutt.trades.llc on Discord to purchase!',
-  'free|no cost|start':'Yes! Join the free server at discord.gg/j823dz4HVd — no paywall, no cost to start. Alerts, recaps, and community all included.',
-  'alert|signal|callout':'I post live options alerts with entry, TP levels, and SL — all tracked in %. Every entry, every exit. Swings, LEAPS, and 0DTE.',
-  'strix|funded|funding':'Check out Strix Options Funding — get funded to trade options! Use code BTLLC for a discount: strixoptionsfunding.com/?ref=balloutt',
-  'traderdaddy|aimbot|heatmap|flow':'TraderDaddy Pro gives you options flow, heatmaps, and AI signals. I use it daily: traderdaddy.pro/?ref=42KYBSFS',
-  'result|track record|win rate|performance':'86.7% all-time win rate. Best single trade: META $575C 7/1 at +12,240%. Best 8-day run: +219,829%. June 2026 total: +11,172%.',
-  'discord|server|join|community':'Main server: discord.gg/j823dz4HVd (free). Top Tier Trading Arsenal: discord.gg/9YXBKQHMyY for premium alerts.',
-  'mentor|1:1|one on one|coaching':'Lifetime 1:1 mentorship — live trading sessions, my personal trades, my full watchlist, and direct guidance. $2,500 one-time or payment plans available.',
-  'who|about|balloutt':'I\'m Balloutt — full-time options trader and founder of Balloutt Trades LLC. I trade swings, LEAPS, and 0DTE exclusively. Every trade posted live with receipts.',
-  'social|instagram|tiktok|snap':'Instagram: @Balloutt.on.bizz | TikTok: @BallouttTrades | Snapchat: @Balloutt.bb | Discord: @balloutt.trades.llc',
-  'refund':'Yes — if you\'re unsatisfied with the mentorship, just reach out. It\'s your money at the end of the day.'
+// ═══════ AI CHAT ═══════
+var kb={
+  'price|cost|how much|pricing':'Lifetime Mentorship: $2,500 one-time (plans: 3-mo $1,200/mo, 8-mo $600/mo, 16-mo $350/mo, 30-mo $200/mo). Double Trouble Bundle: $450/mo. Scroll to the Shop section or DM @balloutt.trades.llc on Discord!',
+  'mentor|1:1|coaching|mentorship':'Lifetime 1:1 Mentorship — $2,500 one-time. Live trading sessions, my personal trades, full watchlist, direct guidance. Payment plans from $200/mo. Scroll to Shop or DM @balloutt.trades.llc!',
+  'shop|buy|purchase':'Scroll down to the Shop section! Lifetime Mentorship ($2,500 or plans from $200/mo) and Double Trouble Alert Bundle ($450/mo). DM @balloutt.trades.llc on Discord to purchase.',
+  'alert|signal|callout':'Live options alerts with entry, TP, and SL — tracked in %. Swings, LEAPS, 0DTE. Get alerts with Double Trouble Bundle ($450/mo).',
+  'free|join|start|get started':'Join free at discord.gg/j823dz4HVd — no paywall! Scroll to "Join Free" section. Free alerts, recaps, community.',
+  'strix|funded|funding':'Strix Options Funding — get funded! Use code BTLLC: strixoptionsfunding.com/?ref=balloutt',
+  'result|track|win rate|performance|proof':'86.7% win rate. Best trade: META +12,240%. Best 8-day: +219,829%. June total: +11,172%. Scroll to Highlights!',
+  'discord|server':'Main: discord.gg/j823dz4HVd (free). Top Tier: discord.gg/9YXBKQHMyY (premium).',
+  'who|about|balloutt':'Full-time options trader, founder of Balloutt Trades LLC. Swings, LEAPS, 0DTE. 41K+ reach. Every trade posted live.',
+  'social|instagram|tiktok|snap|follow':'IG: @Balloutt.on.bizz | TikTok: @BallouttTrades | Snap: @Balloutt.bb | Discord: @balloutt.trades.llc | X: @BallouttTrades',
+  'hello|hi|hey|yo|sup':'Hey! Welcome to Balloutt Trades 🚀 Ask about pricing, alerts, mentorship, or how to join!',
+  'double trouble|bundle':'Double Trouble Bundle: $450/mo — two analysts, real-time alerts, 0DTE/swings/LEAPS/whale alerts. DM to purchase!',
+  'navigate|where|find|section':'Just scroll! Hero → Highlights → Join Free → Shop → Follow. Or ask me anything specific!',
+  'refund':'Yes — if unsatisfied with mentorship, just reach out. Your money, your choice.'
 };
-function sendChat(){
-  var input=document.getElementById('chatInput'),msg=input.value.trim();if(!msg)return;
-  var msgs=document.getElementById('chatMessages');
-  msgs.innerHTML+='<div class="chat-msg user">'+msg+'</div>';input.value='';
-  msgs.scrollTop=msgs.scrollHeight;
+function chat(){
+  var i=document.getElementById('ci'),m=i.value.trim();if(!m)return;
+  var c=document.getElementById('cm');
+  c.innerHTML+='<div class="chat-msg user">'+m+'</div>';i.value='';c.scrollTop=c.scrollHeight;
   setTimeout(function(){
-    var reply='I\'m not sure about that — try asking about pricing, alerts, results, Strix, TraderDaddy, or how to join! Or DM @balloutt.trades.llc on Discord for anything specific.';
-    var lower=msg.toLowerCase();
-    for(var pattern in chatKB){if(pattern.split('|').some(function(k){return lower.includes(k)})){reply=chatKB[pattern];break}}
-    msgs.innerHTML+='<div class="chat-msg bot">'+reply+'</div>';msgs.scrollTop=msgs.scrollHeight;
-  },600);
+    var r='Try asking about pricing, alerts, results, mentorship, or how to join! Or DM @balloutt.trades.llc on Discord.';
+    var l=m.toLowerCase();
+    for(var p in kb){if(p.split('|').some(function(k){return l.includes(k)})){r=kb[p];break}}
+    c.innerHTML+='<div class="chat-msg bot">'+r+'</div>';c.scrollTop=c.scrollHeight;
+  },500);
 }
 </script>
 </body>
