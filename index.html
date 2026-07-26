@@ -786,7 +786,7 @@ function playIntro(){
   });
 
   var letterOrder=Object.keys(byChar).map(Number).sort(function(a,b){return a-b});
-  var LETTER_DELAY=165, CANDLE_STAGGER=13;
+  var LETTER_DELAY=90, CANDLE_STAGGER=7;
 
   letterOrder.forEach(function(chIndex,li){
     byChar[chIndex].forEach(function(candleIdx,ci){
@@ -812,8 +812,9 @@ function playIntro(){
 
   if(caption) setTimeout(function(){ caption.classList.add('show'); },250);
 
-  // ═══ Power-surge capstone: figure appears standing on the waves, slams down, the sea erupts ═══
-  var surgeStart=totalDuration+400;
+  // ═══ Timing compressed to match GIF duration (~3.4s) ═══
+  // Text finishes around 1.8s, lightning at 2.2s, site transition at 3.3s
+  var surgeStart=totalDuration+100;
 
   setTimeout(function(){
     // GIF is already playing — now trigger the lightning/surge effects on top of it
@@ -826,7 +827,7 @@ function playIntro(){
     if(heroBolts) heroBolts.setAttribute('opacity','1');
     if(flashFull){
       flashFull.classList.add('burst');
-      setTimeout(function(){ flashFull.classList.remove('burst'); },120);
+      setTimeout(function(){ flashFull.classList.remove('burst'); },100);
     }
     if(heroAura){
       heroAura.setAttribute('opacity','1');
@@ -840,27 +841,27 @@ function playIntro(){
       heroFlash2.setAttribute('opacity','1');
       requestAnimationFrame(function(){ heroFlash2.classList.add('burst'); });
     }
-    setTimeout(function(){ overlay&&overlay.classList.remove('shake'); },600);
-    // bolts flicker a couple times for a jagged, electric feel rather than a flat fade
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.15'); },80);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },140);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.25'); },210);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },270);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0'); },520);
-  }, surgeStart+900);
+    setTimeout(function(){ overlay&&overlay.classList.remove('shake'); },400);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.15'); },60);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },110);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.25'); },160);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },210);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0'); },380);
+  }, surgeStart+300);
 
   setTimeout(function(){
     if(caption){ caption.textContent='// entering the portal'; }
-  }, surgeStart+1500);
+  }, surgeStart+600);
 
-  var totalIntroDuration=surgeStart+2400;
+  // GIF is ~3.36s — transition to site right when it ends
+  var totalIntroDuration=3350;
 
   function finishIntro(){
     if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
     overlay.classList.add('fade-out');
     document.body.classList.remove('intro-lock');
     console.log('%cplayIntro() finished','color:#3ce88a;font-weight:bold');
-    setTimeout(function(){ overlay.style.display='none'; },900);
+    setTimeout(function(){ overlay.style.display='none'; },400);
   }
   setTimeout(finishIntro, totalIntroDuration);
   overlay.addEventListener('click',finishIntro); // tap anywhere to skip
