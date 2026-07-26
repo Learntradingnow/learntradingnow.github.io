@@ -851,8 +851,14 @@ function playIntro(){
     if(caption){ caption.textContent='// entering the portal'; }
   }, surgeStart+600);
 
-  // GIF is ~3.36s — transition to site right when it ends
-  var totalIntroDuration=3350;
+  // GIF is ~2.9s — hide it just before it loops, transition immediately after
+  var totalIntroDuration=2950;
+
+  // kill the GIF at 2.8s so it never visibly replays
+  setTimeout(function(){
+    var gif=document.getElementById('heroFigureInner');
+    if(gif) gif.style.opacity='0';
+  }, 2800);
 
   function finishIntro(){
     if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
