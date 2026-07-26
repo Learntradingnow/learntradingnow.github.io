@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Balloutt Trades LLC</title>
 <meta name="theme-color" content="#0d0131">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0131'/%3E%3Cg stroke='%23a855f7' stroke-width='8' stroke-linecap='round'%3E%3Cline x1='30' y1='68' x2='30' y2='32'/%3E%3Cline x1='50' y1='78' x2='50' y2='46'/%3E%3Cline x1='70' y1='58' x2='70' y2='22'/%3E%3C/g%3E%3Ccircle cx='38' cy='44' r='5' fill='%233ce88a'/%3E%3Ccircle cx='62' cy='44' r='5' fill='%23ff3b4e'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <style>
 :root{--bg:#050110;--ink:#f0eaff;--dim:#a89cc4;--faint:#5e5478;--v:#a855f7;--vb:#c99bff;
-  --up:#3ce88a;--cyan:#22d3ee;--ember:#ff3b4e;--card:rgba(168,85,247,.04);--bdr:rgba(168,85,247,.12)}
+  --up:#3ce88a;--cyan:#22d3ee;--ember:#ff3b4e;--gold:#ffc93c;--card:rgba(168,85,247,.04);--bdr:rgba(168,85,247,.12);
+  --flame:#3ce88a}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110}
 body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -26,22 +28,49 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 /* central animated ring — the "turntable" like anime.js has */
 .ring-container{position:fixed;top:50%;left:55%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;opacity:0}
 .ring-container svg{width:min(500px,70vw);height:min(500px,70vw)}
+#candleGroup .num,#candleGroup .word{paint-order:stroke;stroke:#050110;stroke-width:3px;stroke-linejoin:round}
+#candleGroup .word{font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+#formPlus{filter:drop-shadow(0 0 18px rgba(168,85,247,.55))}
 
 /* grid bg */
 .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;
   background-image:linear-gradient(rgba(168,85,247,.3) 1px,transparent 1px),
   linear-gradient(90deg,rgba(168,85,247,.3) 1px,transparent 1px);background-size:50px 50px}
 
+/* animated "fire" glow around the central chart — color shifts per section */
+.theme-glow{position:fixed;top:50%;left:55%;width:680px;height:680px;z-index:0;pointer-events:none;
+  transform:translate(-50%,-50%) scale(1);border-radius:50%;
+  background:radial-gradient(circle,var(--flame) 0%,rgba(0,0,0,0) 62%);
+  filter:blur(46px);opacity:.4;transition:background 1.1s ease;
+  animation:flame-flicker 2.8s ease-in-out infinite}
+@keyframes flame-flicker{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.32}
+  35%{transform:translate(-50%,-50%) scale(1.05);opacity:.44}
+  65%{transform:translate(-50%,-50%) scale(0.97);opacity:.38}
+}
+@media(max-width:500px){.theme-glow{left:50%;width:480px;height:480px}}
+
+/* floating themed particles ($ / cart / rocket / + ) that rise behind the content */
+.ember{position:fixed;bottom:-40px;z-index:1;pointer-events:none;font-size:22px;
+  animation:ember-rise linear forwards;text-shadow:0 0 10px currentColor}
+@keyframes ember-rise{
+  0%{transform:translateY(0) translateX(0) scale(.7) rotate(0deg);opacity:0}
+  12%{opacity:.9}
+  85%{opacity:.6}
+  100%{transform:translateY(-105vh) translateX(var(--drift,20px)) scale(1.15) rotate(12deg);opacity:0}
+}
+
 /* scroll progress */
 .progress{position:fixed;top:0;left:0;height:3px;z-index:999;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up));width:0%}
 
 /* scene content */
 .scene-text{opacity:0;transform:translateY(30px)}
-.scene-title{font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px}
+.scene-title{font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px;
+  text-shadow:0 3px 20px rgba(0,0,0,.75)}
 .scene-title em{font-style:normal;color:var(--vb)}
-.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px}
+.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
 .scene-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
 
 /* cards */
 .card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
@@ -142,6 +171,7 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 <body>
 <div class="progress" id="prog"></div>
 <div class="grid-bg"></div>
+<div class="theme-glow" id="themeGlow"></div>
 
 <!-- Central animated ring that transforms as you scroll -->
 <div class="ring-container" id="ring">
@@ -152,10 +182,30 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
     <circle id="rArc2" cx="200" cy="200" r="160" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-dasharray="200 810" stroke-linecap="round" opacity=".5" transform="rotate(120 200 200)"/>
     <circle id="rArc3" cx="200" cy="200" r="190" fill="none" stroke="var(--up)" stroke-width="2" stroke-dasharray="150 1050" stroke-linecap="round" opacity=".4" transform="rotate(240 200 200)"/>
     <circle id="rDot" cx="200" cy="30" r="4" fill="var(--v)" opacity=".8"/>
-    <!-- inner chart line -->
-    <path id="rChart" d="M100 240 L130 220 L160 230 L190 180 L220 200 L250 150 L280 170 L310 130" fill="none" stroke="var(--up)" stroke-width="2" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400" opacity=".7"/>
+    <!-- live candlestick chart — replaces the old static line -->
+    <line x1="90" y1="255" x2="310" y2="255" stroke="rgba(168,85,247,.15)" stroke-width="1"/>
+    <g id="candleGroup" font-family="JetBrains Mono, monospace" font-weight="700" text-anchor="middle"
+       style="--outline:#050110">
+      <!-- 7 candle slots: wick + body + top $ number + bottom word, all set by CANDLE_STORY below -->
+      <g class="candle-slot"><line class="wick" x1="106" y1="255" x2="106" y2="255"/><rect class="body" x="98" y="255" width="16" height="0" rx="3"/><text class="num" x="106" y="255" font-size="12"></text><text class="word" x="106" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="136" y1="255" x2="136" y2="255"/><rect class="body" x="128" y="255" width="16" height="0" rx="3"/><text class="num" x="136" y="255" font-size="12"></text><text class="word" x="136" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="166" y1="255" x2="166" y2="255"/><rect class="body" x="158" y="255" width="16" height="0" rx="3"/><text class="num" x="166" y="255" font-size="12"></text><text class="word" x="166" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="196" y1="255" x2="196" y2="255"/><rect class="body" x="188" y="255" width="16" height="0" rx="3"/><text class="num" x="196" y="255" font-size="12"></text><text class="word" x="196" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="226" y1="255" x2="226" y2="255"/><rect class="body" x="218" y="255" width="16" height="0" rx="3"/><text class="num" x="226" y="255" font-size="12"></text><text class="word" x="226" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="256" y1="255" x2="256" y2="255"/><rect class="body" x="248" y="255" width="16" height="0" rx="3"/><text class="num" x="256" y="255" font-size="12"></text><text class="word" x="256" y="285" font-size="9"></text></g>
+      <g class="candle-slot"><line class="wick" x1="286" y1="255" x2="286" y2="255"/><rect class="body" x="278" y="255" width="16" height="0" rx="3"/><text class="num" x="286" y="255" font-size="12"></text><text class="word" x="286" y="285" font-size="9"></text></g>
+    </g>
+    <!-- FOLLOW-SECTION FORM: the chart dissolves into this "+" mark near the bottom of the page -->
+    <g id="formPlus" opacity="0" transform="translate(200 200)">
+      <circle r="86" fill="none" stroke="var(--v)" stroke-width="2" opacity=".5"/>
+      <circle r="60" fill="none" stroke="var(--vb)" stroke-width="1" opacity=".35"/>
+      <rect x="-8" y="-52" width="16" height="104" rx="8" fill="var(--v)"/>
+      <rect x="-52" y="-8" width="104" height="16" rx="8" fill="var(--v)"/>
+    </g>
   </svg>
+
 </div>
+<!-- floating themed particles spawn here (JS injects .ember spans into body directly) -->
 
 <!-- SCENE 1: HERO (scroll spacer 300vh, sticky content) -->
 <div class="scroll-spacer" id="s1">
@@ -262,8 +312,9 @@ var arc1=document.getElementById('rArc1');
 var arc2=document.getElementById('rArc2');
 var arc3=document.getElementById('rArc3');
 var rDot=document.getElementById('rDot');
-var rChart=document.getElementById('rChart');
 var prog=document.getElementById('prog');
+var candleGroup=document.getElementById('candleGroup');
+var formPlus=document.getElementById('formPlus');
 var scenes=[
   {el:document.getElementById('s1'),text:document.getElementById('t1'),items:[],fired:false},
   {el:document.getElementById('s2'),text:document.getElementById('t2'),items:['#c1','#c2','#c3'],fired:false},
@@ -280,27 +331,29 @@ function onFrame(){
   var docH=document.documentElement.scrollHeight-window.innerHeight;
   prog.style.width=(scrollY/docH*100)+'%';
 
-  // ring rotation synced to scroll
+  // ring rotation synced to scroll — visible from the very top, brighter as you scroll
   var globalProgress=scrollY/docH;
-  ring.style.opacity=clamp(globalProgress*5,0,0.7);
+  ring.style.opacity=clamp(0.35+globalProgress*3,0.35,0.8);
   arc1.setAttribute('transform','rotate('+(globalProgress*720)+' 200 200)');
   arc2.setAttribute('transform','rotate('+(180-globalProgress*540)+' 200 200)');
   arc3.setAttribute('transform','rotate('+(globalProgress*360)+' 200 200)');
-
-  // chart line draws based on scroll
-  var chartDraw=clamp(globalProgress*2.5,0,1);
-  rChart.setAttribute('stroke-dashoffset',400-(chartDraw*400));
 
   // dot orbits
   var angle=globalProgress*Math.PI*6;
   rDot.setAttribute('cx',200+Math.cos(angle)*180);
   rDot.setAttribute('cy',200+Math.sin(angle)*180);
 
-  // per-scene animations
+  // candlestick chart builds into a green uptrend as you scroll toward the bottom
+  updateCandles(globalProgress);
+
+  // per-scene animations + figure out which scene is currently active (for the theme)
+  var activeIndex=0, followP=0;
   scenes.forEach(function(s,i){
     var rect=s.el.getBoundingClientRect();
     var enter=-rect.top/(s.el.offsetHeight-window.innerHeight);
     var p=clamp(enter,0,1);
+    if(p>0.15) activeIndex=i;
+    if(i===4) followP=p;
 
     // text reveal: show from 10% to 30% of scene scroll
     var textP=clamp((p-0.05)/0.25,0,1);
@@ -318,9 +371,121 @@ function onFrame(){
     }
   });
 
+  // in the Follow section, the candlestick chart dissolves into the "+" mark
+  candleGroup.style.opacity=1-followP;
+  formPlus.setAttribute('opacity',followP);
+  formPlus.setAttribute('transform','translate(200 200) scale('+(0.7+followP*0.3)+') rotate('+(followP*180)+')');
+
+  updateTheme(activeIndex);
+
   requestAnimationFrame(onFrame);
 }
 requestAnimationFrame(onFrame);
+
+// ═══════ SCROLL-DRIVEN CANDLESTICK CHART — builds into a green uptrend by the bottom ═══════
+//
+// EDIT ME: change amt / up / word for each candle to control exactly how the chart
+// reads as people scroll. `amt` controls both the candle height (bigger amt = taller,
+// scaled automatically so any numbers you use always fit) AND the dollar figure shown
+// above the candle. `word` always shows underneath the candle — set it to whatever
+// you want (a phase name, a status, anything).
+var CANDLE_STORY=[
+  {amt:1432, up:false, word:'Start'},
+  {amt:1900, up:true,  word:'Adjusting'},
+  {amt:2400, up:true,  word:'Executing'},
+  {amt:2900, up:true,  word:'Progress'},
+  {amt:3500, up:true,  word:'Results'},
+  {amt:4300, up:true,  word:'Confidence'},
+  {amt:21604,up:true,  word:'Success'}
+];
+
+var updateCandles=(function(){
+  var slots=document.querySelectorAll('#candleGroup .candle-slot');
+  if(!slots.length) return function(){};
+  var baseline=255;
+  var upColor=getComputedStyle(document.documentElement).getPropertyValue('--up').trim()||'#3ce88a';
+  var downColor=getComputedStyle(document.documentElement).getPropertyValue('--ember').trim()||'#ff3b4e';
+
+  // heights are normalized against the biggest amt in the story so any numbers you
+  // plug in above always fit neatly inside the ring, no matter how big or small
+  var maxAmt=Math.max.apply(null,CANDLE_STORY.map(function(c){return c.amt}));
+  var minH=16, maxH=140;
+
+  var span=1/slots.length;      // each candle owns an equal slice of the scroll
+  var grow=span*1.35;           // slight overlap so growth feels continuous, not stepped
+
+  return function(globalProgress){
+    slots.forEach(function(slot,i){
+      var data=CANDLE_STORY[i];
+      if(!data) return;
+      var revealP=clamp((globalProgress-i*span)/grow,0,1);
+      var targetH=minH+(data.amt/maxAmt)*(maxH-minH);
+      var h=revealP*targetH;
+      var y=baseline-h;
+      var color=data.up?upColor:downColor;
+      var body=slot.querySelector('.body'),wick=slot.querySelector('.wick'),
+          numLbl=slot.querySelector('.num'),wordLbl=slot.querySelector('.word');
+
+      body.setAttribute('y',y);
+      body.setAttribute('height',h);
+      body.setAttribute('fill',color);
+      wick.setAttribute('y1',y-6);
+      wick.setAttribute('y2',baseline+6);
+      wick.setAttribute('stroke',color);
+
+      // number always shown above the candle once it starts growing
+      numLbl.setAttribute('opacity',revealP);
+      numLbl.setAttribute('y',y-12);
+      numLbl.setAttribute('fill',color);
+      numLbl.textContent=(data.up?'+$':'−$')+data.amt.toLocaleString();
+
+      // word always shown below the baseline once it starts growing
+      wordLbl.setAttribute('opacity',revealP);
+      wordLbl.setAttribute('fill',color);
+      wordLbl.textContent=data.word||'';
+    });
+  };
+})();
+
+// ═══════ SECTION THEME ENGINE — fire glow + floating particles per section ═══════
+var SECTION_THEMES=[
+  {color:'#3ce88a', particles:null},                          // Hero — green glow, no particles
+  {color:'#ff3b4e', particles:null},                          // Highlights — red glow
+  {color:'#3ce88a', particles:['💵','💰','💲']},               // Join Free — green + money
+  {color:'#ffc93c', particles:['🛒','🚀']},                    // Shop — gold + cart/rocket
+  {color:'#a855f7', particles:['➕','✚']}                      // Follow — purple + plus
+];
+var themeGlow=document.getElementById('themeGlow');
+var currentThemeIndex=-1;
+var emberTimer=null;
+
+function spawnEmber(symbol,color){
+  var el=document.createElement('div');
+  el.className='ember';
+  el.textContent=symbol;
+  el.style.left=(Math.random()*90+3)+'vw';
+  el.style.color=color;
+  el.style.setProperty('--drift',(Math.random()*60-30)+'px');
+  var dur=7+Math.random()*5;
+  el.style.animationDuration=dur+'s';
+  document.body.appendChild(el);
+  setTimeout(function(){el.remove()},dur*1000);
+}
+
+function updateTheme(activeIndex){
+  if(activeIndex===currentThemeIndex) return;
+  currentThemeIndex=activeIndex;
+  var theme=SECTION_THEMES[activeIndex]||SECTION_THEMES[0];
+  document.documentElement.style.setProperty('--flame',theme.color);
+
+  if(emberTimer){clearInterval(emberTimer);emberTimer=null;}
+  if(theme.particles&&theme.particles.length){
+    emberTimer=setInterval(function(){
+      var sym=theme.particles[Math.floor(Math.random()*theme.particles.length)];
+      spawnEmber(sym,theme.color);
+    },550);
+  }
+}
 
 // initial hero reveal
 anime.timeline({easing:'easeOutExpo'})
