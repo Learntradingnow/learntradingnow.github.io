@@ -46,11 +46,30 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 /* cards */
 .card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
 .card{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--bdr);
-  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);color:inherit;text-decoration:none;display:block;cursor:pointer;
+  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);
   transition:transform .3s,border-color .3s,box-shadow .3s}
 .card:hover{transform:translateY(-3px)!important;border-color:rgba(168,85,247,.4);box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
 .card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:26px;color:var(--up)}
 .card-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:4px}
+
+/* auto-scrolling proof wall */
+.proof-strip{overflow:hidden;margin:20px -24px 0;padding:10px 0;position:relative}
+.proof-strip::before,.proof-strip::after{content:"";position:absolute;top:0;bottom:0;width:50px;z-index:2;pointer-events:none}
+.proof-strip::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.proof-strip::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.proof-track{display:flex;gap:12px;width:max-content;animation:proof-scroll 32s linear infinite}
+.proof-track:hover{animation-play-state:paused}
+.proof-track img{height:120px;border-radius:12px;border:1px solid var(--bdr);flex-shrink:0;
+  object-fit:cover;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}
+.proof-track img:hover{transform:scale(1.06) translateY(-3px);border-color:rgba(60,232,138,.5);
+  box-shadow:0 14px 34px -12px rgba(60,232,138,.4)}
+@keyframes proof-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.proof-label{text-align:center;margin-top:8px;font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(5,1,16,.92);display:none;
+  align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 
 /* links */
 .link{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
@@ -160,10 +179,13 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
         <p class="scene-label">// verified results</p>
         <h1 class="scene-title">Recent <em>Highlights</em></h1>
         <div class="card-row">
-          <a class="card" id="c1" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+219,829%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></a>
-          <a class="card" id="c2" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+11,172%</div><div class="card-label">June 2026 Recap</div></a>
-          <a class="card" id="c3" href="https://github.com/Learntradingnow/learntradingnow.github.io/tree/main/proofs" target="_blank" rel="noopener"><div class="card-pct">+12,240%</div><div class="card-label">META $575C 7/1 · Single Trade</div></a>
+          <div class="card" id="c1"><div class="card-pct">+219,829%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></div>
+          <div class="card" id="c2"><div class="card-pct">+11,172%</div><div class="card-label">June 2026 Recap</div></div>
+          <div class="card" id="c3"><div class="card-pct">+12,240%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
         </div>
+
+        <div class="proof-strip"><div class="proof-track" id="proofTrack"></div></div>
+        <p class="proof-label">Receipts from me &amp; members — tap to enlarge</p>
       </div>
     </div>
   </div>
@@ -227,6 +249,10 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   <div class="chat-head"><h3>Balloutt AI</h3><button class="chat-close" onclick="document.getElementById('cp').classList.remove('open')">✕</button></div>
   <div class="chat-msgs" id="cm"><div class="chat-msg bot">Hey! Ask me about alerts, mentorship, pricing, or how to join. 🚀</div></div>
   <div class="chat-input-wrap"><input class="chat-input" id="ci" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')chat()"><button class="chat-send" onclick="chat()">↑</button></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lightboxImg" src="" alt="Enlarged screenshot">
 </div>
 
 <script>
@@ -304,6 +330,44 @@ anime.timeline({easing:'easeOutExpo'})
 (function(){var t=document.getElementById('discT');if(!t)return;
   var txt='⚠️ Not financial advice · Past performance ≠ future results · Trading involves risk · Some links are affiliate links · Individual results vary';
   t.innerHTML=(txt+' · ').repeat(4);
+})();
+
+// ═══════ PROOF WALL — auto-loads from proofs/ folder, no editing needed ═══════
+(function(){
+  var track=document.getElementById('proofTrack');
+  if(!track) return;
+  var api='https://api.github.com/repos/Learntradingnow/learntradingnow.github.io/contents/proofs';
+  var base='https://raw.githubusercontent.com/Learntradingnow/learntradingnow.github.io/main/proofs/';
+  var exts=['png','jpg','jpeg','webp','gif','bmp'];
+
+  fetch(api).then(function(r){
+    if(!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function(files){
+    if(!Array.isArray(files)) return;
+    var images=files.filter(function(f){
+      return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1;
+    });
+    if(images.length===0){
+      track.parentElement.style.display='none';
+      return;
+    }
+    // duplicate the set so the marquee loops seamlessly
+    images.concat(images).forEach(function(f){
+      var img=document.createElement('img');
+      img.src=base+encodeURIComponent(f.name);
+      img.alt='Profit screenshot';
+      img.loading='lazy';
+      img.onclick=function(){
+        document.getElementById('lightboxImg').src=this.src;
+        document.getElementById('lightbox').classList.add('open');
+      };
+      img.onerror=function(){this.remove()};
+      track.appendChild(img);
+    });
+  }).catch(function(){
+    track.parentElement.style.display='none';
+  });
 })();
 
 // ═══════ AI CHAT ═══════
