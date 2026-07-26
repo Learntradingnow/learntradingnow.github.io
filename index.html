@@ -49,6 +49,20 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   background:radial-gradient(ellipse at 25% 15%,rgba(34,211,238,.20),transparent 55%),
              radial-gradient(ellipse at 80% 88%,rgba(34,211,238,.14),transparent 60%)}
 
+/* light rays — like sunlight breaking through water, sweeping slowly for a premium cinematic feel */
+.light-rays{position:fixed;inset:-20% -10%;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.35;
+  background:repeating-linear-gradient(115deg,
+    rgba(201,155,255,.10) 0px, rgba(201,155,255,.10) 2px,
+    transparent 2px, transparent 90px);
+  animation:rays-drift 26s linear infinite}
+@keyframes rays-drift{0%{transform:translateX(0) translateY(0)}100%{transform:translateX(-140px) translateY(60px)}}
+
+/* a soft glossy shimmer band that sweeps across the water periodically, like light catching a swell */
+.water-shimmer{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+  background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.10) 48%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.10) 52%,transparent 60%);
+  background-size:220% 220%;animation:shimmer-sweep 7s ease-in-out infinite}
+@keyframes shimmer-sweep{0%{background-position:120% 0%}50%{background-position:-20% 100%}100%{background-position:120% 0%}}
+
 /* soft corner gradient orbs — depth without competing with the section theme-glow */
 .corner-orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(80px);
   opacity:.16;animation:orb-breathe 3s ease-in-out infinite}
@@ -184,6 +198,8 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 .scene-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
   text-transform:uppercase;color:var(--faint);margin-bottom:14px;
   text-shadow:0 1px 3px rgba(0,0,0,.9),0 2px 14px rgba(0,0,0,.8)}
+.hero-avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;margin-bottom:16px;
+  border:2px solid rgba(168,85,247,.5);box-shadow:0 0 0 4px rgba(168,85,247,.12),0 8px 26px rgba(0,0,0,.5)}
 
 /* cards */
 .card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
@@ -285,9 +301,11 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 /* ═══════ Intro — candlestick chart spells out the brand name on load ═══════ */
 body.intro-lock{overflow:hidden}
 #introOverlay{position:fixed;inset:0;z-index:9999;
-  background:radial-gradient(ellipse at 50% 50%,rgba(20,4,54,.55) 0%,rgba(5,1,16,.82) 75%);
+  background:linear-gradient(125deg,#0d0131,#1a0a3d,#2c0f52,#0d0131);
+  background-size:300% 300%;animation:intro-bg-shift 9s ease-in-out infinite;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
   transition:opacity .85s ease;cursor:pointer}
+@keyframes intro-bg-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 #introOverlay.fade-out{opacity:0;pointer-events:none}
 #introSvg{width:min(92vw,720px);height:auto;overflow:visible}
 #introSvg .candle{filter:drop-shadow(0 0 6px currentColor)}
@@ -296,6 +314,25 @@ body.intro-lock{overflow:hidden}
 .intro-caption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.35em;
   text-transform:uppercase;color:var(--faint);opacity:0;transition:opacity .6s ease;position:relative;z-index:1}
 .intro-caption.show{opacity:1}
+.intro-hero-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.9);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.intro-hero-scene.show{opacity:1;transform:scale(1)}
+#introHeroSvg{width:min(92vw,640px);height:auto}
+#heroFigureInner{transition:transform .35s cubic-bezier(.34,1.6,.5,1);transform-origin:0px 152px}
+#heroFigureInner.slam{transform:translateY(8px) rotate(-4deg) scale(1.08)}
+#heroFlash{transition:r 1.1s cubic-bezier(.2,.8,.3,1),opacity 1.1s ease}
+#heroFlash.burst{r:170;opacity:0}
+#heroFlash2{transition:r 1.4s cubic-bezier(.2,.8,.3,1) .1s,opacity 1.4s ease .1s}
+#heroFlash2.burst{r:230;opacity:0}
+#heroAura{transition:r 1s cubic-bezier(.2,.8,.3,1),opacity 1s ease}
+#heroAura.burst{r:90;opacity:0}
+.intro-flash-full{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
+  transition:opacity .5s ease;mix-blend-mode:screen}
+.intro-flash-full.burst{opacity:.85;transition:opacity .12s ease}
+@keyframes intro-shake{0%,100%{transform:translate(0,0)}15%{transform:translate(-10px,4px)}
+  30%{transform:translate(9px,-7px)}45%{transform:translate(-8px,-5px)}60%{transform:translate(10px,6px)}
+  75%{transform:translate(-6px,3px)}90%{transform:translate(5px,-3px)}}
+#introOverlay.shake{animation:intro-shake .6s ease-in-out}
 /* cosmic twinkling stars layered inside the intro, so it stays animated/engaging while typing plays */
 .intro-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .intro-star{position:absolute;border-radius:50%;background:#fff;animation:intro-twinkle ease-in-out infinite}
@@ -325,11 +362,50 @@ body.intro-lock{overflow:hidden}
   <svg id="introSvg" viewBox="0 0 100 20" preserveAspectRatio="xMidYMid meet"></svg>
   <div class="intro-progress"><div class="intro-progress-bar" id="introProgressBar"></div></div>
   <p class="intro-caption" id="introCaption">// entering the portal</p>
+
+  <!-- ═══ Hero scene: GIF figure on the waves, slam triggers the surge ═══ -->
+  <div class="intro-hero-scene" id="introHeroScene">
+    <div class="intro-flash-full" id="introFlashFull"></div>
+    <svg id="introHeroSvg" viewBox="0 0 300 220">
+      <defs>
+        <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#1a0a3d"/>
+        </linearGradient>
+        <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(245,240,255,.55)"/><stop offset="100%" stop-color="rgba(168,85,247,0)"/>
+        </radialGradient>
+      </defs>
+      <!-- shockwave rings -->
+      <circle id="heroFlash" cx="150" cy="192" r="0" fill="none" stroke="#f5f0ff" stroke-width="3.5" opacity="0"/>
+      <circle id="heroFlash2" cx="150" cy="192" r="0" fill="none" stroke="#c99bff" stroke-width="2" opacity="0"/>
+      <!-- lightning bolts -->
+      <g id="heroBolts" opacity="0" stroke-linecap="round" fill="none" filter="drop-shadow(0 0 6px #f5f0ff)">
+        <path d="M150 192 L128 148 L144 148 L110 90" stroke="#f5f0ff" stroke-width="3.4"/>
+        <path d="M150 192 L176 142 L160 142 L192 82" stroke="#c99bff" stroke-width="3.4"/>
+        <path d="M150 192 L104 162 L92 162 L42 128" stroke="#f5f0ff" stroke-width="2.6"/>
+        <path d="M150 192 L198 166 L210 166 L258 134" stroke="#c99bff" stroke-width="2.6"/>
+        <path d="M150 192 L140 176 L124 178 L88 156" stroke="#f5f0ff" stroke-width="2"/>
+        <path d="M150 192 L160 176 L176 178 L212 156" stroke="#c99bff" stroke-width="2"/>
+        <path d="M150 192 L150 150 L138 150 L150 100" stroke="#f5f0ff" stroke-width="2.8"/>
+        <path d="M150 192 L152 145 L165 148 L172 96" stroke="#c99bff" stroke-width="2.2"/>
+      </g>
+      <!-- the wave -->
+      <path d="M0 195 Q75 172 150 192 T300 190 L300 220 L0 220 Z" fill="url(#waveGrad)"/>
+      <!-- glowing aura -->
+      <circle id="heroAura" cx="150" cy="130" r="0" fill="url(#auraGrad)" opacity="0"/>
+      <!-- GIF replaces the silhouette -->
+      <foreignObject x="70" y="20" width="160" height="175">
+        <img id="heroFigureInner" src="one-piece-gear-5.gif" alt="" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 20px rgba(168,85,247,.6))"/>
+      </foreignObject>
+    </svg>
+  </div>
 </div>
 
 <div id="vantaBg"></div>
 <canvas id="tickerCanvas"></canvas>
 <div class="vanta-cyan-tint"></div>
+<div class="light-rays"></div>
+<div class="water-shimmer"></div>
 <div class="corner-orb tl"></div>
 <div class="corner-orb tr"></div>
 <div class="corner-orb bl"></div>
@@ -520,6 +596,7 @@ body.intro-lock{overflow:hidden}
   <div class="sticky-frame hero-anchor-top">
     <div class="frame-inner">
       <div class="scene-text" id="t1">
+        <img class="hero-avatar" src="assets/profile.jpg" alt="Balloutt" onerror="this.style.display='none'">
         <p class="scene-label" style="color:var(--up)">// balloutt trades llc</p>
         <h1 class="scene-title">When your gains read like a <em>phone number.</em></h1>
         <p class="scene-sub">Full-time options trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
@@ -564,6 +641,7 @@ body.intro-lock{overflow:hidden}
           <a class="link" href="https://discord.gg/j823dz4HVd"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Balloutt Trades Server</div><div class="link-sub">Main server · 41K+ traders · free</div></div></a>
           <a class="link" href="https://discord.gg/9YXBKQHMyY"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div></a>
           <a class="link strix" href="https://strixoptionsfunding.com/?ref=balloutt"><span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><div><div class="link-title">Strix Options Funding <span class="tag">BTLLC</span></div><div class="link-sub">Get funded to trade options</div></div></a>
+          <a class="link" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener"><span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span><div><div class="link-title">How to Follow My Alerts <span class="tag">FREE</span></div><div class="link-sub">Full callouts guide · PDF</div></div></a>
         </div>
       </div>
     </div>
@@ -627,13 +705,27 @@ function playIntro(){
   var svg=document.getElementById('introSvg');
   var progressBar=document.getElementById('introProgressBar');
   var caption=document.getElementById('introCaption');
+  var heroScene=document.getElementById('introHeroScene');
+  var heroFigure=document.getElementById('heroFigureInner');
+  var heroBolts=document.getElementById('heroBolts');
+  var heroFlash=document.getElementById('heroFlash');
+  var heroFlash2=document.getElementById('heroFlash2');
+  var heroAura=document.getElementById('heroAura');
+  var flashFull=document.getElementById('introFlashFull');
   if(!overlay||!svg){ console.warn('playIntro(): intro elements not found in the DOM'); return; }
 
   svg.innerHTML=''; // clear any candles from a previous run
-  overlay.classList.remove('fade-out');
+  overlay.classList.remove('fade-out','shake');
   overlay.style.display='flex';
   if(progressBar) progressBar.style.width='0%';
   if(caption) caption.classList.remove('show');
+  if(heroScene) heroScene.classList.remove('show');
+  if(heroFigure) heroFigure.classList.remove('slam');
+  if(heroBolts) heroBolts.setAttribute('opacity','0');
+  if(heroFlash){ heroFlash.classList.remove('burst'); heroFlash.setAttribute('r','0'); heroFlash.setAttribute('opacity','0'); }
+  if(heroFlash2){ heroFlash2.classList.remove('burst'); heroFlash2.setAttribute('r','0'); heroFlash2.setAttribute('opacity','0'); }
+  if(heroAura){ heroAura.classList.remove('burst'); heroAura.setAttribute('r','0'); heroAura.setAttribute('opacity','0'); }
+  if(flashFull) flashFull.classList.remove('burst');
 
   console.log('%cplayIntro() started','color:#a855f7;font-weight:bold');
   document.body.classList.add('intro-lock');
@@ -722,6 +814,49 @@ function playIntro(){
 
   if(caption) setTimeout(function(){ caption.classList.add('show'); },250);
 
+  // ═══ Power-surge capstone: figure appears standing on the waves, slams down, the sea erupts ═══
+  var surgeStart=totalDuration+400;
+
+  setTimeout(function(){
+    if(heroScene) heroScene.classList.add('show');
+    if(caption){ caption.textContent='// the surge begins'; caption.classList.add('show'); }
+  }, surgeStart);
+
+  setTimeout(function(){
+    if(heroFigure) heroFigure.classList.add('slam');
+    if(overlay) overlay.classList.add('shake');
+    if(heroBolts) heroBolts.setAttribute('opacity','1');
+    if(flashFull){
+      flashFull.classList.add('burst');
+      setTimeout(function(){ flashFull.classList.remove('burst'); },120);
+    }
+    if(heroAura){
+      heroAura.setAttribute('opacity','1');
+      requestAnimationFrame(function(){ heroAura.classList.add('burst'); });
+    }
+    if(heroFlash){
+      heroFlash.setAttribute('opacity','1');
+      requestAnimationFrame(function(){ heroFlash.classList.add('burst'); });
+    }
+    if(heroFlash2){
+      heroFlash2.setAttribute('opacity','1');
+      requestAnimationFrame(function(){ heroFlash2.classList.add('burst'); });
+    }
+    setTimeout(function(){ overlay&&overlay.classList.remove('shake'); },600);
+    // bolts flicker a couple times for a jagged, electric feel rather than a flat fade
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.15'); },80);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },140);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.25'); },210);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },270);
+    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0'); },520);
+  }, surgeStart+900);
+
+  setTimeout(function(){
+    if(caption){ caption.textContent='// entering the portal'; }
+  }, surgeStart+1500);
+
+  var totalIntroDuration=surgeStart+2400;
+
   function finishIntro(){
     if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
     overlay.classList.add('fade-out');
@@ -729,7 +864,7 @@ function playIntro(){
     console.log('%cplayIntro() finished','color:#3ce88a;font-weight:bold');
     setTimeout(function(){ overlay.style.display='none'; },900);
   }
-  setTimeout(finishIntro, totalDuration+600);
+  setTimeout(finishIntro, totalIntroDuration);
   overlay.addEventListener('click',finishIntro); // tap anywhere to skip
 }
 window.playIntro=playIntro;
@@ -839,7 +974,7 @@ if(hasLenis){
   console.warn('Lenis did not load (CDN blocked or unreachable) — using native scroll instead.');
 }
 
-// ═══════ VANTA — 3D waves background, darkened so text stays readable ═══════
+// ═══════ VANTA — premium 3D waves, dialed for a rich cinematic look, darkened so text stays readable ═══════
 if(hasVanta){
   try{
     VANTA.WAVES({
@@ -851,11 +986,11 @@ if(hasVanta){
       minWidth:200.00,
       scale:1.0,
       scaleMobile:1.0,
-      color:0x0d0131,     // darker violet-black — was too light against text before
-      shininess:34,       // a bit more shine for choppier whitecap-style highlights
-      waveHeight:32,      // taller, rougher swells
-      waveSpeed:1.7,      // faster, more turbulent motion
-      zoom:0.85           // slightly closer, so the roughness reads clearly
+      color:0x150542,     // richer deep violet-blue, more premium than flat near-black
+      shininess:62,        // glossier, more defined light streaks across the swells
+      waveHeight:27,       // dramatic but elegant swells, not chaotic noise
+      waveSpeed:1.15,      // confident, cinematic motion rather than frantic chop
+      zoom:0.8
     });
   }catch(e){ console.warn('Vanta failed to initialize — background falls back to the orbs/glow only:',e); }
 }else{
