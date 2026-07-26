@@ -389,8 +389,6 @@ body.intro-lock{overflow:hidden}
         <path d="M150 192 L150 150 L138 150 L150 100" stroke="#f5f0ff" stroke-width="2.8"/>
         <path d="M150 192 L152 145 L165 148 L172 96" stroke="#c99bff" stroke-width="2.2"/>
       </g>
-      <!-- the wave -->
-      <path d="M0 195 Q75 172 150 192 T300 190 L300 220 L0 220 Z" fill="url(#waveGrad)"/>
       <!-- glowing aura -->
       <circle id="heroAura" cx="150" cy="130" r="0" fill="url(#auraGrad)" opacity="0"/>
       <!-- GIF is positioned via CSS, not inside the SVG -->
@@ -860,6 +858,8 @@ function playIntro(){
     if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
     overlay.classList.add('fade-out');
     document.body.classList.remove('intro-lock');
+    var gif=document.getElementById('heroFigureInner');
+    if(gif) gif.style.display='none';
     console.log('%cplayIntro() finished','color:#3ce88a;font-weight:bold');
     setTimeout(function(){ overlay.style.display='none'; },400);
   }
