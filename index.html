@@ -36,7 +36,8 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 
 /* dark overlay — sits between the moving Vanta background and all foreground content */
 .dark-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:rgba(5,1,16,.48)}
-.ring-container svg{width:min(500px,70vw);height:min(500px,70vw)}
+.ring-container svg{width:min(500px,70vw);height:min(500px,70vw);
+  transform:perspective(900px) rotateX(10deg) rotateY(-4deg);transform-style:preserve-3d}
 #candleGroup .num,#candleGroup .word{paint-order:stroke;stroke:#050110;stroke-width:3px;stroke-linejoin:round}
 #candleGroup .word{font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 #formPlus{filter:drop-shadow(0 0 18px rgba(168,85,247,.55))}
@@ -60,6 +61,58 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
   50%{transform:scale(1.18);opacity:.22}
 }
 @media(max-width:700px){.corner-orb{filter:blur(60px)}.corner-orb.tl,.corner-orb.tr{width:50vw;height:50vw}.corner-orb.bl,.corner-orb.br{width:46vw;height:46vw}}
+
+/* ═══════ Ocean scene — "teach a man to fish": boats, fish, and sharks drift through the waves ═══════ */
+.sea-creature{position:fixed;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+
+@keyframes drift-right{0%{left:-16vw}100%{left:116vw}}
+@keyframes drift-left{0%{left:116vw}100%{left:-16vw}}
+@keyframes creature-bob{
+  0%,100%{transform:perspective(500px) rotateY(-6deg) rotateX(4deg) translateY(0) rotate(-3deg)}
+  50%{transform:perspective(500px) rotateY(10deg) rotateX(-4deg) translateY(-8px) rotate(3deg)}
+}
+@keyframes creature-bob-flip{
+  0%,100%{transform:perspective(500px) scaleX(-1) rotateY(-6deg) rotateX(4deg) translateY(0) rotate(3deg)}
+  50%{transform:perspective(500px) scaleX(-1) rotateY(10deg) rotateX(-4deg) translateY(-8px) rotate(-3deg)}
+}
+@keyframes fish-bob{
+  0%,100%{transform:perspective(400px) rotateY(-10deg) translateY(0)}
+  50%{transform:perspective(400px) rotateY(16deg) translateY(-4px)}
+}
+@keyframes fish-bob-flip{
+  0%,100%{transform:perspective(400px) scaleX(-1) rotateY(-10deg) translateY(0)}
+  50%{transform:perspective(400px) scaleX(-1) rotateY(16deg) translateY(-4px)}
+}
+.fish-tail{transform-origin:50px 12px;animation:tail-swish .5s ease-in-out infinite}
+.shark-tail{transform-origin:120px 30px;animation:tail-swish-shark .8s ease-in-out infinite}
+@keyframes tail-swish{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
+@keyframes tail-swish-shark{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(11deg)}}
+
+/* boats — big to small, slow to lively */
+.boat-lg{width:110px;height:110px;top:56%;opacity:.62;animation:drift-right 58s linear infinite, creature-bob 4.2s ease-in-out infinite}
+.boat-xl{width:150px;height:150px;top:65%;opacity:.55;animation:drift-left 64s linear infinite 12s, creature-bob-flip 4.6s ease-in-out infinite}
+.boat-sm2{width:36px;height:36px;top:22%;opacity:.4;animation:drift-left 20s linear infinite 14s, creature-bob-flip 2.4s ease-in-out infinite}
+.boat-md{width:68px;height:68px;top:76%;opacity:.5;animation:drift-left 36s linear infinite 4s, creature-bob-flip 3.3s ease-in-out infinite}
+.boat-sm{width:42px;height:42px;top:38%;opacity:.42;animation:drift-right 24s linear infinite 9s, creature-bob 2.6s ease-in-out infinite}
+
+/* fish — small schools drifting at different depths and speeds */
+.fish{width:48px;height:19px;opacity:.4}
+.fish1{top:28%;animation:drift-right 21s linear infinite, fish-bob-flip 2s ease-in-out infinite}
+.fish2{top:31%;animation:drift-right 21s linear infinite 1.4s, fish-bob-flip 2.2s ease-in-out infinite .3s}
+.fish3{top:83%;animation:drift-left 27s linear infinite 5s, fish-bob 2.4s ease-in-out infinite}
+.fish4{top:18%;animation:drift-left 18s linear infinite 8s, fish-bob 1.8s ease-in-out infinite .5s}
+
+/* sharks — bigger, slower, more ominous */
+.shark{width:150px;height:62px;opacity:.34}
+.shark1{top:47%;animation:drift-right 72s linear infinite 6s, creature-bob-flip 5.2s ease-in-out infinite}
+.shark2{top:90%;animation:drift-left 80s linear infinite 24s, creature-bob 5.8s ease-in-out infinite}
+
+@media(max-width:700px){
+  .boat-lg{width:76px;height:76px} .boat-md{width:50px;height:50px} .boat-sm{width:32px;height:32px}
+  .boat-xl{width:100px;height:100px} .boat-sm2{width:26px;height:26px}
+  .fish{width:34px;height:14px} .shark{width:104px;height:44px}
+}
+
 
 /* grid bg */
 .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;
@@ -231,22 +284,44 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overfl
 @media(max-width:500px){.ring-container{left:50%}.frame-inner{padding:0 16px}}
 /* ═══════ Intro — candlestick chart spells out the brand name on load ═══════ */
 body.intro-lock{overflow:hidden}
-#introOverlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:22px;
+#introOverlay{position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(ellipse at 50% 50%,rgba(20,4,54,.55) 0%,rgba(5,1,16,.82) 75%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
   transition:opacity .85s ease;cursor:pointer}
 #introOverlay.fade-out{opacity:0;pointer-events:none}
 #introSvg{width:min(92vw,720px);height:auto;overflow:visible}
 #introSvg .candle{filter:drop-shadow(0 0 6px currentColor)}
-.intro-progress{width:min(60vw,320px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden}
+.intro-progress{width:min(60vw,320px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden;position:relative;z-index:1}
 .intro-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up))}
 .intro-caption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.35em;
-  text-transform:uppercase;color:var(--faint);opacity:0;transition:opacity .6s ease}
+  text-transform:uppercase;color:var(--faint);opacity:0;transition:opacity .6s ease;position:relative;z-index:1}
 .intro-caption.show{opacity:1}
+/* cosmic twinkling stars layered inside the intro, so it stays animated/engaging while typing plays */
+.intro-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.intro-star{position:absolute;border-radius:50%;background:#fff;animation:intro-twinkle ease-in-out infinite}
+@keyframes intro-twinkle{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.9;transform:scale(1.5)}}
 </style>
 </head>
 <body>
 <!-- ═══════ Intro — candlesticks spell out the brand name, then fade into the site ═══════ -->
 <div id="introOverlay">
+  <div class="intro-stars">
+    <div class="intro-star" style="top:8%;left:12%;width:2px;height:2px;animation-duration:2.4s"></div>
+    <div class="intro-star" style="top:18%;left:78%;width:3px;height:3px;animation-duration:3.1s;animation-delay:.4s"></div>
+    <div class="intro-star" style="top:64%;left:6%;width:2px;height:2px;animation-duration:2.7s;animation-delay:.9s"></div>
+    <div class="intro-star" style="top:72%;left:90%;width:2px;height:2px;animation-duration:3.4s;animation-delay:.2s"></div>
+    <div class="intro-star" style="top:30%;left:22%;width:1.5px;height:1.5px;animation-duration:2.2s;animation-delay:1.1s"></div>
+    <div class="intro-star" style="top:12%;left:55%;width:2.5px;height:2.5px;animation-duration:2.9s;animation-delay:.6s"></div>
+    <div class="intro-star" style="top:85%;left:38%;width:2px;height:2px;animation-duration:2.5s;animation-delay:1.4s"></div>
+    <div class="intro-star" style="top:45%;left:88%;width:1.5px;height:1.5px;animation-duration:3.2s;animation-delay:.3s"></div>
+    <div class="intro-star" style="top:55%;left:15%;width:3px;height:3px;animation-duration:2.8s;animation-delay:1.7s"></div>
+    <div class="intro-star" style="top:22%;left:65%;width:2px;height:2px;animation-duration:2.3s;animation-delay:.8s"></div>
+    <div class="intro-star" style="top:92%;left:70%;width:2px;height:2px;animation-duration:3.0s;animation-delay:1.2s"></div>
+    <div class="intro-star" style="top:5%;left:35%;width:1.5px;height:1.5px;animation-duration:2.6s;animation-delay:.5s"></div>
+    <div class="intro-star" style="top:38%;left:5%;width:2.5px;height:2.5px;animation-duration:3.3s;animation-delay:1.6s"></div>
+    <div class="intro-star" style="top:68%;left:55%;width:2px;height:2px;animation-duration:2.5s;animation-delay:.1s"></div>
+    <div class="intro-star" style="top:15%;left:92%;width:2px;height:2px;animation-duration:2.9s;animation-delay:1.0s"></div>
+  </div>
   <svg id="introSvg" viewBox="0 0 100 20" preserveAspectRatio="xMidYMid meet"></svg>
   <div class="intro-progress"><div class="intro-progress-bar" id="introProgressBar"></div></div>
   <p class="intro-caption" id="introCaption">// entering the portal</p>
@@ -259,6 +334,148 @@ body.intro-lock{overflow:hidden}
 <div class="corner-orb tr"></div>
 <div class="corner-orb bl"></div>
 <div class="corner-orb br"></div>
+
+<!-- ═══════ Ocean scene — boats, fish, and sharks drifting through the wave background ═══════ -->
+<!-- Big boat -->
+<svg class="sea-creature boat-lg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="hullGradLg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d9bfff"/><stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="sailGradLg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#d9c8f5"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="46" cy="82" rx="20" ry="2.4" fill="rgba(255,255,255,.18)"/>
+  <ellipse cx="70" cy="80" rx="10" ry="1.6" fill="rgba(255,255,255,.12)"/>
+  <path d="M15 72 C30 89,70 89,85 72 L78 79 C65 85,35 85,22 79 Z" fill="url(#hullGradLg)"/>
+  <path d="M22 79 C35 85,65 85,78 79 L76 81 C64 86,36 86,24 81 Z" fill="rgba(30,10,60,.35)"/>
+  <line x1="50" y1="72" x2="50" y2="14" stroke="#f0eaff" stroke-width="2" stroke-linecap="round"/>
+  <path d="M51 17 L51 66 L86 63 Z" fill="url(#sailGradLg)"/>
+  <line x1="51" y1="17" x2="51" y2="66" stroke="#fff" stroke-width=".6" opacity=".8"/>
+  <path d="M49 28 L49 64 L18 60 Z" fill="rgba(201,155,255,.85)"/>
+  <path d="M50 14 L58 16 L50 20 Z" fill="#ff3b4e"/>
+  <circle cx="50" cy="14" r="2.4" fill="#f0eaff"/>
+</svg>
+<!-- Medium boat -->
+<svg class="sea-creature boat-md" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="hullGradMd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fe9fb"/><stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="sailGradMd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#cdeaff"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="50" cy="80" rx="16" ry="2" fill="rgba(255,255,255,.16)"/>
+  <path d="M18 70 C32 85,68 85,82 70 L76 76 C64 81,36 81,24 76 Z" fill="url(#hullGradMd)"/>
+  <path d="M24 76 C36 81,64 81,76 76 L74 78 C63 82,37 82,26 78 Z" fill="rgba(20,30,60,.3)"/>
+  <line x1="50" y1="70" x2="50" y2="22" stroke="#f0eaff" stroke-width="2" stroke-linecap="round"/>
+  <path d="M51 25 L51 64 L80 61 Z" fill="url(#sailGradMd)"/>
+  <path d="M50 22 L57 24 L50 27 Z" fill="#3ce88a"/>
+</svg>
+<!-- Small boat -->
+<svg class="sea-creature boat-sm" viewBox="0 0 100 100">
+  <defs><linearGradient id="hullGradSm" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e6d4ff"/><stop offset="100%" stop-color="#8b5cf6"/>
+  </linearGradient></defs>
+  <path d="M20 68 C34 82,66 82,80 68 L74 74 C62 79,38 79,26 74 Z" fill="url(#hullGradSm)"/>
+  <path d="M26 74 C38 79,62 79,74 74 L72 76 C61 80,39 80,28 76 Z" fill="rgba(30,10,60,.3)"/>
+  <line x1="50" y1="68" x2="50" y2="30" stroke="#f0eaff" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M51 32 L51 62 L76 59 Z" fill="rgba(240,234,255,.9)"/>
+</svg>
+<!-- Extra-large flagship boat -->
+<svg class="sea-creature boat-xl" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="hullGradXl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe29a"/><stop offset="100%" stop-color="#8b3fd6"/>
+    </linearGradient>
+    <linearGradient id="sailGradXl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffe6b0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="50" cy="86" rx="24" ry="2.8" fill="rgba(255,255,255,.2)"/>
+  <ellipse cx="78" cy="84" rx="11" ry="1.8" fill="rgba(255,255,255,.13)"/>
+  <path d="M12 74 C28 92,72 92,88 74 L80 81 C66 87,34 87,20 81 Z" fill="url(#hullGradXl)"/>
+  <path d="M20 81 C34 87,66 87,80 81 L78 83 C65 88,35 88,22 83 Z" fill="rgba(30,10,60,.35)"/>
+  <line x1="50" y1="74" x2="50" y2="10" stroke="#f0eaff" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M51 13 L51 68 L90 64 Z" fill="url(#sailGradXl)"/>
+  <line x1="51" y1="13" x2="51" y2="68" stroke="#fff" stroke-width=".6" opacity=".8"/>
+  <path d="M49 26 L49 66 L14 62 Z" fill="rgba(255,201,60,.8)"/>
+  <path d="M50 10 L60 13 L50 16 Z" fill="#a855f7"/>
+  <circle cx="50" cy="10" r="2.6" fill="#f0eaff"/>
+</svg>
+<!-- Second small boat, quick and lively -->
+<svg class="sea-creature boat-sm2" viewBox="0 0 100 100">
+  <defs><linearGradient id="hullGradSm2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#b9f8d3"/><stop offset="100%" stop-color="#159a56"/>
+  </linearGradient></defs>
+  <path d="M20 68 C34 82,66 82,80 68 L74 74 C62 79,38 79,26 74 Z" fill="url(#hullGradSm2)"/>
+  <path d="M26 74 C38 79,62 79,74 74 L72 76 C61 80,39 80,28 76 Z" fill="rgba(10,40,25,.3)"/>
+  <line x1="50" y1="68" x2="50" y2="30" stroke="#f0eaff" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M51 32 L51 62 L76 59 Z" fill="rgba(240,234,255,.9)"/>
+</svg>
+
+<!-- Fish, swimming in a small school at different depths -->
+<svg class="sea-creature fish fish1" viewBox="0 0 60 24">
+  <defs><linearGradient id="fishGrad1" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#7dfbff"/><stop offset="100%" stop-color="#0e93a8"/>
+  </linearGradient></defs>
+  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad1)"/>
+  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad1)"/>
+  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
+  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
+</svg>
+<svg class="sea-creature fish fish2" viewBox="0 0 60 24">
+  <defs><linearGradient id="fishGrad2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e6d4ff"/><stop offset="100%" stop-color="#7c3aed"/>
+  </linearGradient></defs>
+  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad2)"/>
+  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad2)"/>
+  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
+  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
+</svg>
+<svg class="sea-creature fish fish3" viewBox="0 0 60 24">
+  <defs><linearGradient id="fishGrad3" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#a4f7c8"/><stop offset="100%" stop-color="#159a56"/>
+  </linearGradient></defs>
+  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad3)"/>
+  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad3)"/>
+  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
+  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
+</svg>
+<svg class="sea-creature fish fish4" viewBox="0 0 60 24">
+  <defs><linearGradient id="fishGrad4" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#d9b3ff"/><stop offset="100%" stop-color="#6d1fb0"/>
+  </linearGradient></defs>
+  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad4)"/>
+  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad4)"/>
+  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
+  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
+</svg>
+
+<!-- Sharks — bigger, slower, gliding menacingly through the deep -->
+<svg class="sea-creature shark shark1" viewBox="0 0 140 60">
+  <defs><linearGradient id="sharkGrad1" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#9d7ae0"/><stop offset="100%" stop-color="#3a2064"/>
+  </linearGradient></defs>
+  <path d="M5 40 C30 15,90 15,130 32 C110 46,60 52,30 48 C18 46,10 44,5 40 Z" fill="url(#sharkGrad1)"/>
+  <path d="M55 20 L70 2 L78 22 Z" fill="url(#sharkGrad1)"/>
+  <path class="shark-tail" d="M120 30 L138 22 L128 40 Z" fill="url(#sharkGrad1)"/>
+  <ellipse cx="55" cy="24" rx="30" ry="4" fill="rgba(255,255,255,.22)"/>
+  <circle cx="20" cy="34" r="2" fill="#050110"/>
+</svg>
+<svg class="sea-creature shark shark2" viewBox="0 0 140 60">
+  <defs><linearGradient id="sharkGrad2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#7c5cc4"/><stop offset="100%" stop-color="#211140"/>
+  </linearGradient></defs>
+  <path d="M5 40 C30 15,90 15,130 32 C110 46,60 52,30 48 C18 46,10 44,5 40 Z" fill="url(#sharkGrad2)"/>
+  <path d="M55 20 L70 2 L78 22 Z" fill="url(#sharkGrad2)"/>
+  <path class="shark-tail" d="M120 30 L138 22 L128 40 Z" fill="url(#sharkGrad2)"/>
+  <ellipse cx="55" cy="24" rx="30" ry="4" fill="rgba(255,255,255,.2)"/>
+  <circle cx="20" cy="34" r="2" fill="#050110"/>
+</svg>
+
 <div class="progress" id="prog"></div>
 <div class="grid-bg"></div>
 <div class="theme-glow" id="themeGlow"></div>
@@ -320,9 +537,10 @@ body.intro-lock{overflow:hidden}
         <p class="scene-label">// verified results</p>
         <h1 class="scene-title">Recent <em>Highlights</em></h1>
         <div class="card-row">
-          <div class="card" id="c1"><div class="card-pct">+219,829%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></div>
-          <div class="card" id="c2"><div class="card-pct">+11,172%</div><div class="card-label">June 2026 Recap</div></div>
-          <div class="card" id="c3"><div class="card-pct">+12,240%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
+          <div class="card" id="c1"><div class="card-pct" data-target="219829" data-decimals="0">+0%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></div>
+          <div class="card" id="c2"><div class="card-pct" data-target="11172" data-decimals="0">+0%</div><div class="card-label">June 2026 Recap</div></div>
+          <div class="card" id="c3"><div class="card-pct" data-target="12240" data-decimals="0">+0%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
+          <div class="card" id="c4"><div class="card-pct" data-target="1083.33" data-decimals="2">+0%</div><div class="card-label">The 2-Day Run · TSLA &amp; META · Jul 22–24</div></div>
         </div>
       </div>
       <!-- proof wall lives OUTSIDE the scroll-gated text block, so it's always fully visible —
@@ -438,8 +656,8 @@ function playIntro(){
   var TEXT='BALLOUTT TRADES LLC';
   var ROWS=7, COLS=5, CELL=10, LETTER_GAP=1, SPACE_W=3;
 
-  var upColor=getComputedStyle(document.documentElement).getPropertyValue('--up').trim()||'#3ce88a';
-  var downColor=getComputedStyle(document.documentElement).getPropertyValue('--ember').trim()||'#ff3b4e';
+  var upColor='#c99bff';   // soft violet — matches --vb, replacing the market green
+  var downColor='#f5f0ff'; // near-white lavender, replacing the market red
 
   // lay out every candle's grid position, and which character index (letter) it belongs to
   var candles=[], cursorX=0, byChar={};
@@ -634,10 +852,10 @@ if(hasVanta){
       scale:1.0,
       scaleMobile:1.0,
       color:0x0d0131,     // darker violet-black — was too light against text before
-      shininess:25,       // lower shininess = fewer bright highlight patches
-      waveHeight:18,
-      waveSpeed:1.2,
-      zoom:0.7
+      shininess:34,       // a bit more shine for choppier whitecap-style highlights
+      waveHeight:32,      // taller, rougher swells
+      waveSpeed:1.7,      // faster, more turbulent motion
+      zoom:0.85           // slightly closer, so the roughness reads clearly
     });
   }catch(e){ console.warn('Vanta failed to initialize — background falls back to the orbs/glow only:',e); }
 }else{
@@ -656,7 +874,7 @@ var candleGroup=document.getElementById('candleGroup');
 var formPlus=document.getElementById('formPlus');
 var scenes=[
   {el:document.getElementById('s1'),text:document.getElementById('t1'),items:[],fired:false},
-  {el:document.getElementById('s2'),text:document.getElementById('t2'),items:['#c1','#c2','#c3'],fired:false},
+  {el:document.getElementById('s2'),text:document.getElementById('t2'),items:['#c1','#c2','#c3','#c4'],fired:false},
   {el:document.getElementById('s3'),text:document.getElementById('t3'),items:['#s3 .link'],fired:false},
   {el:document.getElementById('s4'),text:document.getElementById('t4'),items:['#s4 .shop'],fired:false},
   {el:document.getElementById('s5'),text:document.getElementById('t5'),items:['#s5 .soc'],fired:false},
@@ -1000,6 +1218,65 @@ var STAT_BADGES=[
       else spawnFloatingBadge();
     }
   },{passive:true});
+})();
+
+// ═══════ COUNT-UP STATS — highlight card numbers animate from 0 to their real value ═══════
+(function(){
+  var counters=document.querySelectorAll('.card-pct[data-target]');
+  if(!counters.length) return;
+
+  function formatNum(v,decimals){
+    var s=v.toFixed(decimals);
+    var parts=s.split('.');
+    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    return parts.join('.');
+  }
+
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-target'));
+    var decimals=parseInt(el.getAttribute('data-decimals')||'0',10);
+    var dur=1650, start=performance.now();
+    function tick(now){
+      var t=Math.min(1,(now-start)/dur);
+      var eased=1-Math.pow(1-t,3); // easeOutCubic — fast start, gentle settle
+      el.textContent='+'+formatNum(target*eased,decimals)+'%';
+      if(t<1) requestAnimationFrame(tick);
+      else el.textContent='+'+formatNum(target,decimals)+'%';
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ animateCount(entry.target); io.unobserve(entry.target); }
+      });
+    },{threshold:0.35});
+    counters.forEach(function(el){ io.observe(el); });
+  }else{
+    counters.forEach(animateCount); // very old browsers: just count up immediately
+  }
+})();
+
+// ═══════ 3D TILT-ON-HOVER — cards/links/shop tiles tilt toward the cursor ═══════
+(function(){
+  if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return; // skip on touch devices
+  var els=document.querySelectorAll('.card, .shop, .link');
+  els.forEach(function(el){
+    el.style.transformStyle='preserve-3d';
+    el.addEventListener('mousemove',function(e){
+      var rect=el.getBoundingClientRect();
+      var x=e.clientX-rect.left, y=e.clientY-rect.top;
+      var rotY=((x-rect.width/2)/(rect.width/2))*7;
+      var rotX=-((y-rect.height/2)/(rect.height/2))*7;
+      el.style.setProperty('transform',
+        'perspective(700px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) translateY(-4px) scale(1.015)',
+        'important');
+    });
+    el.addEventListener('mouseleave',function(){
+      el.style.removeProperty('transform');
+    });
+  });
 })();
 
 // ═══════ AI CHAT ═══════
