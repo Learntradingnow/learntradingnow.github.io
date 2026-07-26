@@ -717,7 +717,7 @@ function playIntro(){
   overlay.style.display='flex';
   if(progressBar) progressBar.style.width='0%';
   if(caption) caption.classList.remove('show');
-  if(heroScene) heroScene.classList.remove('show');
+  if(heroScene) heroScene.classList.add('show');
   if(heroFigure) heroFigure.classList.remove('slam');
   if(heroBolts) heroBolts.setAttribute('opacity','0');
   if(heroFlash){ heroFlash.classList.remove('burst'); heroFlash.setAttribute('r','0'); heroFlash.setAttribute('opacity','0'); }
@@ -816,7 +816,7 @@ function playIntro(){
   var surgeStart=totalDuration+400;
 
   setTimeout(function(){
-    if(heroScene) heroScene.classList.add('show');
+    // GIF is already playing — now trigger the lightning/surge effects on top of it
     if(caption){ caption.textContent='// the surge begins'; caption.classList.add('show'); }
   }, surgeStart);
 
