@@ -342,6 +342,98 @@ body.intro-lock{overflow:hidden}
   .intro-progress{width:70vw}
   .intro-caption{font-size:8px;letter-spacing:.25em}
 }
+
+/* ═══════ MOBILE OVERHAUL ═══════ */
+@media(max-width:600px){
+  /* layout */
+  .frame-inner{padding:0 14px!important}
+  .scroll-spacer{min-height:auto!important;height:auto!important;padding:60px 0}
+  .scroll-spacer.short{padding:40px 0}
+  .sticky-frame{position:relative!important;height:auto!important;min-height:auto!important;padding:20px 0}
+
+  /* typography */
+  .scene-title{font-size:clamp(22px,6vw,32px)!important;line-height:1.1}
+  .scene-sub{font-size:13px}
+  .scene-label{font-size:8px;letter-spacing:.2em}
+  .section-head{font-size:clamp(20px,5vw,28px)!important}
+
+  /* cards */
+  .card{padding:14px}
+  .card-pct{font-size:20px!important}
+  .card-label{font-size:9px}
+
+  /* links */
+  .link-card,.link{padding:12px 14px;gap:10px}
+  .link-icon{width:34px;height:34px}
+  .link-icon svg{width:16px;height:16px}
+  .link-title{font-size:13px}
+  .link-sub{font-size:9px}
+  .tag{font-size:7px;padding:2px 5px}
+
+  /* socials — stack vertically on small screens */
+  .socials{flex-direction:column;gap:8px;align-items:stretch}
+  .soc{width:auto!important;padding:10px 14px!important;justify-content:flex-start}
+  .soc span{font-size:11px!important}
+
+  /* shop */
+  .shop,.shop-card{padding:16px}
+  .shop-name{font-size:15px}
+  .shop-price{font-size:18px}
+  .shop-desc{font-size:11px}
+  .shop-features li{font-size:11px}
+  .shop-cta{font-size:12px;padding:10px}
+
+  /* stats */
+  .stats-row{gap:8px}
+  .stat{padding:10px 14px;min-width:80px}
+  .stat-num{font-size:16px!important}
+  .stat-label{font-size:8px}
+
+  /* ring - smaller and centered on mobile */
+  .ring-container{left:50%!important;opacity:.3!important}
+  .ring-container svg{width:60vw!important;height:60vw!important}
+
+  /* hero avatar */
+  .hero-avatar{width:60px!important;height:60px!important}
+
+  /* chat panel - full width on mobile */
+  .chat-panel{right:6px!important;left:6px!important;bottom:72px!important;width:auto!important;
+    max-width:none!important;height:50vh!important;border-radius:14px}
+  .chat-btn{right:12px;bottom:12px;width:46px;height:46px;font-size:18px}
+  .chat-input{font-size:14px;padding:10px 14px}
+
+  /* disclaimer */
+  .disc-bar{margin-top:14px}
+  .disclaimer-bar{margin-top:14px}
+
+  /* floating symbols - fewer on mobile to reduce clutter */
+  .float-proof,.float-badge{display:none!important}
+
+  /* profit wall */
+  .wall-grid{column-count:2!important}
+
+  /* CTA button */
+  .cta{padding:12px 20px;font-size:12px}
+
+  /* prevent horizontal overflow */
+  body{overflow-x:hidden!important}
+  *{max-width:100vw}
+
+  /* touch-friendly tap targets */
+  .link-card,.link,.card,.shop,.shop-card,.soc,.stat,.cta,.shop-cta,.chat-btn,.chat-send,.chat-close{
+    min-height:44px}
+}
+
+/* extra small phones */
+@media(max-width:380px){
+  .scene-title{font-size:20px!important}
+  .card-pct{font-size:18px!important}
+  .frame-inner{padding:0 10px!important}
+  .socials .soc span{font-size:10px!important}
+  .shop-price{font-size:16px}
+  .stat{min-width:70px;padding:8px 10px}
+  .stat-num{font-size:14px!important}
+}
 /* cosmic twinkling stars layered inside the intro, so it stays animated/engaging while typing plays */
 .intro-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .intro-star{position:absolute;border-radius:50%;background:#fff;animation:intro-twinkle ease-in-out infinite}
@@ -1456,6 +1548,102 @@ function chat(){
     c.innerHTML+='<div class="chat-msg bot">'+r+'</div>';c.scrollTop=c.scrollHeight;
   },500);
 }
+
+// ═══════ PREMIUM MOTION UPGRADES ═══════
+
+// 1. Floating avatar — gentle bob + rotate like floating in space
+(function(){
+  var av=document.querySelector('.hero-avatar');
+  if(!av||typeof anime==='undefined') return;
+  anime({targets:av,translateY:function(){return anime.random(-8,8)},
+    rotateZ:function(){return anime.random(-3,3)},
+    duration:function(){return anime.random(3000,5000)},
+    easing:'spring(1,40,14,0)',loop:true,direction:'alternate'});
+})();
+
+// 2. Scroll-driven spin — stats/ring rotate as you scroll
+(function(){
+  var ring=document.querySelector('.ring-container svg, #rArc1');
+  var stats=document.querySelectorAll('.stat, .stat-num');
+  window.addEventListener('scroll',function(){
+    var p=window.pageYOffset/(document.documentElement.scrollHeight-window.innerHeight);
+    if(ring) ring.style.transform='rotate('+(p*720)+'deg)';
+    stats.forEach(function(s,i){
+      s.style.transform='rotateY('+(p*360*(i%2===0?1:-1))+'deg)';
+    });
+  },{passive:true});
+})();
+
+// 3. Floating symbols — $, 📈, 🚀, 💰, 🔥 drift up behind everything
+(function(){
+  var symbols=['$','📈','🚀','💰','🔥','💎','📊','+%','$$','⚡'];
+  function spawnSymbol(){
+    var s=document.createElement('div');
+    s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    s.style.cssText='position:fixed;z-index:0;pointer-events:none;font-size:'+(14+Math.random()*18)+'px;'+
+      'left:'+(Math.random()*100)+'vw;bottom:-30px;opacity:0;';
+    document.body.appendChild(s);
+    if(typeof anime!=='undefined'){
+      anime({targets:s,translateY:[0,-(window.innerHeight+60)],opacity:[{value:.25,duration:300},{value:0,duration:300,delay:4000}],
+        rotate:anime.random(-45,45),duration:5000+Math.random()*4000,easing:'linear',
+        complete:function(){s.remove()}});
+    }
+  }
+  setInterval(spawnSymbol,1800);
+  spawnSymbol();
+})();
+
+// 4. Spring hover effects — cards tilt and lift
+(function(){
+  if(typeof anime==='undefined') return;
+  document.querySelectorAll('.card,.link-card,.link,.shop-card,.shop,.soc,.stat').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,translateY:-6,scale:1.02,duration:400,easing:'spring(1,90,12,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,translateY:0,scale:1,duration:500,easing:'spring(1,60,14,0)'});
+    });
+  });
+  // social icons spin on hover
+  document.querySelectorAll('.soc').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      anime.remove(el);
+      anime({targets:el,rotate:'1turn',scale:1.15,duration:600,easing:'spring(1,90,10,0)'});
+    });
+    el.addEventListener('mouseleave',function(){
+      anime.remove(el);
+      anime({targets:el,rotate:0,scale:1,duration:500,easing:'spring(1,70,14,0)'});
+    });
+  });
+})();
+
+// 5. Stagger reveal on scroll for any elements not yet animated
+(function(){
+  if(typeof anime==='undefined') return;
+  function revealBatch(selector){
+    var els=document.querySelectorAll(selector);
+    if(!els.length) return;
+    var fired=false;
+    var obs=new IntersectionObserver(function(entries){
+      if(fired) return;
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        fired=true;
+        anime({targets:selector,translateY:[40,0],opacity:[0,1],duration:700,
+          delay:anime.stagger(120),easing:'spring(1,80,10,0)'});
+      });
+    },{threshold:0.1});
+    els.forEach(function(el){
+      if(getComputedStyle(el).opacity==='1') return; // already visible
+      el.style.opacity='0';
+      obs.observe(el);
+    });
+  }
+  revealBatch('.shop-card,.shop');
+})();
+
 </script>
 </body>
 </html>
