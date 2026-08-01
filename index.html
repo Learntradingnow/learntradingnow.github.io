@@ -102,8 +102,6 @@ em{color:var(--vb);font-style:normal}
 .hero{padding-top:64px;text-align:left}
 .avatar-wrap{position:relative;width:64px;height:64px;margin-bottom:20px;animation:bob 5s ease-in-out infinite}
 .hero-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);position:relative;z-index:1}
-.hero-ring{position:absolute;top:50%;left:50%;width:104px;height:104px;transform:translate(-50%,-50%);animation:ring-spin 14s linear infinite;opacity:.8}
-@keyframes ring-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .cta{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:13px 26px;border-radius:999px;
   background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px;
@@ -117,11 +115,6 @@ em{color:var(--vb);font-style:normal}
 .stat-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;color:var(--up)}
 .stat-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:3px}
 
-/* tiny decorative candlestick strip — brand flavor, purely CSS-animated, not scroll-tied */
-.candle-strip{display:flex;align-items:flex-end;gap:5px;height:60px;margin-top:36px;opacity:.85}
-.candle-strip i{display:block;width:7px;border-radius:2px;background:var(--up);animation:candle-pulse 2.6s ease-in-out infinite}
-.candle-strip i.down{background:var(--ember)}
-@keyframes candle-pulse{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.14)}}
 
 /* ══════════════════════ HIGHLIGHT CARDS ══════════════════════ */
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
@@ -229,15 +222,30 @@ em{color:var(--vb);font-style:normal}
 
 /* ══════════════════════ INTRO (short, CSS-driven, skippable) ══════════════════════ */
 #intro{position:fixed;inset:0;z-index:999;background:#050110;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:18px;cursor:pointer;transition:opacity .5s ease}
+  gap:20px;cursor:pointer;transition:opacity .5s ease;overflow:hidden}
 #intro.fade{opacity:0;pointer-events:none}
-.intro-word{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:clamp(18px,5vw,28px);letter-spacing:.12em;display:flex}
-.intro-word span{opacity:0;transform:translateY(10px);animation:letter-in .5s var(--ease) forwards;background:linear-gradient(135deg,var(--up),var(--cyan),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro-glow{position:absolute;width:min(70vw,520px);height:min(70vw,520px);border-radius:50%;
+  background:radial-gradient(circle,rgba(168,85,247,.28),transparent 70%);filter:blur(50px);
+  animation:glow-pulse 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes glow-pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.1)}}
+.intro-candles{display:flex;align-items:flex-end;gap:5px;height:38px;position:relative;z-index:1}
+.intro-candles i{display:block;width:6px;border-radius:2px;background:var(--ember);opacity:0;transform:scaleY(0);
+  transform-origin:bottom;animation:candle-rise .45s var(--ease) forwards}
+.intro-candles i.down{background:var(--up)}
+@keyframes candle-rise{to{opacity:1;transform:scaleY(1)}}
+.intro-word{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.intro-line{display:flex;flex-wrap:wrap;justify-content:center;gap:.05em;font-family:"JetBrains Mono",monospace;
+  font-weight:800;font-size:clamp(20px,6.5vw,34px);letter-spacing:.06em}
+.intro-line span{opacity:0;transform:translateY(10px);animation:letter-in .5s var(--ease) forwards;
+  background:linear-gradient(135deg,var(--up),var(--cyan),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro-line .sp{width:.4em}
 @keyframes letter-in{to{opacity:1;transform:translateY(0)}}
-.intro-bar{width:min(50vw,220px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden}
-.intro-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--up),var(--cyan),var(--v));animation:intro-fill 1.5s ease-out forwards .2s}
+.intro-suffix{font-family:"JetBrains Mono",monospace;font-size:clamp(10px,2.4vw,13px);letter-spacing:.5em;
+  color:var(--faint);opacity:0;animation:fade-in .5s ease forwards}
+.intro-bar{width:min(50vw,220px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden;position:relative;z-index:1}
+.intro-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--up),var(--cyan),var(--v));animation:intro-fill 1.9s ease-out forwards .2s}
 @keyframes intro-fill{to{width:100%}}
-.intro-tap{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);opacity:0;animation:fade-in .4s ease forwards 1.2s}
+.intro-tap{position:relative;z-index:1;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);opacity:0;animation:fade-in .4s ease forwards 1.8s}
 @keyframes fade-in{to{opacity:1}}
 </style>
 </head>
@@ -251,7 +259,12 @@ em{color:var(--vb);font-style:normal}
 
 <!-- ═══ Intro — quick brand reveal, CSS-driven, auto-dismisses, tap anywhere to skip ═══ -->
 <div id="intro">
-  <div class="intro-word" id="introWord"></div>
+  <div class="intro-glow"></div>
+  <div class="intro-candles" id="introCandles" aria-hidden="true"></div>
+  <div class="intro-word">
+    <div class="intro-line" id="introMain"></div>
+    <div class="intro-suffix" id="introSuffix">LLC</div>
+  </div>
   <div class="intro-bar"><i></i></div>
   <div class="intro-tap">tap to enter</div>
 </div>
@@ -273,32 +286,16 @@ em{color:var(--vb);font-style:normal}
 <section class="hero" id="top">
   <div class="wrap reveal">
     <div class="avatar-wrap">
-      <svg class="hero-ring" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#ringGrad)" stroke-width="1.6" stroke-dasharray="8 10" stroke-linecap="round"/>
-        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#3ce88a"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a855f7"/>
-        </linearGradient></defs>
-      </svg>
       <img class="hero-avatar" src="assets/profile.jpg" alt="Balloutt" onerror="this.style.display='none'">
     </div>
     <p class="eyebrow">// balloutt trades llc</p>
     <h1>When your gains read like a <em>phone number.</em></h1>
     <p class="sub">Full-time options trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
-    <a class="cta" href="https://discord.gg/vm4BqVWWcX">🔥 Enter the Portal</a>
+    <a class="cta" href="https://discord.gg/Mv2u35sTvj">🔥 Enter the Portal</a>
     <div class="stats-row">
       <div class="stat"><div class="stat-num">2K</div><div class="stat-label">Snapchat</div></div>
       <div class="stat"><div class="stat-num">1K</div><div class="stat-label">TikTok</div></div>
       <div class="stat"><div class="stat-num">41K+</div><div class="stat-label">Total Reach</div></div>
-      <div class="stat"><div class="stat-num">86.7%</div><div class="stat-label">Win Rate</div></div>
-    </div>
-    <div class="candle-strip" aria-hidden="true">
-      <i style="height:22px;animation-delay:.0s"></i>
-      <i class="down" style="height:14px;animation-delay:.2s"></i>
-      <i style="height:30px;animation-delay:.4s"></i>
-      <i style="height:20px;animation-delay:.6s"></i>
-      <i style="height:42px;animation-delay:.8s"></i>
-      <i class="down" style="height:18px;animation-delay:1s"></i>
-      <i style="height:52px;animation-delay:1.2s"></i>
     </div>
   </div>
 </section>
@@ -310,9 +307,9 @@ em{color:var(--vb);font-style:normal}
     <h2>Beginner <em>Walkthrough</em></h2>
     <p class="sub">Never followed alerts before? Do these in order and you're set.</p>
     <div class="step-list">
-      <a class="step" href="https://discord.gg/vm4BqVWWcX">
+      <a class="step" href="https://discord.gg/Mv2u35sTvj">
         <div class="step-num">1</div>
-        <div><div class="link-title">Join for Free</div><div class="link-sub">Hop in the main Discord — no paywall, 41K+ traders already in</div></div>
+        <div><div class="link-title">Join for Free</div><div class="link-sub">My main Discord — no paywall, free alerts &amp; community</div></div>
       </a>
       <a class="step" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener">
         <div class="step-num">2</div>
@@ -380,6 +377,12 @@ em{color:var(--vb);font-style:normal}
         <div class="shop-desc">Two analysts, real-time alerts with TP/SL. 0DTE, swings, LEAPS, whale alerts.</div>
         <span class="shop-cta">🔥 DM to Purchase</span>
       </a>
+      <a class="shop-card" href="https://discord.gg/23Pyxa2Spt">
+        <div class="shop-name">BBTRADES VIP</div>
+        <div class="shop-price">$250 <small>one-time</small></div>
+        <div class="shop-desc">Join the free BBTRADES server, then unlock VIP perks. Also available at $200/yr or $30/mo — pick what fits.</div>
+        <span class="shop-cta">🚀 Join &amp; Upgrade</span>
+      </a>
     </div>
   </div>
 </section>
@@ -392,7 +395,7 @@ em{color:var(--vb);font-style:normal}
     <nav class="socials">
       <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg>@Balloutt.on.bizz</a>
       <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg>@BallouttTrades</a>
-      <a class="soc" href="https://discord.gg/vm4BqVWWcX"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
+      <a class="soc" href="https://discord.gg/Mv2u35sTvj"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
       <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg>@BallouttTrades</a>
       <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9v2c.3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2v-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>@Balloutt.bb</a>
     </nav>
@@ -421,15 +424,44 @@ em{color:var(--vb);font-style:normal}
    DOM nodes spawned/destroyed forever in the background.
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Intro: spell the brand out with staggered CSS letter-ins, then dismiss ── */
+/* ── Intro: candles build, "BALLOUTT TRADES" spells itself out letter by letter,
+     "LLC" settles in underneath, then the whole thing dismisses (tap anywhere to skip) ── */
 (function(){
-  var word='BALLOUTT', el=document.getElementById('introWord');
-  word.split('').forEach(function(ch,i){
+  var candleHost=document.getElementById('introCandles');
+  // 'green:true' bars use the .down class (green, per the swapped palette); last bar is the big finisher
+  var bars=[
+    {h:10,green:false},{h:18,green:true},{h:8,green:false},
+    {h:24,green:true},{h:14,green:false},{h:20,green:true},
+    {h:38,green:true}
+  ];
+  bars.forEach(function(b,i){
+    var el=document.createElement('i');
+    if(b.green) el.className='down';
+    el.style.height=b.h+'px';
+    el.style.animationDelay=(i*0.06)+'s';
+    candleHost.appendChild(el);
+  });
+
+  var phrase='BALLOUTT TRADES';
+  var main=document.getElementById('introMain');
+  var letterIndex=0;
+  phrase.split('').forEach(function(ch){
+    if(ch===' '){
+      var sp=document.createElement('span');
+      sp.className='sp';
+      main.appendChild(sp);
+      return;
+    }
     var s=document.createElement('span');
     s.textContent=ch;
-    s.style.animationDelay=(i*0.06)+'s';
-    el.appendChild(s);
+    s.style.animationDelay=(0.4+letterIndex*0.045)+'s';
+    main.appendChild(s);
+    letterIndex++;
   });
+
+  var suffix=document.getElementById('introSuffix');
+  suffix.style.animationDelay=(0.4+letterIndex*0.045+0.3)+'s';
+
   var intro=document.getElementById('intro');
   function dismiss(){
     if(intro.classList.contains('fade')) return;
@@ -437,7 +469,7 @@ em{color:var(--vb);font-style:normal}
     setTimeout(function(){ intro.style.display='none'; },550);
   }
   intro.addEventListener('click',dismiss);
-  setTimeout(dismiss,1900);
+  setTimeout(dismiss,2500);
 })();
 
 /* ── Floating trading symbols — a fixed set, CSS animates them, JS just seeds positions once ── */
@@ -572,14 +604,15 @@ em{color:var(--vb);font-style:normal}
 
 /* ── AI chat — simple keyword matcher, no external calls ── */
 var kb={
-  'price|cost|how much|pricing':'Lifetime Mentorship: $2,500 one-time (plans: 3-mo $1,200/mo, 8-mo $600/mo, 16-mo $350/mo, 30-mo $200/mo). Double Trouble Bundle: $450/mo. Scroll to the Shop section or DM @balloutt.trades.llc on Discord!',
+  'price|cost|how much|pricing':'Lifetime Mentorship: $2,500 one-time (plans: 3-mo $1,200/mo, 8-mo $600/mo, 16-mo $350/mo, 30-mo $200/mo). Double Trouble Bundle: $450/mo. BBTRADES VIP: $250 one-time, $200/yr, or $30/mo. Scroll to the Shop section or DM @balloutt.trades.llc on Discord!',
   'mentor|1:1|coaching|mentorship':'Lifetime 1:1 Mentorship — $2,500 one-time. Live trading sessions, my personal trades, full watchlist, direct guidance. Payment plans from $200/mo. Scroll to Shop or DM @balloutt.trades.llc!',
-  'shop|buy|purchase':'Scroll down to the Shop section! Lifetime Mentorship ($2,500 or plans from $200/mo) and Double Trouble Alert Bundle ($450/mo). DM @balloutt.trades.llc on Discord to purchase.',
+  'shop|buy|purchase':'Scroll down to the Shop section! Lifetime Mentorship ($2,500 or plans from $200/mo), Double Trouble Alert Bundle ($450/mo), and BBTRADES VIP ($250 one-time, $200/yr, or $30/mo). DM @balloutt.trades.llc on Discord to purchase.',
+  'bbtrades|bb trades':'BBTRADES is a free server — join at discord.gg/23Pyxa2Spt. VIP upgrade is $250 one-time, $200/yr, or $30/mo.',
   'alert|signal|callout':'Live options alerts with entry, TP, and SL — tracked in %. Swings, LEAPS, 0DTE. Get alerts with Double Trouble Bundle ($450/mo).',
-  'free|join|start|get started':'Join free at discord.gg/vm4BqVWWcX — no paywall! Check the "Start Here" section for the full 3-step walkthrough.',
+  'free|join|start|get started':'Join free at discord.gg/Mv2u35sTvj — no paywall! Check the "Start Here" section for the full 3-step walkthrough.',
   'strix|funded|funding':'Strix Options Funding — get funded! Use code BTLLC: strixoptionsfunding.com/?ref=balloutt',
   'result|track|win rate|performance|proof':'86.7% win rate. Best trade: META +12,240%. Best 8-day: +219,829%. June total: +11,172%. Scroll to Highlights!',
-  'discord|server':'Main: discord.gg/vm4BqVWWcX (free). Top Tier: discord.gg/9YXBKQHMyY (premium).',
+  'discord|server':'Main: discord.gg/Mv2u35sTvj (free). Top Tier: discord.gg/9YXBKQHMyY (premium). BBTRADES: discord.gg/23Pyxa2Spt (free, with optional VIP).',
   'who|about|balloutt':'Full-time options trader, founder of Balloutt Trades LLC. Swings, LEAPS, 0DTE. 41K+ reach. Every trade posted live.',
   'social|instagram|tiktok|snap|follow':'IG: @Balloutt.on.bizz | TikTok: @BallouttTrades | Snap: @Balloutt.bb | Discord: @balloutt.trades.llc | X: @BallouttTrades',
   'hello|hi|hey|yo|sup':'Hey! Welcome to Balloutt Trades 🚀 Ask about pricing, alerts, mentorship, or how to join!',
