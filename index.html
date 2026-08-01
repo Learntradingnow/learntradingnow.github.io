@@ -5,783 +5,404 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Balloutt Trades LLC</title>
 <meta name="theme-color" content="#0d0131">
+<meta name="description" content="Balloutt Trades LLC — full-time options trader. Live alerts, verified results, mentorship.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0131'/%3E%3Cg stroke='%23a855f7' stroke-width='8' stroke-linecap='round'%3E%3Cline x1='30' y1='68' x2='30' y2='32'/%3E%3Cline x1='50' y1='78' x2='50' y2='46'/%3E%3Cline x1='70' y1='58' x2='70' y2='22'/%3E%3C/g%3E%3Ccircle cx='38' cy='44' r='5' fill='%233ce88a'/%3E%3Ccircle cx='62' cy='44' r='5' fill='%23ff3b4e'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.waves.min.js"></script>
-<!-- Lenis v1.3.25, embedded directly (no CDN call) so smooth-scroll never depends on network reachability -->
-<script>(function(){var e=`1.3.25`;function t(e,t,n){return Math.max(e,Math.min(t,n))}function n(e,t,n){return(1-n)*e+n*t}function r(e,t,r,i){return n(e,t,1-Math.exp(-r*i))}function i(e,t){return(e%t+t)%t}var a=class{isRunning=!1;value=0;from=0;to=0;currentTime=0;lerp;duration;easing;onUpdate;advance(e){if(!this.isRunning)return;let n=!1;if(this.duration&&this.easing){this.currentTime+=e;let r=t(0,this.currentTime/this.duration,1);n=r>=1;let i=n?1:this.easing(r);this.value=this.from+(this.to-this.from)*i}else this.lerp?(this.value=r(this.value,this.to,this.lerp*60,e),Math.round(this.value)===Math.round(this.to)&&(this.value=this.to,n=!0)):(this.value=this.to,n=!0);n&&this.stop(),this.onUpdate?.(this.value,n)}stop(){this.isRunning=!1}fromTo(e,t,{lerp:n,duration:r,easing:i,onStart:a,onUpdate:o}){this.from=this.value=e,this.to=t,this.lerp=n,this.duration=r,this.easing=i,this.currentTime=0,this.isRunning=!0,a?.(),this.onUpdate=o}};function o(e,t){let n;return function(...r){clearTimeout(n),n=setTimeout(()=>{n=void 0,e.apply(this,r)},t)}}var s=class{width=0;height=0;scrollHeight=0;scrollWidth=0;debouncedResize;wrapperResizeObserver;contentResizeObserver;constructor(e,t,{autoResize:n=!0,debounce:r=250}={}){this.wrapper=e,this.content=t,n&&(this.debouncedResize=o(this.resize,r),this.wrapper instanceof Window?window.addEventListener(`resize`,this.debouncedResize):(this.wrapperResizeObserver=new ResizeObserver(this.debouncedResize),this.wrapperResizeObserver.observe(this.wrapper)),this.contentResizeObserver=new ResizeObserver(this.debouncedResize),this.contentResizeObserver.observe(this.content)),this.resize()}destroy(){this.wrapperResizeObserver?.disconnect(),this.contentResizeObserver?.disconnect(),this.wrapper===window&&this.debouncedResize&&window.removeEventListener(`resize`,this.debouncedResize)}resize=()=>{this.onWrapperResize(),this.onContentResize()};onWrapperResize=()=>{this.wrapper instanceof Window?(this.width=window.innerWidth,this.height=window.innerHeight):(this.width=this.wrapper.clientWidth,this.height=this.wrapper.clientHeight)};onContentResize=()=>{this.wrapper instanceof Window?(this.scrollHeight=this.content.scrollHeight,this.scrollWidth=this.content.scrollWidth):(this.scrollHeight=this.wrapper.scrollHeight,this.scrollWidth=this.wrapper.scrollWidth)};get limit(){return{x:this.scrollWidth-this.width,y:this.scrollHeight-this.height}}},c=class{events={};emit(e,...t){let n=this.events[e]||[];for(let e=0,r=n.length;e<r;e++)n[e]?.(...t)}on(e,t){return this.events[e]?this.events[e].push(t):this.events[e]=[t],()=>{this.events[e]=this.events[e]?.filter(e=>t!==e)}}off(e,t){this.events[e]=this.events[e]?.filter(e=>t!==e)}destroy(){this.events={}}};let l={passive:!1};function u(e,t){return e===1?16.666666666666668:e===2?t:1}var d=class{touchStart={x:0,y:0};lastDelta={x:0,y:0};window={width:0,height:0};emitter=new c;constructor(e,t={wheelMultiplier:1,touchMultiplier:1}){this.element=e,this.options=t,window.addEventListener(`resize`,this.onWindowResize),this.onWindowResize(),this.element.addEventListener(`wheel`,this.onWheel,l),this.element.addEventListener(`touchstart`,this.onTouchStart,l),this.element.addEventListener(`touchmove`,this.onTouchMove,l),this.element.addEventListener(`touchend`,this.onTouchEnd,l)}on(e,t){return this.emitter.on(e,t)}destroy(){this.emitter.destroy(),window.removeEventListener(`resize`,this.onWindowResize),this.element.removeEventListener(`wheel`,this.onWheel,l),this.element.removeEventListener(`touchstart`,this.onTouchStart,l),this.element.removeEventListener(`touchmove`,this.onTouchMove,l),this.element.removeEventListener(`touchend`,this.onTouchEnd,l)}onTouchStart=e=>{let{clientX:t,clientY:n}=e.targetTouches?e.targetTouches[0]:e;this.touchStart.x=t,this.touchStart.y=n,this.lastDelta={x:0,y:0},this.emitter.emit(`scroll`,{deltaX:0,deltaY:0,event:e})};onTouchMove=e=>{let{clientX:t,clientY:n}=e.targetTouches?e.targetTouches[0]:e,r=-(t-this.touchStart.x)*this.options.touchMultiplier,i=-(n-this.touchStart.y)*this.options.touchMultiplier;this.touchStart.x=t,this.touchStart.y=n,this.lastDelta={x:r,y:i},this.emitter.emit(`scroll`,{deltaX:r,deltaY:i,event:e})};onTouchEnd=e=>{this.emitter.emit(`scroll`,{deltaX:this.lastDelta.x,deltaY:this.lastDelta.y,event:e})};onWheel=e=>{let{deltaX:t,deltaY:n,deltaMode:r}=e,i=u(r,this.window.width),a=u(r,this.window.height);t*=i,n*=a,t*=this.options.wheelMultiplier,n*=this.options.wheelMultiplier,this.emitter.emit(`scroll`,{deltaX:t,deltaY:n,event:e})};onWindowResize=()=>{this.window={width:window.innerWidth,height:window.innerHeight}}};let f=e=>Math.min(1,1.001-2**(-10*e));var p=class{_isScrolling=!1;_isStopped=!1;_isLocked=!1;_preventNextNativeScrollEvent=!1;_resetVelocityTimeout=null;_rafId=null;_isDraggingSelection=!1;isTouching;isIos;time=0;userData={};lastVelocity=0;velocity=0;direction=0;options;targetScroll;animatedScroll;animate=new a;emitter=new c;dimensions;virtualScroll;constructor({wrapper:t=window,content:n=document.documentElement,eventsTarget:r=t,smoothWheel:i=!0,syncTouch:a=!1,syncTouchLerp:o=.075,touchInertiaExponent:c=1.7,duration:l,easing:u,lerp:p=.1,infinite:m=!1,orientation:h=`vertical`,gestureOrientation:g=h===`horizontal`?`both`:`vertical`,touchMultiplier:_=1,wheelMultiplier:v=1,autoResize:y=!0,prevent:b,virtualScroll:x,overscroll:S=!0,autoRaf:C=!1,anchors:w=!1,autoToggle:T=!1,allowNestedScroll:E=!1,__experimental__naiveDimensions:D=!1,naiveDimensions:O=D,stopInertiaOnNavigate:k=!1}={}){window.lenisVersion=e,window.lenis||(window.lenis={}),window.lenis.version=e,h===`horizontal`&&(window.lenis.horizontal=!0),a===!0&&(window.lenis.touch=!0),this.isIos=/(iPad|iPhone|iPod)/g.test(navigator.userAgent),(!t||t===document.documentElement)&&(t=window),typeof l==`number`&&typeof u!=`function`?u=f:typeof u==`function`&&typeof l!=`number`&&(l=1),this.options={wrapper:t,content:n,eventsTarget:r,smoothWheel:i,syncTouch:a,syncTouchLerp:o,touchInertiaExponent:c,duration:l,easing:u,lerp:p,infinite:m,gestureOrientation:g,orientation:h,touchMultiplier:_,wheelMultiplier:v,autoResize:y,prevent:b,virtualScroll:x,overscroll:S,autoRaf:C,anchors:w,autoToggle:T,allowNestedScroll:E,naiveDimensions:O,stopInertiaOnNavigate:k},this.dimensions=new s(t,n,{autoResize:y}),this.updateClassName(),this.targetScroll=this.animatedScroll=this.actualScroll,this.options.wrapper.addEventListener(`scroll`,this.onNativeScroll),this.options.wrapper.addEventListener(`scrollend`,this.onScrollEnd,{capture:!0}),(this.options.anchors||this.options.stopInertiaOnNavigate)&&this.options.wrapper.addEventListener(`click`,this.onClick),this.options.wrapper.addEventListener(`pointerdown`,this.onPointerDown),this.virtualScroll=new d(r,{touchMultiplier:_,wheelMultiplier:v}),this.virtualScroll.on(`scroll`,this.onVirtualScroll),this.options.autoToggle&&(this.checkOverflow(),this.rootElement.addEventListener(`transitionend`,this.onTransitionEnd)),this.options.autoRaf&&(this._rafId=requestAnimationFrame(this.raf))}destroy(){this.emitter.destroy(),this.options.wrapper.removeEventListener(`scroll`,this.onNativeScroll),this.options.wrapper.removeEventListener(`scrollend`,this.onScrollEnd,{capture:!0}),this.options.wrapper.removeEventListener(`pointerdown`,this.onPointerDown),(this.options.anchors||this.options.stopInertiaOnNavigate)&&this.options.wrapper.removeEventListener(`click`,this.onClick),this.virtualScroll.destroy(),this.dimensions.destroy(),this.cleanUpClassName(),this._rafId&&cancelAnimationFrame(this._rafId)}on(e,t){return this.emitter.on(e,t)}off(e,t){return this.emitter.off(e,t)}onScrollEnd=e=>{e instanceof CustomEvent||(this.isScrolling===`smooth`||this.isScrolling===!1)&&e.stopPropagation()};dispatchScrollendEvent=()=>{this.options.wrapper.dispatchEvent(new CustomEvent(`scrollend`,{bubbles:this.options.wrapper===window,detail:{lenisScrollEnd:!0}}))};get overflow(){let e=this.isHorizontal?`overflow-x`:`overflow-y`;return getComputedStyle(this.rootElement)[e]}checkOverflow(){[`hidden`,`clip`].includes(this.overflow)?this.internalStop():this.internalStart()}onTransitionEnd=e=>{e.propertyName?.includes(`overflow`)&&e.target===this.rootElement&&this.checkOverflow()};setScroll(e){this.isHorizontal?this.options.wrapper.scrollTo({left:e,behavior:`instant`}):this.options.wrapper.scrollTo({top:e,behavior:`instant`})}onClick=e=>{let t=e.composedPath().filter(e=>e instanceof HTMLAnchorElement&&e.href).map(e=>new URL(e.href)),n=new URL(window.location.href);if(this.options.anchors){let e=t.find(e=>n.host===e.host&&n.pathname===e.pathname&&e.hash);if(e){let t=typeof this.options.anchors==`object`&&this.options.anchors?this.options.anchors:void 0,n=decodeURIComponent(e.hash);this.scrollTo(n,t);return}}if(this.options.stopInertiaOnNavigate&&t.some(e=>n.host===e.host&&n.pathname!==e.pathname)){this.reset();return}};onPointerDown=e=>{e.button===1&&this.reset()};isTouchOnSelectionHandle(e){let t=window.getSelection();if(!t||t.isCollapsed||t.rangeCount===0)return!1;let n=e.targetTouches[0]??e.changedTouches[0];if(!n)return!1;let r=t.getRangeAt(0).getClientRects();if(r.length===0)return!1;let i=r[0],a=r[r.length-1],o=Math.hypot(n.clientX-i.left,n.clientY-i.top)<=40,s=Math.hypot(n.clientX-a.right,n.clientY-a.bottom)<=40;return o||s}onVirtualScroll=e=>{if(typeof this.options.virtualScroll==`function`&&this.options.virtualScroll(e)===!1)return;let{deltaX:t,deltaY:n,event:r}=e;if(this.emitter.emit(`virtual-scroll`,{deltaX:t,deltaY:n,event:r}),r.ctrlKey||r.lenisStopPropagation)return;let i=r.type.includes(`touch`),a=r.type.includes(`wheel`);if(i&&this.isIos&&(r.type===`touchstart`&&(this._isDraggingSelection=this.isTouchOnSelectionHandle(r)),this._isDraggingSelection)){r.type===`touchend`&&(this._isDraggingSelection=!1);return}this.isTouching=r.type===`touchstart`||r.type===`touchmove`;let o=t===0&&n===0;if(this.options.syncTouch&&i&&r.type===`touchstart`&&o&&!this.isStopped&&!this.isLocked){this.reset();return}let s=this.options.gestureOrientation===`vertical`&&n===0||this.options.gestureOrientation===`horizontal`&&t===0;if(o||s)return;let c=r.composedPath();c=c.slice(0,c.indexOf(this.rootElement));let l=this.options.prevent,u=Math.abs(t)>=Math.abs(n)?`horizontal`:`vertical`;if(c.find(e=>e instanceof HTMLElement&&(typeof l==`function`&&l?.(e)||e.hasAttribute?.(`data-lenis-prevent`)||u===`vertical`&&e.hasAttribute?.(`data-lenis-prevent-vertical`)||u===`horizontal`&&e.hasAttribute?.(`data-lenis-prevent-horizontal`)||i&&e.hasAttribute?.(`data-lenis-prevent-touch`)||a&&e.hasAttribute?.(`data-lenis-prevent-wheel`)||this.options.allowNestedScroll&&this.hasNestedScroll(e,{deltaX:t,deltaY:n}))))return;if(this.isStopped||this.isLocked){r.cancelable&&r.preventDefault();return}if(!(this.options.syncTouch&&i||this.options.smoothWheel&&a)){this.isScrolling=`native`,this.animate.stop(),r.lenisStopPropagation=!0;return}let d=n;this.options.gestureOrientation===`both`?d=Math.abs(n)>Math.abs(t)?n:t:this.options.gestureOrientation===`horizontal`&&(d=t),(!this.options.overscroll||this.options.infinite||this.options.wrapper!==window&&this.limit>0&&(this.animatedScroll>0&&this.animatedScroll<this.limit||this.animatedScroll===0&&n>0||this.animatedScroll===this.limit&&n<0))&&(r.lenisStopPropagation=!0),r.cancelable&&r.preventDefault();let f=i&&this.options.syncTouch,p=i&&r.type===`touchend`;p&&(d=Math.sign(d)*Math.abs(this.velocity)**this.options.touchInertiaExponent),this.scrollTo(this.targetScroll+d,{programmatic:!1,...f?{lerp:p?this.options.syncTouchLerp:1}:{lerp:this.options.lerp,duration:this.options.duration,easing:this.options.easing}})};resize(){this.dimensions.resize(),this.animatedScroll=this.targetScroll=this.actualScroll,this.emit()}emit(){this.emitter.emit(`scroll`,this)}onNativeScroll=()=>{if(this._resetVelocityTimeout!==null&&(clearTimeout(this._resetVelocityTimeout),this._resetVelocityTimeout=null),this._preventNextNativeScrollEvent){this._preventNextNativeScrollEvent=!1;return}if(this.isScrolling===!1||this.isScrolling===`native`){let e=this.animatedScroll;this.animatedScroll=this.targetScroll=this.actualScroll,this.lastVelocity=this.velocity,this.velocity=this.animatedScroll-e,this.direction=Math.sign(this.animatedScroll-e),this.isStopped||(this.isScrolling=`native`),this.emit(),this.velocity!==0&&(this._resetVelocityTimeout=setTimeout(()=>{this.lastVelocity=this.velocity,this.velocity=0,this.isScrolling=!1,this.emit()},400))}};reset(){this.isLocked=!1,this.isScrolling=!1,this.animatedScroll=this.targetScroll=this.actualScroll,this.lastVelocity=this.velocity=0,this.animate.stop()}start(){if(this.isStopped){if(this.options.autoToggle){this.rootElement.style.removeProperty(`overflow`);return}this.internalStart()}}internalStart(){this.isStopped&&(this.reset(),this.isStopped=!1,this.emit())}stop(){if(!this.isStopped){if(this.options.autoToggle){this.rootElement.style.setProperty(`overflow`,`clip`);return}this.internalStop()}}internalStop(){this.isStopped||(this.reset(),this.isStopped=!0,this.emit())}raf=e=>{let t=e-(this.time||e);this.time=e,this.animate.advance(t*.001),this.options.autoRaf&&(this._rafId=requestAnimationFrame(this.raf))};scrollTo(e,{offset:n=0,immediate:r=!1,lock:i=!1,programmatic:a=!0,lerp:o=a?this.options.lerp:void 0,duration:s=a?this.options.duration:void 0,easing:c=a?this.options.easing:void 0,onStart:l,onComplete:u,force:d=!1,userData:p}={}){if((this.isStopped||this.isLocked)&&!d)return;let m=e,h=n;if(typeof m==`string`&&[`top`,`left`,`start`,`#`].includes(m))m=0;else if(typeof m==`string`&&[`bottom`,`right`,`end`].includes(m))m=this.limit;else{let e=null;if(typeof m==`string`?(e=m.startsWith(`#`)?document.getElementById(m.slice(1)):document.querySelector(m),e||(m===`#top`?m=0:console.warn(`Lenis: Target not found`,m))):m instanceof HTMLElement&&m?.nodeType&&(e=m),e){if(this.options.wrapper!==window){let e=this.rootElement.getBoundingClientRect();h-=this.isHorizontal?e.left:e.top}let t=e.getBoundingClientRect(),n=getComputedStyle(e),r=this.isHorizontal?Number.parseFloat(n.scrollMarginLeft):Number.parseFloat(n.scrollMarginTop),i=getComputedStyle(this.rootElement),a=this.isHorizontal?Number.parseFloat(i.scrollPaddingLeft):Number.parseFloat(i.scrollPaddingTop);m=(this.isHorizontal?t.left:t.top)+this.animatedScroll-(Number.isNaN(r)?0:r)-(Number.isNaN(a)?0:a)}}if(typeof m==`number`){if(m+=h,this.options.infinite){if(a){this.targetScroll=this.animatedScroll=this.scroll;let e=m-this.animatedScroll;e>this.limit/2?m-=this.limit:e<-this.limit/2&&(m+=this.limit)}}else m=t(0,m,this.limit);if(m===this.targetScroll){l?.(this),u?.(this);return}if(this.userData=p??{},r){this.animatedScroll=this.targetScroll=m,this.setScroll(this.scroll),this.reset(),this.preventNextNativeScrollEvent(),this.emit(),u?.(this),this.userData={},requestAnimationFrame(()=>{this.dispatchScrollendEvent()});return}a||(this.targetScroll=m),typeof s==`number`&&typeof c!=`function`?c=f:typeof c==`function`&&typeof s!=`number`&&(s=1),this.animate.fromTo(this.animatedScroll,m,{duration:s,easing:c,lerp:o,onStart:()=>{i&&(this.isLocked=!0),this.isScrolling=`smooth`,l?.(this)},onUpdate:(e,t)=>{this.isScrolling=`smooth`,this.lastVelocity=this.velocity,this.velocity=e-this.animatedScroll,this.direction=Math.sign(this.velocity),this.animatedScroll=e,this.setScroll(this.scroll),a&&(this.targetScroll=e),t||this.emit(),t&&(this.reset(),this.emit(),u?.(this),this.userData={},requestAnimationFrame(()=>{this.dispatchScrollendEvent()}),this.preventNextNativeScrollEvent())}})}}preventNextNativeScrollEvent(){this._preventNextNativeScrollEvent=!0,requestAnimationFrame(()=>{this._preventNextNativeScrollEvent=!1})}hasNestedScroll(e,{deltaX:t,deltaY:n}){let r=Date.now();e._lenis||={};let i=e._lenis,a,o,s,c,l,u,d,f,p,m;if(r-(i.time??0)>2e3){i.time=Date.now();let t=window.getComputedStyle(e);if(i.computedStyle=t,a=[`auto`,`overlay`,`scroll`].includes(t.overflowX),o=[`auto`,`overlay`,`scroll`].includes(t.overflowY),l=[`auto`].includes(t.overscrollBehaviorX),u=[`auto`].includes(t.overscrollBehaviorY),i.hasOverflowX=a,i.hasOverflowY=o,!(a||o))return!1;d=e.scrollWidth,f=e.scrollHeight,p=e.clientWidth,m=e.clientHeight,s=d>p,c=f>m,i.isScrollableX=s,i.isScrollableY=c,i.scrollWidth=d,i.scrollHeight=f,i.clientWidth=p,i.clientHeight=m,i.hasOverscrollBehaviorX=l,i.hasOverscrollBehaviorY=u}else s=i.isScrollableX,c=i.isScrollableY,a=i.hasOverflowX,o=i.hasOverflowY,d=i.scrollWidth,f=i.scrollHeight,p=i.clientWidth,m=i.clientHeight,l=i.hasOverscrollBehaviorX,u=i.hasOverscrollBehaviorY;if(!(a&&s||o&&c))return!1;let h=Math.abs(t)>=Math.abs(n)?`horizontal`:`vertical`,g,_,v,y,b,x;if(h===`horizontal`)g=Math.round(e.scrollLeft),_=d-p,v=t,y=a,b=s,x=l;else if(h===`vertical`)g=Math.round(e.scrollTop),_=f-m,v=n,y=o,b=c,x=u;else return!1;return!x&&(g>=_||g<=0)?!0:(v>0?g<_:g>0)&&y&&b}get rootElement(){return this.options.wrapper===window?document.documentElement:this.options.wrapper}get limit(){return this.options.naiveDimensions?this.isHorizontal?this.rootElement.scrollWidth-this.rootElement.clientWidth:this.rootElement.scrollHeight-this.rootElement.clientHeight:this.dimensions.limit[this.isHorizontal?`x`:`y`]}get isHorizontal(){return this.options.orientation===`horizontal`}get actualScroll(){let e=this.options.wrapper;return this.isHorizontal?e.scrollX??e.scrollLeft:e.scrollY??e.scrollTop}get scroll(){return this.options.infinite?i(this.animatedScroll,this.limit):this.animatedScroll}get progress(){return this.limit===0?1:this.scroll/this.limit}get isScrolling(){return this._isScrolling}set isScrolling(e){this._isScrolling!==e&&(this._isScrolling=e,this.updateClassName())}get isStopped(){return this._isStopped}set isStopped(e){this._isStopped!==e&&(this._isStopped=e,this.updateClassName())}get isLocked(){return this._isLocked}set isLocked(e){this._isLocked!==e&&(this._isLocked=e,this.updateClassName())}get isSmooth(){return this.isScrolling===`smooth`}get className(){let e=`lenis`;return this.options.autoToggle&&(e+=` lenis-autoToggle`),this.isStopped&&(e+=` lenis-stopped`),this.isLocked&&(e+=` lenis-locked`),this.isScrolling&&(e+=` lenis-scrolling`),this.isScrolling===`smooth`&&(e+=` lenis-smooth`),e}updateClassName(){this.cleanUpClassName(),this.className.split(` `).forEach(e=>{this.rootElement.classList.add(e)})}cleanUpClassName(){for(let e of Array.from(this.rootElement.classList))(e===`lenis`||e.startsWith(`lenis-`))&&this.rootElement.classList.remove(e)}};globalThis.Lenis=p,globalThis.Lenis.prototype=p.prototype})();</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#050110;--ink:#ffffff;--dim:#ece6f9;--faint:#c9befa;--v:#a855f7;--vb:#c99bff;
-  --up:#3ce88a;--cyan:#22d3ee;--ember:#ff3b4e;--gold:#ffc93c;--card:rgba(168,85,247,.04);--bdr:rgba(168,85,247,.12);
-  --flame:#3ce88a}
+/* ══════════════════════ TOKENS ══════════════════════ */
+:root{
+  --bg:#050110; --ink:#ffffff; --dim:#ece6f9; --faint:#c9befa;
+  --v:#a855f7; --vb:#c99bff; --up:#3ce88a; --cyan:#22d3ee; --ember:#ff3b4e; --gold:#ffc93c;
+  --card:rgba(168,85,247,.05); --bdr:rgba(168,85,247,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.3) #050110}
-body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* scroll container — each scene is 300vh tall for scroll room */
-.scroll-spacer{height:220vh;position:relative}
-.scroll-spacer.short{height:150vh}
-
-/* sticky viewport — pins content while you scroll through the spacer */
-.sticky-frame{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3}
-.hero-anchor-top{align-items:flex-start;padding-top:clamp(60px,14vh,140px)} /* so "Balloutt Trades LLC" shows immediately, no scroll needed */
-.frame-inner{max-width:600px;width:100%;padding:0 24px;position:relative;z-index:2}
-
-/* central animated ring — the "turntable" like anime.js has */
-.ring-container{position:fixed;top:50%;left:55%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;opacity:0}
-
-/* dark overlay — sits between the moving Vanta background and all foreground content */
-.dark-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:rgba(5,1,16,.48)}
-.ring-container svg{width:min(500px,70vw);height:min(500px,70vw);
-  transform:perspective(900px) rotateX(10deg) rotateY(-4deg);transform-style:preserve-3d}
-#candleGroup .num,#candleGroup .word{paint-order:stroke;stroke:#050110;stroke-width:3px;stroke-linejoin:round}
-#candleGroup .word{font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-#formPlus{filter:drop-shadow(0 0 18px rgba(168,85,247,.55))}
-
-/* Vanta 3D waves — the deep background layer, in brand violet, cyan-tinted via overlay below */
-#vantaBg{position:fixed;inset:0;z-index:0;pointer-events:none}
-#tickerCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
-.vanta-cyan-tint{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;
-  background:radial-gradient(ellipse at 25% 15%,rgba(34,211,238,.20),transparent 55%),
-             radial-gradient(ellipse at 80% 88%,rgba(34,211,238,.14),transparent 60%)}
-
-/* light rays — like sunlight breaking through water, sweeping slowly for a premium cinematic feel */
-.light-rays{position:fixed;inset:-20% -10%;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.35;
-  background:repeating-linear-gradient(115deg,
-    rgba(201,155,255,.10) 0px, rgba(201,155,255,.10) 2px,
-    transparent 2px, transparent 90px);
-  animation:rays-drift 26s linear infinite}
-@keyframes rays-drift{0%{transform:translateX(0) translateY(0)}100%{transform:translateX(-140px) translateY(60px)}}
-
-/* a soft glossy shimmer band that sweeps across the water periodically, like light catching a swell */
-.water-shimmer{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.5;
-  background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.10) 48%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.10) 52%,transparent 60%);
-  background-size:220% 220%;animation:shimmer-sweep 7s ease-in-out infinite}
-@keyframes shimmer-sweep{0%{background-position:120% 0%}50%{background-position:-20% 100%}100%{background-position:120% 0%}}
-
-/* soft corner gradient orbs — depth without competing with the section theme-glow */
-.corner-orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(80px);
-  opacity:.16;animation:orb-breathe 3s ease-in-out infinite}
-.corner-orb.tl{top:-12vw;left:-12vw;width:38vw;height:38vw;background:radial-gradient(circle,var(--v),transparent 70%);animation-delay:0s}
-.corner-orb.tr{top:-14vw;right:-14vw;width:34vw;height:34vw;background:radial-gradient(circle,var(--cyan),transparent 70%);animation-delay:1.1s}
-.corner-orb.bl{bottom:-14vw;left:-10vw;width:32vw;height:32vw;background:radial-gradient(circle,var(--ember),transparent 70%);animation-delay:2.2s}
-.corner-orb.br{bottom:-12vw;right:-12vw;width:36vw;height:36vw;background:radial-gradient(circle,var(--gold),transparent 70%);animation-delay:0.6s}
-@keyframes orb-breathe{
-  0%,100%{transform:scale(1);opacity:.13}
-  50%{transform:scale(1.18);opacity:.22}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;
 }
-@media(max-width:700px){.corner-orb{filter:blur(60px)}.corner-orb.tl,.corner-orb.tr{width:50vw;height:50vw}.corner-orb.bl,.corner-orb.br{width:46vw;height:46vw}}
-
-/* ═══════ Ocean scene — "teach a man to fish": boats, fish, and sharks drift through the waves ═══════ */
-.sea-creature{position:fixed;z-index:0;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
-
-@keyframes drift-right{0%{left:-16vw}100%{left:116vw}}
-@keyframes drift-left{0%{left:116vw}100%{left:-16vw}}
-@keyframes creature-bob{
-  0%,100%{transform:perspective(500px) rotateY(-6deg) rotateX(4deg) translateY(0) rotate(-3deg)}
-  50%{transform:perspective(500px) rotateY(10deg) rotateX(-4deg) translateY(-8px) rotate(3deg)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
-@keyframes creature-bob-flip{
-  0%,100%{transform:perspective(500px) scaleX(-1) rotateY(-6deg) rotateX(4deg) translateY(0) rotate(3deg)}
-  50%{transform:perspective(500px) scaleX(-1) rotateY(10deg) rotateX(-4deg) translateY(-8px) rotate(-3deg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* ══════════════════════ AMBIENT BACKGROUND — cheap, GPU-only, no WebGL ══════════════════════ */
+.bg-gradient{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 45% at 20% 10%, rgba(168,85,247,.20), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(34,211,238,.14), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(168,85,247,.16), transparent 60%),
+    linear-gradient(180deg,#050110,#0a0322 40%,#050110);
+  background-size:140% 140%,140% 140%,140% 140%,100% 100%;
+  animation:bg-drift 22s ease-in-out infinite;
 }
-@keyframes fish-bob{
-  0%,100%{transform:perspective(400px) rotateY(-10deg) translateY(0)}
-  50%{transform:perspective(400px) rotateY(16deg) translateY(-4px)}
+@keyframes bg-drift{
+  0%,100%{background-position:0% 0%,100% 0%,50% 100%,0 0}
+  50%{background-position:15% 10%,85% 15%,55% 95%,0 0}
 }
-@keyframes fish-bob-flip{
-  0%,100%{transform:perspective(400px) scaleX(-1) rotateY(-10deg) translateY(0)}
-  50%{transform:perspective(400px) scaleX(-1) rotateY(16deg) translateY(-4px)}
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(168,85,247,.06) 1px,transparent 1px),
+                    linear-gradient(90deg,rgba(168,85,247,.06) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 85%);
 }
-.fish-tail{transform-origin:50px 12px;animation:tail-swish .5s ease-in-out infinite}
-.shark-tail{transform-origin:120px 30px;animation:tail-swish-shark .8s ease-in-out infinite}
-@keyframes tail-swish{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
-@keyframes tail-swish-shark{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(11deg)}}
+.orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.16;animation:orb-breathe 8s ease-in-out infinite}
+.orb.tl{top:-14vw;left:-12vw;width:36vw;height:36vw;background:radial-gradient(circle,var(--v),transparent 70%)}
+.orb.tr{top:-12vw;right:-14vw;width:32vw;height:32vw;background:radial-gradient(circle,var(--cyan),transparent 70%);animation-delay:1.5s}
+.orb.bl{bottom:-14vw;left:-10vw;width:30vw;height:30vw;background:radial-gradient(circle,var(--ember),transparent 70%);animation-delay:3s}
+.orb.br{bottom:-12vw;right:-12vw;width:34vw;height:34vw;background:radial-gradient(circle,var(--gold),transparent 70%);animation-delay:4.5s}
+@keyframes orb-breathe{0%,100%{transform:scale(1);opacity:.13}50%{transform:scale(1.15);opacity:.2}}
+@media(max-width:700px){.orb{filter:blur(50px)}}
 
-/* boats — big to small, slow to lively */
-.boat-lg{width:110px;height:110px;top:56%;opacity:.62;animation:drift-right 58s linear infinite, creature-bob 4.2s ease-in-out infinite}
-.boat-xl{width:150px;height:150px;top:65%;opacity:.55;animation:drift-left 64s linear infinite 12s, creature-bob-flip 4.6s ease-in-out infinite}
-.boat-sm2{width:36px;height:36px;top:22%;opacity:.4;animation:drift-left 20s linear infinite 14s, creature-bob-flip 2.4s ease-in-out infinite}
-.boat-md{width:68px;height:68px;top:76%;opacity:.5;animation:drift-left 36s linear infinite 4s, creature-bob-flip 3.3s ease-in-out infinite}
-.boat-sm{width:42px;height:42px;top:38%;opacity:.42;animation:drift-right 24s linear infinite 9s, creature-bob 2.6s ease-in-out infinite}
-
-/* fish — small schools drifting at different depths and speeds */
-.fish{width:48px;height:19px;opacity:.4}
-.fish1{top:28%;animation:drift-right 21s linear infinite, fish-bob-flip 2s ease-in-out infinite}
-.fish2{top:31%;animation:drift-right 21s linear infinite 1.4s, fish-bob-flip 2.2s ease-in-out infinite .3s}
-.fish3{top:83%;animation:drift-left 27s linear infinite 5s, fish-bob 2.4s ease-in-out infinite}
-.fish4{top:18%;animation:drift-left 18s linear infinite 8s, fish-bob 1.8s ease-in-out infinite .5s}
-
-/* sharks — bigger, slower, more ominous */
-.shark{width:150px;height:62px;opacity:.34}
-.shark1{top:47%;animation:drift-right 72s linear infinite 6s, creature-bob-flip 5.2s ease-in-out infinite}
-.shark2{top:90%;animation:drift-left 80s linear infinite 24s, creature-bob 5.8s ease-in-out infinite}
-
-@media(max-width:700px){
-  .boat-lg{width:76px;height:76px} .boat-md{width:50px;height:50px} .boat-sm{width:32px;height:32px}
-  .boat-xl{width:100px;height:100px} .boat-sm2{width:26px;height:26px}
-  .fish{width:34px;height:14px} .shark{width:104px;height:44px}
+/* floating trading symbols — fixed set, CSS-only loop, no JS spawning */
+.floaters{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.floaters span{position:absolute;bottom:-10%;opacity:0;font-size:20px;animation:float-up linear infinite}
+@keyframes float-up{
+  0%{transform:translateY(0) rotate(0deg);opacity:0}
+  8%{opacity:.22}
+  92%{opacity:.16}
+  100%{transform:translateY(-115vh) rotate(20deg);opacity:0}
 }
+@media(max-width:600px){.floaters span{font-size:15px}}
 
+/* ══════════════════════ LAYOUT ══════════════════════ */
+.wrap{max-width:640px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+section{position:relative;z-index:2;padding:96px 0}
+section.tight{padding:64px 0}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--up);margin-bottom:14px}
+.eyebrow.v{color:var(--vb)}
+h1,h2{font-weight:800;letter-spacing:-.02em;line-height:1.08}
+h1{font-size:clamp(30px,6vw,46px)}
+h2{font-size:clamp(24px,4.5vw,34px)}
+em{color:var(--vb);font-style:normal}
+.sub{color:var(--dim);font-size:15px;line-height:1.65;margin-top:16px;max-width:52ch}
 
-/* grid bg */
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;
-  background-image:linear-gradient(rgba(168,85,247,.3) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(168,85,247,.3) 1px,transparent 1px);background-size:50px 50px}
+/* reveal-on-scroll — one IntersectionObserver drives all of these */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0)}
 
-/* animated "fire" glow around the central chart — color shifts per section */
-.theme-glow{position:fixed;top:50%;left:55%;width:680px;height:680px;z-index:0;pointer-events:none;
-  transform:translate(-50%,-50%) scale(1);border-radius:50%;
-  background:radial-gradient(circle,var(--flame) 0%,rgba(0,0,0,0) 62%);
-  filter:blur(46px);opacity:.4;transition:background 1.1s ease;
-  animation:flame-flicker 2.8s ease-in-out infinite}
-@keyframes flame-flicker{
-  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.32}
-  35%{transform:translate(-50%,-50%) scale(1.05);opacity:.44}
-  65%{transform:translate(-50%,-50%) scale(0.97);opacity:.38}
-}
-@media(max-width:500px){.theme-glow{left:50%;width:480px;height:480px}}
+/* ══════════════════════ NAV ══════════════════════ */
+.topnav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(5,1,16,.55);border-bottom:1px solid var(--bdr)}
+.topnav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:.02em;text-decoration:none}
+.brand .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--v),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:13px}
+.navlinks{display:flex;gap:22px;font-size:12px;font-weight:600;color:var(--faint)}
+.navlinks a{text-decoration:none;transition:color .2s}
+.navlinks a:hover{color:var(--ink)}
+@media(max-width:560px){.navlinks{display:none}}
 
+/* ══════════════════════ HERO ══════════════════════ */
+.hero{padding-top:64px;text-align:left}
+.avatar-wrap{position:relative;width:64px;height:64px;margin-bottom:20px;animation:bob 5s ease-in-out infinite}
+.hero-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);position:relative;z-index:1}
+.hero-ring{position:absolute;top:50%;left:50%;width:104px;height:104px;transform:translate(-50%,-50%);animation:ring-spin 14s linear infinite;opacity:.8}
+@keyframes ring-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:13px 26px;border-radius:999px;
+  background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px;
+  box-shadow:0 8px 30px rgba(168,85,247,.35);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.cta:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(168,85,247,.5)}
 
-/* floating themed particles ($ / cart / rocket / + ) that rise behind the content */
-.ember{position:fixed;bottom:-40px;z-index:1;pointer-events:none;font-size:22px;
-  animation:ember-rise linear forwards;text-shadow:0 0 10px currentColor}
-@keyframes ember-rise{
-  0%{transform:translateY(0) translateX(0) scale(.7) rotate(0deg);opacity:0}
-  12%{opacity:.9}
-  85%{opacity:.6}
-  100%{transform:translateY(-105vh) translateX(var(--drift,20px)) scale(1.15) rotate(12deg);opacity:0}
-}
+.stats-row{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;min-width:88px;
+  transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.stat:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.35)}
+.stat-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;color:var(--up)}
+.stat-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:3px}
 
-/* floating profit-wall screenshots drifting through the blank side margins */
-.float-proof{position:fixed;bottom:-160px;z-index:1;pointer-events:none;width:100px;border-radius:12px;
-  border:1px solid rgba(168,85,247,.25);box-shadow:0 12px 30px -10px rgba(0,0,0,.6);
-  animation:float-proof-rise linear forwards;opacity:0}
-@keyframes float-proof-rise{
-  0%{transform:translateY(0) translateX(0) rotate(-4deg);opacity:0}
-  10%{opacity:.55}
-  88%{opacity:.4}
-  100%{transform:translateY(-118vh) translateX(var(--drift,30px)) rotate(4deg);opacity:0}
-}
-@media(max-width:1200px){.float-proof{display:none}} /* not enough blank space to justify it below this width */
+/* tiny decorative candlestick strip — brand flavor, purely CSS-animated, not scroll-tied */
+.candle-strip{display:flex;align-items:flex-end;gap:5px;height:60px;margin-top:36px;opacity:.85}
+.candle-strip i{display:block;width:7px;border-radius:2px;background:var(--up);animation:candle-pulse 2.6s ease-in-out infinite}
+.candle-strip i.down{background:var(--ember)}
+@keyframes candle-pulse{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.14)}}
 
-/* floating stat badges — key numbers/taglines drifting through the same side margins */
-.float-badge{position:fixed;bottom:-60px;z-index:1;pointer-events:none;white-space:normal;
-  max-width:160px;text-align:center;line-height:1.35;
-  font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;letter-spacing:.02em;
-  padding:8px 12px;border-radius:14px;background:rgba(10,2,36,.55);
-  border:1px solid rgba(168,85,247,.3);backdrop-filter:blur(8px);
-  animation:float-badge-rise linear forwards;opacity:0}
-@keyframes float-badge-rise{
-  0%{transform:translateY(0) translateX(0);opacity:0}
-  10%{opacity:.8}
-  88%{opacity:.55}
-  100%{transform:translateY(-118vh) translateX(var(--drift,25px));opacity:0}
-}
-@media(max-width:1200px){.float-badge{display:none}}
+/* ══════════════════════ HIGHLIGHT CARDS ══════════════════════ */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:20px;
+  transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover{transform:translateY(-5px);border-color:rgba(60,232,138,.4);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:24px;color:var(--up)}
+.card-label{font-size:11px;color:var(--faint);margin-top:8px;line-height:1.5}
+@media(max-width:520px){.card-grid{grid-template-columns:1fr}}
 
-/* scroll progress */
-.progress{position:fixed;top:0;left:0;height:3px;z-index:999;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up));width:0%}
-
-/* scene content */
-.scene-text{opacity:0;transform:translateY(30px)}
-.scene-text>*{opacity:0;transform:translateY(24px)}
-.scene-title{font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px;
-  text-shadow:0 1px 3px rgba(0,0,0,.9),0 4px 26px rgba(0,0,0,.85)}
-.scene-title em{font-style:normal;color:var(--vb)}
-.scene-sub{font-size:15px;color:var(--dim);line-height:1.6;max-width:380px;
-  text-shadow:0 1px 3px rgba(0,0,0,.9),0 3px 20px rgba(0,0,0,.8)}
-.scene-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--faint);margin-bottom:14px;
-  text-shadow:0 1px 3px rgba(0,0,0,.9),0 2px 14px rgba(0,0,0,.8)}
-.hero-avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;margin-bottom:16px;
-  border:2px solid rgba(168,85,247,.5);box-shadow:0 0 0 4px rgba(168,85,247,.12),0 8px 26px rgba(0,0,0,.5)}
-
-/* cards */
-.card-row{display:flex;flex-direction:column;gap:12px;margin-top:20px}
-.card{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--bdr);
-  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);
-  transition:transform .3s,border-color .3s,box-shadow .3s}
-.card:hover{transform:translateY(-3px)!important;border-color:rgba(168,85,247,.4);box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
-.card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:26px;color:var(--up)}
-.card-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-top:4px}
-
-/* proof wall wrapper — sits outside .scene-text now, always fully visible */
-.proof-wall-wrap{margin-top:20px;position:relative;z-index:2}
-
-/* auto-scrolling proof wall */
-.proof-strip{overflow:hidden;margin:0 -24px;padding:10px 0;position:relative}
-.proof-strip::before,.proof-strip::after{content:"";position:absolute;top:0;bottom:0;width:50px;z-index:2;pointer-events:none}
-.proof-strip::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.proof-strip::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
-.proof-track{display:flex;gap:12px;width:max-content;animation:proof-scroll 32s linear infinite}
+/* ══════════════════════ PROOF WALL (marquee, CSS-driven) ══════════════════════ */
+.proof-wrap{margin-top:34px}
+.proof-track-outer{overflow:hidden;border-radius:14px;border:1px solid var(--bdr);mask-image:linear-gradient(90deg,transparent,black 6%,black 94%,transparent)}
+.proof-track{display:flex;gap:10px;width:max-content;animation:marquee 34s linear infinite}
 .proof-track:hover{animation-play-state:paused}
-.proof-track img{height:120px;border-radius:12px;border:1px solid var(--bdr);flex-shrink:0;
-  object-fit:cover;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}
-.proof-track img:hover{transform:scale(1.06) translateY(-3px);border-color:rgba(60,232,138,.5);
-  box-shadow:0 14px 34px -12px rgba(60,232,138,.4)}
-@keyframes proof-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.proof-label{text-align:center;margin-top:8px;font-family:"JetBrains Mono",monospace;
-  font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
-.lightbox{position:fixed;inset:0;z-index:200;background:rgba(5,1,16,.92);display:none;
-  align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
-.lightbox.open{display:flex}
-.lightbox img{max-width:92vw;max-height:88vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.proof-track img{height:100px;width:auto;border-radius:8px;cursor:pointer;flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.proof-label{font-size:11px;color:var(--faint);margin-top:10px;text-align:center}
 
-/* links */
-.link{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
-  background:var(--card);border:1px solid var(--bdr);color:var(--ink);text-decoration:none;
-  backdrop-filter:blur(12px);opacity:0;transform:translateX(-30px);
-  transition:transform .3s,border-color .3s,box-shadow .3s}
-.link:hover{transform:translateY(-3px)!important;border-color:rgba(168,85,247,.4);box-shadow:0 12px 30px -12px rgba(168,85,247,.4)}
-.link-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+/* ══════════════════════ BEGINNER STEPS (numbered — order genuinely matters here) ══════════════════════ */
+.step-list{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative}
+.step{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;background:var(--card);
+  border:1px solid var(--bdr);text-decoration:none;position:relative;
+  transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease)}
+.step:hover{transform:translateY(-3px);border-color:rgba(60,232,138,.4);background:rgba(60,232,138,.06)}
+.step-num{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:"JetBrains Mono",monospace;font-weight:700;font-size:14px;color:#052;
+  background:linear-gradient(135deg,var(--up),var(--cyan));box-shadow:0 0 0 4px rgba(60,232,138,.1)}
+
+/* ══════════════════════ LINK / SHOP CARDS ══════════════════════ */
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.link-card{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
+  background:var(--card);border:1px solid var(--bdr);text-decoration:none;
+  transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease)}
+.link-card:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.08)}
+.link-icon{width:38px;height:38px;border-radius:10px;background:rgba(168,85,247,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.link-icon svg{width:18px;height:18px;color:var(--vb)}
+.link-title{font-size:14px;font-weight:700}
+.link-sub{font-size:11px;color:var(--faint);margin-top:2px}
+.tag{display:inline-block;font-size:8px;letter-spacing:.08em;background:var(--up);color:#052;padding:2px 6px;border-radius:5px;font-weight:800;margin-left:6px;vertical-align:middle}
+
+.shop-card{padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--bdr);text-decoration:none;display:block;
+  transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.shop-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.4)}
+.shop-card.feat{border-color:rgba(255,201,60,.4);background:linear-gradient(145deg,rgba(255,201,60,.06),var(--card))}
+.shop-name{font-size:17px;font-weight:800}
+.shop-price{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;color:var(--gold);margin-top:6px}
+.shop-price small{font-size:12px;color:var(--faint);font-weight:400}
+.shop-desc{font-size:12.5px;color:var(--dim);margin-top:10px;line-height:1.6}
+.shop-cta{display:inline-block;margin-top:16px;font-size:12px;font-weight:700;padding:10px 18px;border-radius:999px;
   background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff}
-.link-icon svg{width:18px;height:18px}
-.link-title{font-weight:600;font-size:14px}
-.link-sub{font-size:10px;color:var(--faint);font-family:"JetBrains Mono",monospace;margin-top:2px}
-.link.strix .link-icon{background:linear-gradient(135deg,#22c55e,#16a34a)}
-.tag{font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;
-  background:rgba(255,200,0,.15);color:#ffd84d;border:1px solid rgba(255,200,0,.4)}
 
-/* socials */
-.socials{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.soc{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;
-  background:var(--card);border:1px solid var(--bdr);color:var(--dim);text-decoration:none;
-  font-family:"JetBrains Mono",monospace;font-size:10px;opacity:0;
-  transition:transform .3s,color .3s,border-color .3s}
-.soc svg{width:16px;height:16px;flex-shrink:0}
-.soc:hover{transform:translateY(-3px);color:var(--vb);border-color:rgba(168,85,247,.4)}
+/* ══════════════════════ SOCIALS ══════════════════════ */
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.soc{display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;background:var(--card);border:1px solid var(--bdr);
+  text-decoration:none;font-size:12px;font-weight:600;transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.soc:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(168,85,247,.45)}
+.soc svg{width:15px;height:15px;color:var(--vb)}
+@media(max-width:560px){.socials{flex-direction:column}.soc{justify-content:flex-start}}
 
-/* shop */
-.shop{padding:20px;border-radius:14px;border:1px solid var(--bdr);background:var(--card);
-  backdrop-filter:blur(12px);opacity:0;transform:translateY(30px);margin-top:12px;
-  color:inherit;text-decoration:none;display:block;cursor:pointer;
-  transition:transform .3s,border-color .3s,box-shadow .3s}
-.shop:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4);box-shadow:0 16px 40px -16px rgba(168,85,247,.5)}
-.shop.feat{border-color:rgba(168,85,247,.3);background:linear-gradient(115deg,rgba(168,85,247,.08),rgba(34,211,238,.04))}
-.shop-name{font-weight:700;font-size:16px}
-.shop-price{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:20px;color:var(--vb);margin:4px 0}
-.shop-price small{font-size:11px;color:var(--faint)}
-.shop-desc{font-size:12px;color:var(--dim);line-height:1.5;margin-bottom:12px}
-.shop-cta{display:block;width:100%;padding:10px;border-radius:999px;text-align:center;
-  background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px}
+/* ══════════════════════ DISCLAIMER MARQUEE ══════════════════════ */
+.disc-outer{overflow:hidden;margin-top:30px;border-top:1px solid var(--bdr);padding-top:16px;
+  mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.disc-track{display:inline-block;white-space:nowrap;font-family:"JetBrains Mono",monospace;font-size:10.5px;
+  letter-spacing:.05em;color:var(--faint);animation:disc-scroll 28s linear infinite}
+@keyframes disc-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.foot{font-size:11px;color:var(--faint);margin-top:20px}
 
-/* disclaimer */
-.disc-bar{overflow:hidden;padding:8px 0;border-top:1px solid var(--bdr);margin-top:20px}
-.disc-track{display:inline-flex;gap:30px;animation:dscroll 18s linear infinite;white-space:nowrap;
-  font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--faint)}
-@keyframes dscroll{to{transform:translateX(-50%)}}
-.foot{text-align:center;font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--faint);margin-top:12px}
+/* ══════════════════════ GAIN TOASTS — brief proof-of-life popups, capped count ══════════════════════ */
+.gain-toast{position:fixed;z-index:15;pointer-events:none;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;
+  padding:8px 14px;border-radius:999px;background:rgba(10,3,34,.85);border:1px solid var(--bdr);backdrop-filter:blur(6px);
+  opacity:0;animation:toast-life 4.2s ease-out forwards}
+@keyframes toast-life{
+  0%{opacity:0;transform:translateY(10px) scale(.9)}
+  10%{opacity:1;transform:translateY(0) scale(1)}
+  85%{opacity:1}
+  100%{opacity:0;transform:translateY(-8px) scale(.96)}
+}
 
-/* chat */
-.chat-btn{position:fixed;right:16px;bottom:16px;z-index:80;width:50px;height:50px;border-radius:999px;
-  border:1px solid rgba(168,85,247,.3);background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;
-  cursor:pointer;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
-.chat-panel{position:fixed;right:14px;bottom:76px;z-index:80;width:340px;max-width:calc(100vw - 28px);
-  height:440px;max-height:55vh;border-radius:18px;background:rgba(10,2,36,.95);
-  border:1px solid var(--bdr);box-shadow:0 16px 50px rgba(0,0,0,.5);display:none;flex-direction:column;
-  backdrop-filter:blur(16px)}
+/* ══════════════════════ CHAT WIDGET ══════════════════════ */
+.chat-btn{position:fixed;right:22px;bottom:22px;z-index:30;width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--v),#7c3aed);border:none;color:#fff;font-size:20px;cursor:pointer;
+  box-shadow:0 10px 28px rgba(168,85,247,.4);transition:transform .25s var(--ease)}
+.chat-btn:hover{transform:scale(1.08)}
+.chat-panel{position:fixed;right:22px;bottom:86px;z-index:30;width:min(320px,88vw);height:420px;max-height:60vh;
+  background:#0a0322;border:1px solid var(--bdr);border-radius:16px;box-shadow:0 16px 50px rgba(0,0,0,.5);
+  display:none;flex-direction:column;backdrop-filter:blur(16px)}
 .chat-panel.open{display:flex}
 .chat-head{padding:12px 16px;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
-.chat-head h3{font-size:13px}.chat-close{background:none;border:1px solid var(--bdr);border-radius:50%;
-  width:26px;height:26px;color:var(--faint);cursor:pointer;font-size:12px}
+.chat-head h3{font-size:13px}
+.chat-close{background:none;border:1px solid var(--bdr);border-radius:50%;width:26px;height:26px;color:var(--faint);cursor:pointer;font-size:12px}
 .chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
 .chat-msg{max-width:82%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.5}
 .chat-msg.bot{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.1);align-self:flex-start;color:var(--dim)}
 .chat-msg.user{background:var(--v);color:#fff;align-self:flex-end}
 .chat-input-wrap{padding:10px 12px;border-top:1px solid var(--bdr);display:flex;gap:6px}
-.chat-input{flex:1;background:rgba(168,85,247,.06);border:1px solid var(--bdr);border-radius:999px;
-  padding:8px 14px;color:var(--ink);font-size:12px;outline:none}
-.chat-send{width:32px;height:32px;border-radius:50%;background:var(--v);border:none;color:#fff;cursor:pointer}
-@media(max-width:500px){.ring-container{left:50%}.frame-inner{padding:0 16px}}
-/* ═══════ Intro — candlestick chart spells out the brand name on load ═══════ */
-body.intro-lock{overflow:hidden}
-#introOverlay{position:fixed;inset:0;z-index:9999;
-  background:linear-gradient(125deg,#0d0131,#1a0a3d,#2c0f52,#0d0131);
-  background-size:300% 300%;animation:intro-bg-shift 9s ease-in-out infinite;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
-  transition:opacity .85s ease;cursor:pointer}
-@keyframes intro-bg-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-#introOverlay.fade-out{opacity:0;pointer-events:none}
-#introSvg{width:min(92vw,720px);height:auto;overflow:visible}
-#introSvg .candle{filter:drop-shadow(0 0 6px currentColor)}
-.intro-progress{width:min(60vw,320px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden;position:relative;z-index:1}
-.intro-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--v),var(--cyan),var(--up))}
-.intro-caption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.35em;
-  text-transform:uppercase;color:var(--faint);opacity:0;transition:opacity .6s ease;position:relative;z-index:1}
-.intro-caption.show{opacity:1}
-.intro-hero-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  opacity:0;transform:scale(.9);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
-.intro-hero-scene.show{opacity:1;transform:scale(1)}
-#introHeroSvg{width:min(92vw,640px);height:auto}
-#heroFigureInner{transition:transform .35s cubic-bezier(.34,1.6,.5,1);transform-origin:0px 152px}
-#heroFigureInner.slam{transform:translateY(8px) rotate(-4deg) scale(1.08)}
-#heroFlash{transition:r 1.1s cubic-bezier(.2,.8,.3,1),opacity 1.1s ease}
-#heroFlash.burst{r:170;opacity:0}
-#heroFlash2{transition:r 1.4s cubic-bezier(.2,.8,.3,1) .1s,opacity 1.4s ease .1s}
-#heroFlash2.burst{r:230;opacity:0}
-#heroAura{transition:r 1s cubic-bezier(.2,.8,.3,1),opacity 1s ease}
-#heroAura.burst{r:90;opacity:0}
-.intro-flash-full{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
-  transition:opacity .5s ease;mix-blend-mode:screen}
-.intro-flash-full.burst{opacity:.85;transition:opacity .12s ease}
-@keyframes intro-shake{0%,100%{transform:translate(0,0)}15%{transform:translate(-10px,4px)}
-  30%{transform:translate(9px,-7px)}45%{transform:translate(-8px,-5px)}60%{transform:translate(10px,6px)}
-  75%{transform:translate(-6px,3px)}90%{transform:translate(5px,-3px)}}
-#introOverlay.shake{animation:intro-shake .6s ease-in-out}
-/* GIF background - fills entire intro on all screens */
-#heroFigureInner{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
-  object-fit:cover!important;opacity:.35;z-index:1;pointer-events:none;transition:opacity .3s ease}
-@media(max-width:700px){
-  #introSvg{width:95vw}
-  #introHeroSvg{width:95vw}
-  .intro-progress{width:70vw}
-  .intro-caption{font-size:8px;letter-spacing:.25em}
-}
+.chat-input{flex:1;background:rgba(168,85,247,.06);border:1px solid var(--bdr);border-radius:999px;padding:8px 14px;color:var(--ink);font-size:12px;outline:none}
+.chat-send{width:32px;height:32px;border-radius:50%;background:var(--v);border:none;color:#fff;cursor:pointer;flex-shrink:0}
+@media(max-width:560px){.chat-panel{right:6px;left:6px;width:auto;bottom:82px}}
 
-/* ═══════ MOBILE OVERHAUL ═══════ */
-@media(max-width:600px){
-  /* layout */
-  .frame-inner{padding:0 14px!important}
-  .scroll-spacer{min-height:auto!important;height:auto!important;padding:60px 0}
-  .scroll-spacer.short{padding:40px 0}
-  .sticky-frame{position:relative!important;height:auto!important;min-height:auto!important;padding:20px 0}
+/* ══════════════════════ LIGHTBOX ══════════════════════ */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
 
-  /* typography */
-  .scene-title{font-size:clamp(22px,6vw,32px)!important;line-height:1.1}
-  .scene-sub{font-size:13px}
-  .scene-label{font-size:8px;letter-spacing:.2em}
-  .section-head{font-size:clamp(20px,5vw,28px)!important}
-
-  /* cards */
-  .card{padding:14px}
-  .card-pct{font-size:20px!important}
-  .card-label{font-size:9px}
-
-  /* links */
-  .link-card,.link{padding:12px 14px;gap:10px}
-  .link-icon{width:34px;height:34px}
-  .link-icon svg{width:16px;height:16px}
-  .link-title{font-size:13px}
-  .link-sub{font-size:9px}
-  .tag{font-size:7px;padding:2px 5px}
-
-  /* socials — stack vertically on small screens */
-  .socials{flex-direction:column;gap:8px;align-items:stretch}
-  .soc{width:auto!important;padding:10px 14px!important;justify-content:flex-start}
-  .soc span{font-size:11px!important}
-
-  /* shop */
-  .shop,.shop-card{padding:16px}
-  .shop-name{font-size:15px}
-  .shop-price{font-size:18px}
-  .shop-desc{font-size:11px}
-  .shop-features li{font-size:11px}
-  .shop-cta{font-size:12px;padding:10px}
-
-  /* stats */
-  .stats-row{gap:8px}
-  .stat{padding:10px 14px;min-width:80px}
-  .stat-num{font-size:16px!important}
-  .stat-label{font-size:8px}
-
-  /* ring - smaller and centered on mobile */
-  .ring-container{left:50%!important;opacity:.3!important}
-  .ring-container svg{width:60vw!important;height:60vw!important}
-
-  /* hero avatar */
-  .hero-avatar{width:60px!important;height:60px!important}
-
-  /* chat panel - full width on mobile */
-  .chat-panel{right:6px!important;left:6px!important;bottom:72px!important;width:auto!important;
-    max-width:none!important;height:50vh!important;border-radius:14px}
-  .chat-btn{right:12px;bottom:12px;width:46px;height:46px;font-size:18px}
-  .chat-input{font-size:14px;padding:10px 14px}
-
-  /* disclaimer */
-  .disc-bar{margin-top:14px}
-  .disclaimer-bar{margin-top:14px}
-
-  /* floating symbols - fewer on mobile to reduce clutter */
-  .float-proof,.float-badge{display:none!important}
-
-  /* profit wall */
-  .wall-grid{column-count:2!important}
-
-  /* CTA button */
-  .cta{padding:12px 20px;font-size:12px}
-
-  /* prevent horizontal overflow */
-  body{overflow-x:hidden!important}
-  *{max-width:100vw}
-
-  /* touch-friendly tap targets */
-  .link-card,.link,.card,.shop,.shop-card,.soc,.stat,.cta,.shop-cta,.chat-btn,.chat-send,.chat-close{
-    min-height:44px}
-}
-
-/* extra small phones */
-@media(max-width:380px){
-  .scene-title{font-size:20px!important}
-  .card-pct{font-size:18px!important}
-  .frame-inner{padding:0 10px!important}
-  .socials .soc span{font-size:10px!important}
-  .shop-price{font-size:16px}
-  .stat{min-width:70px;padding:8px 10px}
-  .stat-num{font-size:14px!important}
-}
-/* cosmic twinkling stars layered inside the intro, so it stays animated/engaging while typing plays */
-.intro-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.intro-star{position:absolute;border-radius:50%;background:#fff;animation:intro-twinkle ease-in-out infinite}
-@keyframes intro-twinkle{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.9;transform:scale(1.5)}}
+/* ══════════════════════ INTRO (short, CSS-driven, skippable) ══════════════════════ */
+#intro{position:fixed;inset:0;z-index:999;background:#050110;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;cursor:pointer;transition:opacity .5s ease}
+#intro.fade{opacity:0;pointer-events:none}
+.intro-word{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:clamp(18px,5vw,28px);letter-spacing:.12em;display:flex}
+.intro-word span{opacity:0;transform:translateY(10px);animation:letter-in .5s var(--ease) forwards;background:linear-gradient(135deg,var(--up),var(--cyan),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes letter-in{to{opacity:1;transform:translateY(0)}}
+.intro-bar{width:min(50vw,220px);height:2px;background:rgba(168,85,247,.15);border-radius:2px;overflow:hidden}
+.intro-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--up),var(--cyan),var(--v));animation:intro-fill 1.5s ease-out forwards .2s}
+@keyframes intro-fill{to{width:100%}}
+.intro-tap{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);opacity:0;animation:fade-in .4s ease forwards 1.2s}
+@keyframes fade-in{to{opacity:1}}
 </style>
 </head>
 <body>
-<!-- ═══════ Intro — candlesticks spell out the brand name, then fade into the site ═══════ -->
-<div id="introOverlay">
-  <div class="intro-stars">
-    <div class="intro-star" style="top:8%;left:12%;width:2px;height:2px;animation-duration:2.4s"></div>
-    <div class="intro-star" style="top:18%;left:78%;width:3px;height:3px;animation-duration:3.1s;animation-delay:.4s"></div>
-    <div class="intro-star" style="top:64%;left:6%;width:2px;height:2px;animation-duration:2.7s;animation-delay:.9s"></div>
-    <div class="intro-star" style="top:72%;left:90%;width:2px;height:2px;animation-duration:3.4s;animation-delay:.2s"></div>
-    <div class="intro-star" style="top:30%;left:22%;width:1.5px;height:1.5px;animation-duration:2.2s;animation-delay:1.1s"></div>
-    <div class="intro-star" style="top:12%;left:55%;width:2.5px;height:2.5px;animation-duration:2.9s;animation-delay:.6s"></div>
-    <div class="intro-star" style="top:85%;left:38%;width:2px;height:2px;animation-duration:2.5s;animation-delay:1.4s"></div>
-    <div class="intro-star" style="top:45%;left:88%;width:1.5px;height:1.5px;animation-duration:3.2s;animation-delay:.3s"></div>
-    <div class="intro-star" style="top:55%;left:15%;width:3px;height:3px;animation-duration:2.8s;animation-delay:1.7s"></div>
-    <div class="intro-star" style="top:22%;left:65%;width:2px;height:2px;animation-duration:2.3s;animation-delay:.8s"></div>
-    <div class="intro-star" style="top:92%;left:70%;width:2px;height:2px;animation-duration:3.0s;animation-delay:1.2s"></div>
-    <div class="intro-star" style="top:5%;left:35%;width:1.5px;height:1.5px;animation-duration:2.6s;animation-delay:.5s"></div>
-    <div class="intro-star" style="top:38%;left:5%;width:2.5px;height:2.5px;animation-duration:3.3s;animation-delay:1.6s"></div>
-    <div class="intro-star" style="top:68%;left:55%;width:2px;height:2px;animation-duration:2.5s;animation-delay:.1s"></div>
-    <div class="intro-star" style="top:15%;left:92%;width:2px;height:2px;animation-duration:2.9s;animation-delay:1.0s"></div>
-  </div>
-  <svg id="introSvg" viewBox="0 0 100 20" preserveAspectRatio="xMidYMid meet"></svg>
-  <div class="intro-progress"><div class="intro-progress-bar" id="introProgressBar"></div></div>
-  <p class="intro-caption" id="introCaption">// entering the portal</p>
 
-  <!-- ═══ Hero scene: GIF figure on the waves, slam triggers the surge ═══ -->
-  <div class="intro-hero-scene" id="introHeroScene">
-    <div class="intro-flash-full" id="introFlashFull"></div>
-    <svg id="introHeroSvg" viewBox="0 0 300 220" style="position:relative;z-index:3">
-      <defs>
-        <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#1a0a3d"/>
-        </linearGradient>
-        <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(245,240,255,.55)"/><stop offset="100%" stop-color="rgba(168,85,247,0)"/>
-        </radialGradient>
-      </defs>
-      <!-- shockwave rings -->
-      <circle id="heroFlash" cx="150" cy="192" r="0" fill="none" stroke="#f5f0ff" stroke-width="3.5" opacity="0"/>
-      <circle id="heroFlash2" cx="150" cy="192" r="0" fill="none" stroke="#c99bff" stroke-width="2" opacity="0"/>
-      <!-- lightning bolts -->
-      <g id="heroBolts" opacity="0" stroke-linecap="round" fill="none" filter="drop-shadow(0 0 6px #f5f0ff)">
-        <path d="M150 192 L128 148 L144 148 L110 90" stroke="#f5f0ff" stroke-width="3.4"/>
-        <path d="M150 192 L176 142 L160 142 L192 82" stroke="#c99bff" stroke-width="3.4"/>
-        <path d="M150 192 L104 162 L92 162 L42 128" stroke="#f5f0ff" stroke-width="2.6"/>
-        <path d="M150 192 L198 166 L210 166 L258 134" stroke="#c99bff" stroke-width="2.6"/>
-        <path d="M150 192 L140 176 L124 178 L88 156" stroke="#f5f0ff" stroke-width="2"/>
-        <path d="M150 192 L160 176 L176 178 L212 156" stroke="#c99bff" stroke-width="2"/>
-        <path d="M150 192 L150 150 L138 150 L150 100" stroke="#f5f0ff" stroke-width="2.8"/>
-        <path d="M150 192 L152 145 L165 148 L172 96" stroke="#c99bff" stroke-width="2.2"/>
-      </g>
-      <!-- glowing aura -->
-      <circle id="heroAura" cx="150" cy="130" r="0" fill="url(#auraGrad)" opacity="0"/>
-      <!-- GIF is positioned via CSS, not inside the SVG -->
-    </svg>
-    <img id="heroFigureInner" src="one-piece-gear-5.gif" alt=""/>
+<!-- ambient background — pure CSS, no WebGL, no JS render loop -->
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+<div class="orb tl"></div><div class="orb tr"></div><div class="orb bl"></div><div class="orb br"></div>
+<div class="floaters" id="floaters"></div>
+
+<!-- ═══ Intro — quick brand reveal, CSS-driven, auto-dismisses, tap anywhere to skip ═══ -->
+<div id="intro">
+  <div class="intro-word" id="introWord"></div>
+  <div class="intro-bar"><i></i></div>
+  <div class="intro-tap">tap to enter</div>
+</div>
+
+<!-- ═══ Nav ═══ -->
+<div class="topnav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">📈</span>BALLOUTT</a>
+    <nav class="navlinks">
+      <a href="#start">Start Here</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#shop">Shop</a>
+      <a href="#follow">Follow</a>
+    </nav>
   </div>
 </div>
 
-<div id="vantaBg"></div>
-<canvas id="tickerCanvas"></canvas>
-<div class="vanta-cyan-tint"></div>
-<div class="light-rays"></div>
-<div class="water-shimmer"></div>
-<div class="corner-orb tl"></div>
-<div class="corner-orb tr"></div>
-<div class="corner-orb bl"></div>
-<div class="corner-orb br"></div>
-
-<!-- ═══════ Ocean scene — boats, fish, and sharks drifting through the wave background ═══════ -->
-<!-- Big boat -->
-<svg class="sea-creature boat-lg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="hullGradLg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d9bfff"/><stop offset="100%" stop-color="#5b21b6"/>
-    </linearGradient>
-    <linearGradient id="sailGradLg" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#d9c8f5"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="46" cy="82" rx="20" ry="2.4" fill="rgba(255,255,255,.18)"/>
-  <ellipse cx="70" cy="80" rx="10" ry="1.6" fill="rgba(255,255,255,.12)"/>
-  <path d="M15 72 C30 89,70 89,85 72 L78 79 C65 85,35 85,22 79 Z" fill="url(#hullGradLg)"/>
-  <path d="M22 79 C35 85,65 85,78 79 L76 81 C64 86,36 86,24 81 Z" fill="rgba(30,10,60,.35)"/>
-  <line x1="50" y1="72" x2="50" y2="14" stroke="#f0eaff" stroke-width="2" stroke-linecap="round"/>
-  <path d="M51 17 L51 66 L86 63 Z" fill="url(#sailGradLg)"/>
-  <line x1="51" y1="17" x2="51" y2="66" stroke="#fff" stroke-width=".6" opacity=".8"/>
-  <path d="M49 28 L49 64 L18 60 Z" fill="rgba(201,155,255,.85)"/>
-  <path d="M50 14 L58 16 L50 20 Z" fill="#ff3b4e"/>
-  <circle cx="50" cy="14" r="2.4" fill="#f0eaff"/>
-</svg>
-<!-- Medium boat -->
-<svg class="sea-creature boat-md" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="hullGradMd" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#8fe9fb"/><stop offset="100%" stop-color="#7c3aed"/>
-    </linearGradient>
-    <linearGradient id="sailGradMd" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#cdeaff"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="50" cy="80" rx="16" ry="2" fill="rgba(255,255,255,.16)"/>
-  <path d="M18 70 C32 85,68 85,82 70 L76 76 C64 81,36 81,24 76 Z" fill="url(#hullGradMd)"/>
-  <path d="M24 76 C36 81,64 81,76 76 L74 78 C63 82,37 82,26 78 Z" fill="rgba(20,30,60,.3)"/>
-  <line x1="50" y1="70" x2="50" y2="22" stroke="#f0eaff" stroke-width="2" stroke-linecap="round"/>
-  <path d="M51 25 L51 64 L80 61 Z" fill="url(#sailGradMd)"/>
-  <path d="M50 22 L57 24 L50 27 Z" fill="#3ce88a"/>
-</svg>
-<!-- Small boat -->
-<svg class="sea-creature boat-sm" viewBox="0 0 100 100">
-  <defs><linearGradient id="hullGradSm" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#e6d4ff"/><stop offset="100%" stop-color="#8b5cf6"/>
-  </linearGradient></defs>
-  <path d="M20 68 C34 82,66 82,80 68 L74 74 C62 79,38 79,26 74 Z" fill="url(#hullGradSm)"/>
-  <path d="M26 74 C38 79,62 79,74 74 L72 76 C61 80,39 80,28 76 Z" fill="rgba(30,10,60,.3)"/>
-  <line x1="50" y1="68" x2="50" y2="30" stroke="#f0eaff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M51 32 L51 62 L76 59 Z" fill="rgba(240,234,255,.9)"/>
-</svg>
-<!-- Extra-large flagship boat -->
-<svg class="sea-creature boat-xl" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="hullGradXl" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffe29a"/><stop offset="100%" stop-color="#8b3fd6"/>
-    </linearGradient>
-    <linearGradient id="sailGradXl" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffe6b0"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="50" cy="86" rx="24" ry="2.8" fill="rgba(255,255,255,.2)"/>
-  <ellipse cx="78" cy="84" rx="11" ry="1.8" fill="rgba(255,255,255,.13)"/>
-  <path d="M12 74 C28 92,72 92,88 74 L80 81 C66 87,34 87,20 81 Z" fill="url(#hullGradXl)"/>
-  <path d="M20 81 C34 87,66 87,80 81 L78 83 C65 88,35 88,22 83 Z" fill="rgba(30,10,60,.35)"/>
-  <line x1="50" y1="74" x2="50" y2="10" stroke="#f0eaff" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M51 13 L51 68 L90 64 Z" fill="url(#sailGradXl)"/>
-  <line x1="51" y1="13" x2="51" y2="68" stroke="#fff" stroke-width=".6" opacity=".8"/>
-  <path d="M49 26 L49 66 L14 62 Z" fill="rgba(255,201,60,.8)"/>
-  <path d="M50 10 L60 13 L50 16 Z" fill="#a855f7"/>
-  <circle cx="50" cy="10" r="2.6" fill="#f0eaff"/>
-</svg>
-<!-- Second small boat, quick and lively -->
-<svg class="sea-creature boat-sm2" viewBox="0 0 100 100">
-  <defs><linearGradient id="hullGradSm2" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#b9f8d3"/><stop offset="100%" stop-color="#159a56"/>
-  </linearGradient></defs>
-  <path d="M20 68 C34 82,66 82,80 68 L74 74 C62 79,38 79,26 74 Z" fill="url(#hullGradSm2)"/>
-  <path d="M26 74 C38 79,62 79,74 74 L72 76 C61 80,39 80,28 76 Z" fill="rgba(10,40,25,.3)"/>
-  <line x1="50" y1="68" x2="50" y2="30" stroke="#f0eaff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M51 32 L51 62 L76 59 Z" fill="rgba(240,234,255,.9)"/>
-</svg>
-
-<!-- Fish, swimming in a small school at different depths -->
-<svg class="sea-creature fish fish1" viewBox="0 0 60 24">
-  <defs><linearGradient id="fishGrad1" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#7dfbff"/><stop offset="100%" stop-color="#0e93a8"/>
-  </linearGradient></defs>
-  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad1)"/>
-  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad1)"/>
-  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
-  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
-</svg>
-<svg class="sea-creature fish fish2" viewBox="0 0 60 24">
-  <defs><linearGradient id="fishGrad2" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#e6d4ff"/><stop offset="100%" stop-color="#7c3aed"/>
-  </linearGradient></defs>
-  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad2)"/>
-  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad2)"/>
-  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
-  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
-</svg>
-<svg class="sea-creature fish fish3" viewBox="0 0 60 24">
-  <defs><linearGradient id="fishGrad3" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#a4f7c8"/><stop offset="100%" stop-color="#159a56"/>
-  </linearGradient></defs>
-  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad3)"/>
-  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad3)"/>
-  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
-  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
-</svg>
-<svg class="sea-creature fish fish4" viewBox="0 0 60 24">
-  <defs><linearGradient id="fishGrad4" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#d9b3ff"/><stop offset="100%" stop-color="#6d1fb0"/>
-  </linearGradient></defs>
-  <path d="M4 12 C10 2,40 2,50 12 C40 22,10 22,4 12 Z" fill="url(#fishGrad4)"/>
-  <path class="fish-tail" d="M50 12 L60 4 L60 20 Z" fill="url(#fishGrad4)"/>
-  <ellipse cx="16" cy="7" rx="7" ry="2.6" fill="rgba(255,255,255,.4)"/>
-  <circle cx="12" cy="10" r="1.6" fill="#050110"/>
-</svg>
-
-<!-- Sharks — bigger, slower, gliding menacingly through the deep -->
-<svg class="sea-creature shark shark1" viewBox="0 0 140 60">
-  <defs><linearGradient id="sharkGrad1" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#9d7ae0"/><stop offset="100%" stop-color="#3a2064"/>
-  </linearGradient></defs>
-  <path d="M5 40 C30 15,90 15,130 32 C110 46,60 52,30 48 C18 46,10 44,5 40 Z" fill="url(#sharkGrad1)"/>
-  <path d="M55 20 L70 2 L78 22 Z" fill="url(#sharkGrad1)"/>
-  <path class="shark-tail" d="M120 30 L138 22 L128 40 Z" fill="url(#sharkGrad1)"/>
-  <ellipse cx="55" cy="24" rx="30" ry="4" fill="rgba(255,255,255,.22)"/>
-  <circle cx="20" cy="34" r="2" fill="#050110"/>
-</svg>
-<svg class="sea-creature shark shark2" viewBox="0 0 140 60">
-  <defs><linearGradient id="sharkGrad2" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#7c5cc4"/><stop offset="100%" stop-color="#211140"/>
-  </linearGradient></defs>
-  <path d="M5 40 C30 15,90 15,130 32 C110 46,60 52,30 48 C18 46,10 44,5 40 Z" fill="url(#sharkGrad2)"/>
-  <path d="M55 20 L70 2 L78 22 Z" fill="url(#sharkGrad2)"/>
-  <path class="shark-tail" d="M120 30 L138 22 L128 40 Z" fill="url(#sharkGrad2)"/>
-  <ellipse cx="55" cy="24" rx="30" ry="4" fill="rgba(255,255,255,.2)"/>
-  <circle cx="20" cy="34" r="2" fill="#050110"/>
-</svg>
-
-<div class="progress" id="prog"></div>
-<div class="grid-bg"></div>
-<div class="theme-glow" id="themeGlow"></div>
-<div class="dark-overlay"></div>
-
-<!-- Central animated ring that transforms as you scroll -->
-<div class="ring-container" id="ring">
-  <svg viewBox="0 0 400 400">
-    <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(168,85,247,.15)" stroke-width="1"/>
-    <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(168,85,247,.1)" stroke-width="1"/>
-    <circle id="rArc1" cx="200" cy="200" r="180" fill="none" stroke="var(--v)" stroke-width="3" stroke-dasharray="280 850" stroke-linecap="round" opacity=".6"/>
-    <circle id="rArc2" cx="200" cy="200" r="160" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-dasharray="200 810" stroke-linecap="round" opacity=".5" transform="rotate(120 200 200)"/>
-    <circle id="rArc3" cx="200" cy="200" r="190" fill="none" stroke="var(--up)" stroke-width="2" stroke-dasharray="150 1050" stroke-linecap="round" opacity=".4" transform="rotate(240 200 200)"/>
-    <circle id="rDot" cx="200" cy="30" r="4" fill="var(--v)" opacity=".8"/>
-    <!-- live candlestick chart — replaces the old static line -->
-    <line x1="90" y1="255" x2="310" y2="255" stroke="rgba(168,85,247,.15)" stroke-width="1"/>
-    <g id="candleGroup" font-family="JetBrains Mono, monospace" font-weight="700" text-anchor="middle"
-       style="--outline:#050110">
-      <!-- 7 candle slots: wick + body + top $ number + bottom word, all set by CANDLE_STORY below -->
-      <g class="candle-slot"><line class="wick" x1="106" y1="255" x2="106" y2="255"/><rect class="body" x="98" y="255" width="16" height="0" rx="3"/><text class="num" x="106" y="255" font-size="12"></text><text class="word" x="106" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="136" y1="255" x2="136" y2="255"/><rect class="body" x="128" y="255" width="16" height="0" rx="3"/><text class="num" x="136" y="255" font-size="12"></text><text class="word" x="136" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="166" y1="255" x2="166" y2="255"/><rect class="body" x="158" y="255" width="16" height="0" rx="3"/><text class="num" x="166" y="255" font-size="12"></text><text class="word" x="166" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="196" y1="255" x2="196" y2="255"/><rect class="body" x="188" y="255" width="16" height="0" rx="3"/><text class="num" x="196" y="255" font-size="12"></text><text class="word" x="196" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="226" y1="255" x2="226" y2="255"/><rect class="body" x="218" y="255" width="16" height="0" rx="3"/><text class="num" x="226" y="255" font-size="12"></text><text class="word" x="226" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="256" y1="255" x2="256" y2="255"/><rect class="body" x="248" y="255" width="16" height="0" rx="3"/><text class="num" x="256" y="255" font-size="12"></text><text class="word" x="256" y="285" font-size="9"></text></g>
-      <g class="candle-slot"><line class="wick" x1="286" y1="255" x2="286" y2="255"/><rect class="body" x="278" y="255" width="16" height="0" rx="3"/><text class="num" x="286" y="255" font-size="12"></text><text class="word" x="286" y="285" font-size="9"></text></g>
-    </g>
-    <!-- FOLLOW-SECTION FORM: the chart dissolves into this "+" mark near the bottom of the page -->
-    <g id="formPlus" opacity="0" transform="translate(200 200)">
-      <circle r="86" fill="none" stroke="var(--v)" stroke-width="2" opacity=".5"/>
-      <circle r="60" fill="none" stroke="var(--vb)" stroke-width="1" opacity=".35"/>
-      <rect x="-8" y="-52" width="16" height="104" rx="8" fill="var(--v)"/>
-      <rect x="-52" y="-8" width="104" height="16" rx="8" fill="var(--v)"/>
-    </g>
-  </svg>
-
-</div>
-<!-- floating themed particles spawn here (JS injects .ember spans into body directly) -->
-
-<!-- SCENE 1: HERO (scroll spacer 300vh, sticky content) -->
-<div class="scroll-spacer" id="s1">
-  <div class="sticky-frame hero-anchor-top">
-    <div class="frame-inner">
-      <div class="scene-text" id="t1">
-        <img class="hero-avatar" src="assets/profile.jpg" alt="Balloutt" onerror="this.style.display='none'">
-        <p class="scene-label" style="color:var(--up)">// balloutt trades llc</p>
-        <h1 class="scene-title">When your gains read like a <em>phone number.</em></h1>
-        <p class="scene-sub">Full-time options trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
-        <a href="https://discord.gg/j823dz4HVd" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:12px 24px;border-radius:999px;background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px">🔥 Enter the Portal</a>
-      </div>
+<!-- ═══ Hero ═══ -->
+<section class="hero" id="top">
+  <div class="wrap reveal">
+    <div class="avatar-wrap">
+      <svg class="hero-ring" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#ringGrad)" stroke-width="1.6" stroke-dasharray="8 10" stroke-linecap="round"/>
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#3ce88a"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a855f7"/>
+        </linearGradient></defs>
+      </svg>
+      <img class="hero-avatar" src="assets/profile.jpg" alt="Balloutt" onerror="this.style.display='none'">
+    </div>
+    <p class="eyebrow">// balloutt trades llc</p>
+    <h1>When your gains read like a <em>phone number.</em></h1>
+    <p class="sub">Full-time options trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
+    <a class="cta" href="https://discord.gg/vm4BqVWWcX">🔥 Enter the Portal</a>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">2K</div><div class="stat-label">Snapchat</div></div>
+      <div class="stat"><div class="stat-num">1K</div><div class="stat-label">TikTok</div></div>
+      <div class="stat"><div class="stat-num">41K+</div><div class="stat-label">Total Reach</div></div>
+      <div class="stat"><div class="stat-num">86.7%</div><div class="stat-label">Win Rate</div></div>
+    </div>
+    <div class="candle-strip" aria-hidden="true">
+      <i style="height:22px;animation-delay:.0s"></i>
+      <i class="down" style="height:14px;animation-delay:.2s"></i>
+      <i style="height:30px;animation-delay:.4s"></i>
+      <i style="height:20px;animation-delay:.6s"></i>
+      <i style="height:42px;animation-delay:.8s"></i>
+      <i class="down" style="height:18px;animation-delay:1s"></i>
+      <i style="height:52px;animation-delay:1.2s"></i>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SCENE 2: HIGHLIGHTS -->
-<div class="scroll-spacer" id="s2">
-  <div class="sticky-frame">
-    <div class="frame-inner">
-      <div class="scene-text" id="t2">
-        <p class="scene-label">// verified results</p>
-        <h1 class="scene-title">Recent <em>Highlights</em></h1>
-        <div class="card-row">
-          <div class="card" id="c1"><div class="card-pct" data-target="219829" data-decimals="0">+0%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></div>
-          <div class="card" id="c2"><div class="card-pct" data-target="11172" data-decimals="0">+0%</div><div class="card-label">June 2026 Recap</div></div>
-          <div class="card" id="c3"><div class="card-pct" data-target="12240" data-decimals="0">+0%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
-          <div class="card" id="c4"><div class="card-pct" data-target="1083.33" data-decimals="2">+0%</div><div class="card-label">The 2-Day Run · TSLA &amp; META · Jul 22–24</div></div>
-        </div>
-      </div>
-      <!-- proof wall lives OUTSIDE the scroll-gated text block, so it's always fully visible —
-           it used to inherit the fade-in opacity of #t2 and could look "hidden" until scrolled just right -->
-      <div class="proof-wall-wrap">
-        <div class="proof-strip"><div class="proof-track" id="proofTrack"></div></div>
-        <p class="proof-label">Receipts from me &amp; members — tap to enlarge</p>
-      </div>
+<!-- ═══ Start Here (beginner walkthrough) ═══ -->
+<section class="tight" id="start">
+  <div class="wrap reveal">
+    <p class="eyebrow v">// new here? start with these 3</p>
+    <h2>Beginner <em>Walkthrough</em></h2>
+    <p class="sub">Never followed alerts before? Do these in order and you're set.</p>
+    <div class="step-list">
+      <a class="step" href="https://discord.gg/vm4BqVWWcX">
+        <div class="step-num">1</div>
+        <div><div class="link-title">Join for Free</div><div class="link-sub">Hop in the main Discord — no paywall, 41K+ traders already in</div></div>
+      </a>
+      <a class="step" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener">
+        <div class="step-num">2</div>
+        <div><div class="link-title">Read the Alerts Guide</div><div class="link-sub">A 2-minute PDF on how to read my entries, TP, and SL</div></div>
+      </a>
+      <a class="step" href="https://strixoptionsfunding.com/?ref=balloutt">
+        <div class="step-num">3</div>
+        <div><div class="link-title">Get Funded <span class="tag">BTLLC</span></div><div class="link-sub">Strix Options Funding — trade with their capital, not just your own</div></div>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SCENE 3: JOIN FREE -->
-<div class="scroll-spacer short" id="s3">
-  <div class="sticky-frame">
-    <div class="frame-inner">
-      <div class="scene-text" id="t3">
-        <p class="scene-label">// get started free</p>
-        <h1 class="scene-title">Join <em>Free</em></h1>
-        <div class="card-row">
-          <a class="link" href="https://discord.gg/j823dz4HVd"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Balloutt Trades Server</div><div class="link-sub">Main server · 41K+ traders · free</div></div></a>
-          <a class="link" href="https://discord.gg/9YXBKQHMyY"><span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span><div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div></a>
-          <a class="link strix" href="https://strixoptionsfunding.com/?ref=balloutt"><span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><div><div class="link-title">Strix Options Funding <span class="tag">BTLLC</span></div><div class="link-sub">Get funded to trade options</div></div></a>
-          <a class="link" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener"><span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span><div><div class="link-title">How to Follow My Alerts <span class="tag">FREE</span></div><div class="link-sub">Full callouts guide · PDF</div></div></a>
-        </div>
-      </div>
+<!-- ═══ Highlights ═══ -->
+<section id="highlights">
+  <div class="wrap reveal">
+    <p class="eyebrow">// verified results</p>
+    <h2>Recent <em>Highlights</em></h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-pct" data-target="219829" data-decimals="0">+0%</div><div class="card-label">Portfolio Challenge · Jun 29 – Jul 7</div></div>
+      <div class="card"><div class="card-pct" data-target="11172" data-decimals="0">+0%</div><div class="card-label">June 2026 Recap</div></div>
+      <div class="card"><div class="card-pct" data-target="12240" data-decimals="0">+0%</div><div class="card-label">META $575C 7/1 · Single Trade</div></div>
+      <div class="card"><div class="card-pct" data-target="1083.33" data-decimals="2">+0%</div><div class="card-label">The 2-Day Run · TSLA &amp; META · Jul 22–24</div></div>
+    </div>
+    <div class="proof-wrap">
+      <div class="proof-track-outer"><div class="proof-track" id="proofTrack"></div></div>
+      <p class="proof-label">Receipts from me &amp; members — tap to enlarge</p>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SCENE 4: SHOP -->
-<div class="scroll-spacer short" id="s4">
-  <div class="sticky-frame">
-    <div class="frame-inner">
-      <div class="scene-text" id="t4">
-        <p class="scene-label">// invest in yourself</p>
-        <h1 class="scene-title">Shop</h1>
-        <a class="shop feat" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener"><div class="shop-name">Lifetime Mentorship</div><div class="shop-price">$2,500 <small>one-time</small></div><div class="shop-desc">1:1 live sessions, my personal trades, full watchlist — lifetime access. Plans from $200/mo.</div><span class="shop-cta">💎 DM to Purchase</span></a>
-        <a class="shop" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener"><div class="shop-name">Double Trouble Bundle</div><div class="shop-price">$450 <small>/mo</small></div><div class="shop-desc">Two analysts, real-time alerts with TP/SL. 0DTE, swings, LEAPS, whale alerts.</div><span class="shop-cta">🔥 DM to Purchase</span></a>
-      </div>
+<!-- ═══ More tools ═══ -->
+<section class="tight" id="tools">
+  <div class="wrap reveal">
+    <p class="eyebrow">// level up further</p>
+    <h2>More <em>Tools</em></h2>
+    <div class="stack">
+      <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
+        <div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div>
+      </a>
+      <a class="link-card" href="https://www.traderdaddy.pro/?ref=42KYBSFS">
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+        <div><div class="link-title">TraderDaddy Pro</div><div class="link-sub">Charting &amp; indicator suite</div></div>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SCENE 5: FOLLOW -->
-<div class="scroll-spacer short" id="s5">
-  <div class="sticky-frame">
-    <div class="frame-inner">
-      <div class="scene-text" id="t5">
-        <p class="scene-label">// connect</p>
-        <h1 class="scene-title">Follow <em>Balloutt</em></h1>
-        <nav class="socials">
-          <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg>@Balloutt.on.bizz</a>
-          <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg>@BallouttTrades</a>
-          <a class="soc" href="https://discord.gg/j823dz4HVd"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
-          <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg>@BallouttTrades</a>
-          <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9v2c.3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2v-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>@Balloutt.bb</a>
-        </nav>
-        <div class="disc-bar"><div class="disc-track" id="discT"></div></div>
-        <div class="foot">© 2026 Balloutt Trades LLC</div>
-      </div>
+<!-- ═══ Shop ═══ -->
+<section class="tight" id="shop">
+  <div class="wrap reveal">
+    <p class="eyebrow">// invest in yourself</p>
+    <h2>Shop</h2>
+    <div class="stack">
+      <a class="shop-card feat" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
+        <div class="shop-name">Lifetime Mentorship</div>
+        <div class="shop-price">$2,500 <small>one-time</small></div>
+        <div class="shop-desc">1:1 live sessions, my personal trades, full watchlist — lifetime access. Plans from $200/mo.</div>
+        <span class="shop-cta">💎 DM to Purchase</span>
+      </a>
+      <a class="shop-card" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
+        <div class="shop-name">Double Trouble Bundle</div>
+        <div class="shop-price">$450 <small>/mo</small></div>
+        <div class="shop-desc">Two analysts, real-time alerts with TP/SL. 0DTE, swings, LEAPS, whale alerts.</div>
+        <span class="shop-cta">🔥 DM to Purchase</span>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Chat -->
-<button class="chat-btn" onclick="document.getElementById('cp').classList.toggle('open')">💬</button>
+<!-- ═══ Follow ═══ -->
+<section id="follow">
+  <div class="wrap reveal">
+    <p class="eyebrow">// connect</p>
+    <h2>Follow <em>Balloutt</em></h2>
+    <nav class="socials">
+      <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg>@Balloutt.on.bizz</a>
+      <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg>@BallouttTrades</a>
+      <a class="soc" href="https://discord.gg/vm4BqVWWcX"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
+      <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg>@BallouttTrades</a>
+      <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9v2c.3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2v-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>@Balloutt.bb</a>
+    </nav>
+    <div class="disc-outer"><div class="disc-track" id="discTrack"></div></div>
+    <div class="foot">© 2026 Balloutt Trades LLC</div>
+  </div>
+</section>
+
+<!-- ═══ Chat ═══ -->
+<button class="chat-btn" onclick="document.getElementById('cp').classList.toggle('open')" aria-label="Open chat">💬</button>
 <div class="chat-panel" id="cp">
   <div class="chat-head"><h3>Balloutt AI</h3><button class="chat-close" onclick="document.getElementById('cp').classList.remove('open')">✕</button></div>
   <div class="chat-msgs" id="cm"><div class="chat-msg bot">Hey! Ask me about alerts, mentorship, pricing, or how to join. 🚀</div></div>
@@ -793,563 +414,96 @@ body.intro-lock{overflow:hidden}
 </div>
 
 <script>
-// ═══════ INTRO — candlesticks spell out "BALLOUTT TRADES LLC" letter by letter, then fade ═══════
-// Runs first and depends on nothing external (no GSAP/Vanta/Lenis needed), so it always plays.
-// Exposed as window.playIntro() so it can be replayed on demand from the console —
-// useful in preview tools that hot-reload the same page instead of doing a fresh load.
-function playIntro(){
-  var overlay=document.getElementById('introOverlay');
-  var svg=document.getElementById('introSvg');
-  var progressBar=document.getElementById('introProgressBar');
-  var caption=document.getElementById('introCaption');
-  var heroScene=document.getElementById('introHeroScene');
-  var heroFigure=document.getElementById('heroFigureInner');
-  var heroBolts=document.getElementById('heroBolts');
-  var heroFlash=document.getElementById('heroFlash');
-  var heroFlash2=document.getElementById('heroFlash2');
-  var heroAura=document.getElementById('heroAura');
-  var flashFull=document.getElementById('introFlashFull');
-  if(!overlay||!svg){ console.warn('playIntro(): intro elements not found in the DOM'); return; }
+/* ═══════════════════════════════════════════════════════════════
+   Everything below is plain vanilla JS. No GSAP, no Three.js/Vanta,
+   no Lenis, no anime.js. Motion lives in CSS (GPU-composited) and
+   only runs when it needs to — no perpetual per-frame loops, no
+   DOM nodes spawned/destroyed forever in the background.
+   ═══════════════════════════════════════════════════════════════ */
 
-  svg.innerHTML=''; // clear any candles from a previous run
-  overlay.classList.remove('fade-out','shake');
-  overlay.style.display='flex';
-  if(progressBar) progressBar.style.width='0%';
-  if(caption) caption.classList.remove('show');
-  if(heroScene) heroScene.classList.add('show');
-  if(heroFigure) heroFigure.classList.remove('slam');
-  if(heroBolts) heroBolts.setAttribute('opacity','0');
-  if(heroFlash){ heroFlash.classList.remove('burst'); heroFlash.setAttribute('r','0'); heroFlash.setAttribute('opacity','0'); }
-  if(heroFlash2){ heroFlash2.classList.remove('burst'); heroFlash2.setAttribute('r','0'); heroFlash2.setAttribute('opacity','0'); }
-  if(heroAura){ heroAura.classList.remove('burst'); heroAura.setAttribute('r','0'); heroAura.setAttribute('opacity','0'); }
-  if(flashFull) flashFull.classList.remove('burst');
-
-  console.log('%cplayIntro() started','color:#a855f7;font-weight:bold');
-  document.body.classList.add('intro-lock');
-
-  // 5x7 dot-matrix font — only the letters this brand name actually needs
-  var FONT={
-    A:['01110','10001','10001','11111','10001','10001','10001'],
-    B:['11110','10001','10001','11110','10001','10001','11110'],
-    C:['01111','10000','10000','10000','10000','10000','01111'],
-    D:['11110','10001','10001','10001','10001','10001','11110'],
-    E:['11111','10000','10000','11110','10000','10000','11111'],
-    L:['10000','10000','10000','10000','10000','10000','11111'],
-    O:['01110','10001','10001','10001','10001','10001','01110'],
-    R:['11110','10001','10001','11110','10100','10010','10001'],
-    S:['01111','10000','10000','01110','00001','00001','11110'],
-    T:['11111','00100','00100','00100','00100','00100','00100'],
-    U:['10001','10001','10001','10001','10001','10001','01110']
-  };
-
-  var TEXT='BALLOUTT TRADES LLC';
-  var ROWS=7, COLS=5, CELL=10, LETTER_GAP=1, SPACE_W=3;
-
-  var upColor='#c99bff';   // soft violet — matches --vb, replacing the market green
-  var downColor='#f5f0ff'; // near-white lavender, replacing the market red
-
-  // lay out every candle's grid position, and which character index (letter) it belongs to
-  var candles=[], cursorX=0, byChar={};
-  TEXT.split('').forEach(function(ch,ci){
-    if(ch===' '){ cursorX+=SPACE_W*CELL; return; }
-    var pattern=FONT[ch];
-    if(!pattern) { cursorX+=(COLS+LETTER_GAP)*CELL; return; }
-    for(var row=0;row<ROWS;row++){
-      for(var col=0;col<COLS;col++){
-        if(pattern[row][col]==='1'){
-          var idx=candles.length;
-          candles.push({x:cursorX+col*CELL, row:row, up:Math.random()>0.32});
-          (byChar[ci]=byChar[ci]||[]).push(idx);
-        }
-      }
-    }
-    cursorX+=(COLS+LETTER_GAP)*CELL;
-  });
-  var totalW=cursorX-(LETTER_GAP*CELL), totalH=ROWS*CELL;
-  svg.setAttribute('viewBox','0 0 '+totalW+' '+totalH);
-
-  var candleEls=candles.map(function(c){
-    var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('class','candle');
-    rect.setAttribute('x',c.x+1);
-    rect.setAttribute('width',CELL-2);
-    rect.setAttribute('y',c.row*CELL+CELL/2);
-    rect.setAttribute('height',0);
-    rect.setAttribute('rx',1.4);
-    rect.setAttribute('fill',c.up?upColor:downColor);
-    rect.style.color=c.up?upColor:downColor; // for the drop-shadow(currentColor) filter
-    rect.setAttribute('opacity',0);
-    rect.style.transition='height .26s cubic-bezier(.22,1.4,.36,1), y .26s cubic-bezier(.22,1.4,.36,1), opacity .18s ease';
-    svg.appendChild(rect);
-    return rect;
-  });
-
-  var letterOrder=Object.keys(byChar).map(Number).sort(function(a,b){return a-b});
-  var LETTER_DELAY=90, CANDLE_STAGGER=7;
-
-  letterOrder.forEach(function(chIndex,li){
-    byChar[chIndex].forEach(function(candleIdx,ci){
-      setTimeout(function(){
-        var el=candleEls[candleIdx], c=candles[candleIdx];
-        el.setAttribute('opacity',1);
-        el.setAttribute('height',CELL-3);
-        el.setAttribute('y',c.row*CELL+1.5);
-      }, li*LETTER_DELAY+ci*CANDLE_STAGGER);
-    });
-  });
-
-  var totalDuration=letterOrder.length*LETTER_DELAY+450;
-
-  var startTime=performance.now();
-  function tickProgress(){
-    var elapsed=performance.now()-startTime;
-    var pct=Math.min(100,(elapsed/totalDuration)*100);
-    if(progressBar) progressBar.style.width=pct+'%';
-    if(elapsed<totalDuration) requestAnimationFrame(tickProgress);
-  }
-  requestAnimationFrame(tickProgress);
-
-  if(caption) setTimeout(function(){ caption.classList.add('show'); },250);
-
-  // ═══ Timing compressed to match GIF duration (~3.4s) ═══
-  // Text finishes around 1.8s, lightning at 2.2s, site transition at 3.3s
-  var surgeStart=totalDuration+100;
-
-  setTimeout(function(){
-    // GIF is already playing — now trigger the lightning/surge effects on top of it
-    if(caption){ caption.textContent='// the surge begins'; caption.classList.add('show'); }
-  }, surgeStart);
-
-  setTimeout(function(){
-    if(heroFigure) heroFigure.classList.add('slam');
-    if(overlay) overlay.classList.add('shake');
-    if(heroBolts) heroBolts.setAttribute('opacity','1');
-    if(flashFull){
-      flashFull.classList.add('burst');
-      setTimeout(function(){ flashFull.classList.remove('burst'); },100);
-    }
-    if(heroAura){
-      heroAura.setAttribute('opacity','1');
-      requestAnimationFrame(function(){ heroAura.classList.add('burst'); });
-    }
-    if(heroFlash){
-      heroFlash.setAttribute('opacity','1');
-      requestAnimationFrame(function(){ heroFlash.classList.add('burst'); });
-    }
-    if(heroFlash2){
-      heroFlash2.setAttribute('opacity','1');
-      requestAnimationFrame(function(){ heroFlash2.classList.add('burst'); });
-    }
-    setTimeout(function(){ overlay&&overlay.classList.remove('shake'); },400);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.15'); },60);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },110);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0.25'); },160);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','1'); },210);
-    setTimeout(function(){ heroBolts&&heroBolts.setAttribute('opacity','0'); },380);
-  }, surgeStart+300);
-
-  setTimeout(function(){
-    if(caption){ caption.textContent='// entering the portal'; }
-  }, surgeStart+600);
-
-  // GIF is ~2.9s — hide it just before it loops, transition immediately after
-  var totalIntroDuration=2950;
-
-  // kill the GIF at 2.8s so it never visibly replays
-  setTimeout(function(){
-    var gif=document.getElementById('heroFigureInner');
-    if(gif) gif.style.opacity='0';
-  }, 2800);
-
-  function finishIntro(){
-    if(overlay.classList.contains('fade-out')) return; // avoid double-firing (skip-click + timer)
-    overlay.classList.add('fade-out');
-    document.body.classList.remove('intro-lock');
-    var gif=document.getElementById('heroFigureInner');
-    if(gif) gif.style.display='none';
-    console.log('%cplayIntro() finished','color:#3ce88a;font-weight:bold');
-    setTimeout(function(){ overlay.style.display='none'; },400);
-  }
-  setTimeout(finishIntro, totalIntroDuration);
-  overlay.addEventListener('click',finishIntro); // tap anywhere to skip
-}
-window.playIntro=playIntro;
-playIntro();
-
-// ═══════ MARKET TICKER BACKGROUND — drifting symbols/prices layered over the Vanta waves ═══════
+/* ── Intro: spell the brand out with staggered CSS letter-ins, then dismiss ── */
 (function(){
-  var canvas=document.getElementById('tickerCanvas');
-  if(!canvas) return;
-  var ctx=canvas.getContext('2d');
-  var W,H,items=[];
-  var isMobile=window.innerWidth<700;
-  var COUNT=isMobile?14:26;
-
-  var SYMBOLS=['SPY','QQQ','TSLA','NVDA','META','AAPL','AMZN','MSFT','0DTE','SPX'];
-  var upColor='60,232,138', downColor='255,59,78';
-  var CONTENT_HALF_WIDTH=340; // keeps clear of the centered 600px content column + buffer
-
-  function inContentZone(x){
-    var mid=W/2;
-    return x>mid-CONTENT_HALF_WIDTH && x<mid+CONTENT_HALF_WIDTH;
+  var word='BALLOUTT', el=document.getElementById('introWord');
+  word.split('').forEach(function(ch,i){
+    var s=document.createElement('span');
+    s.textContent=ch;
+    s.style.animationDelay=(i*0.06)+'s';
+    el.appendChild(s);
+  });
+  var intro=document.getElementById('intro');
+  function dismiss(){
+    if(intro.classList.contains('fade')) return;
+    intro.classList.add('fade');
+    setTimeout(function(){ intro.style.display='none'; },550);
   }
+  intro.addEventListener('click',dismiss);
+  setTimeout(dismiss,1900);
+})();
 
-  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
-  window.addEventListener('resize',resize);
-  resize();
-
-  function randomX(){
-    // pick a spot in the left or right margin only, never in the centered content column
-    var mid=W/2, margin=mid-CONTENT_HALF_WIDTH;
-    if(margin<40) return Math.random()*W; // narrow screens: no safe margin, just scatter (content itself won't collide since it's full-width there)
-    var onLeft=Math.random()>0.5;
-    return onLeft ? Math.random()*margin : (mid+CONTENT_HALF_WIDTH)+Math.random()*margin;
+/* ── Floating trading symbols — a fixed set, CSS animates them, JS just seeds positions once ── */
+(function(){
+  var symbols=['$','📈','🚀','💰','🔥','💎','📊','⚡'];
+  var host=document.getElementById('floaters');
+  var count=window.innerWidth<600?6:10;
+  for(var i=0;i<count;i++){
+    var s=document.createElement('span');
+    s.textContent=symbols[i%symbols.length];
+    s.style.left=(Math.random()*94+2)+'vw';
+    s.style.animationDuration=(14+Math.random()*10)+'s';
+    s.style.animationDelay=(Math.random()*-20)+'s';
+    host.appendChild(s);
   }
+})();
 
-  function makeItem(){
-    var up=Math.random()>0.4;
-    var kind=Math.random()>0.5?'symbol':'pct';
-    var text=kind==='symbol'
-      ? SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)]+' '+(up?'+':'-')+(Math.random()*4+0.2).toFixed(1)+'%'
-      : (up?'+':'-')+'$'+formatAmt(Math.floor(Math.random()*4000+80));
-    return{
-      x:randomX(),
-      y:Math.random()*H,
-      vx:(Math.random()-0.5)*0.18,
-      vy:-(0.08+Math.random()*0.16), // slow upward drift, like a rising ticker wall
-      size:10+Math.random()*4,
-      text:text,
-      color:up?upColor:downColor,
-      baseA:0.16+Math.random()*0.22,
-      twSpeed:0.01+Math.random()*0.02,
-      twPhase:Math.random()*Math.PI*2,
-      life:0,
-      maxLife:600+Math.random()*400
-    };
-  }
-  for(var i=0;i<COUNT;i++){ var it=makeItem(); it.life=Math.random()*it.maxLife; items.push(it); }
-
-  function tick(){
-    ctx.clearRect(0,0,W,H);
-    ctx.font='600 12px "JetBrains Mono", monospace';
-    ctx.textBaseline='middle';
-    items.forEach(function(it,idx){
-      it.x+=it.vx; it.y+=it.vy; it.life++;
-      if(it.x<-60) it.x=W+60; if(it.x>W+60) it.x=-60;
-      if(it.y<-20 || it.life>it.maxLife){ items[idx]=makeItem(); items[idx].y=H+20; return; }
-      if(inContentZone(it.x)) return; // never draw over the readable content column
-      it.twPhase+=it.twSpeed;
-      var fade=Math.min(1, Math.min(it.life/60, (it.maxLife-it.life)/60)); // fade in/out at ends of life
-      var a=it.baseA*(0.7+0.3*Math.sin(it.twPhase))*fade;
-      ctx.font='600 '+it.size+'px "JetBrains Mono", monospace';
-      ctx.fillStyle='rgba('+it.color+','+a.toFixed(3)+')';
-      ctx.fillText(it.text, it.x, it.y);
+/* ── Scroll reveal: one observer, toggles a class, CSS does the animating ── */
+(function(){
+  var els=document.querySelectorAll('.reveal, .card, .link-card, .shop-card, .step');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(el){el.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     });
+  },{threshold:0.12});
+  els.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
+})();
+
+/* ── Count-up stats — animates once when a card scrolls into view ── */
+(function(){
+  var counters=document.querySelectorAll('.card-pct[data-target]');
+  if(!counters.length) return;
+  function formatNum(v,decimals){
+    var s=v.toFixed(decimals), parts=s.split('.');
+    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    return parts.join('.');
+  }
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-target'));
+    var decimals=parseInt(el.getAttribute('data-decimals')||'0',10);
+    var dur=1400, start=performance.now();
+    function tick(now){
+      var t=Math.min(1,(now-start)/dur), eased=1-Math.pow(1-t,3);
+      el.textContent='+'+formatNum(target*eased,decimals)+'%';
+      if(t<1) requestAnimationFrame(tick);
+    }
     requestAnimationFrame(tick);
   }
-  tick();
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ animateCount(e.target); io.unobserve(e.target);} });
+    },{threshold:0.4});
+    counters.forEach(function(el){ io.observe(el); });
+  }else{ counters.forEach(animateCount); }
 })();
 
-// ═══════ LIBRARY AVAILABILITY CHECKS — a blocked/failed CDN must never blank the whole page ═══════
-var hasGSAP=(typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined');
-var hasLenis=(typeof Lenis!=='undefined');
-var hasVanta=(typeof VANTA!=='undefined');
-
-// ═══════ LENIS — smooth scrolling, wired to GSAP's ticker so it stays in sync with ScrollTrigger ═══════
-if(hasGSAP){
-  try{ gsap.registerPlugin(ScrollTrigger); }
-  catch(e){ console.warn('GSAP/ScrollTrigger failed to initialize:',e); hasGSAP=false; }
-}
-if(hasLenis){
-  try{
-    var lenis=new Lenis({
-      duration:1.2,
-      easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},
-      smoothWheel:true
-    });
-    if(hasGSAP){
-      lenis.on('scroll',ScrollTrigger.update);
-      gsap.ticker.add(function(time){ lenis.raf(time*1000); });
-      gsap.ticker.lagSmoothing(0);
-    }else{
-      // GSAP isn't available to drive Lenis's ticker — run its own rAF loop instead
-      (function raf(time){ lenis.raf(time); requestAnimationFrame(raf); })(0);
-    }
-  }catch(e){ console.warn('Lenis failed to initialize, falling back to native scroll:',e); hasLenis=false; }
-}else{
-  console.warn('Lenis did not load (CDN blocked or unreachable) — using native scroll instead.');
-}
-
-// ═══════ VANTA — premium 3D waves, dialed for a rich cinematic look, darkened so text stays readable ═══════
-if(hasVanta){
-  try{
-    VANTA.WAVES({
-      el:'#vantaBg',
-      mouseControls:true,
-      touchControls:true,
-      gyroControls:false,
-      minHeight:200.00,
-      minWidth:200.00,
-      scale:1.0,
-      scaleMobile:1.0,
-      color:0x150542,     // richer deep violet-blue, more premium than flat near-black
-      shininess:62,        // glossier, more defined light streaks across the swells
-      waveHeight:27,       // dramatic but elegant swells, not chaotic noise
-      waveSpeed:1.15,      // confident, cinematic motion rather than frantic chop
-      zoom:0.8
-    });
-  }catch(e){ console.warn('Vanta failed to initialize — background falls back to the orbs/glow only:',e); }
-}else{
-  console.warn('Vanta/Three.js did not load (CDN blocked or unreachable) — background falls back to the orbs/glow only.');
-}
-
-
-// ═══════ SCROLL-SYNCED ANIMATION ENGINE ═══════
-var ring=document.getElementById('ring');
-var arc1=document.getElementById('rArc1');
-var arc2=document.getElementById('rArc2');
-var arc3=document.getElementById('rArc3');
-var rDot=document.getElementById('rDot');
-var prog=document.getElementById('prog');
-var candleGroup=document.getElementById('candleGroup');
-var formPlus=document.getElementById('formPlus');
-var scenes=[
-  {el:document.getElementById('s1'),text:document.getElementById('t1'),items:[],fired:false},
-  {el:document.getElementById('s2'),text:document.getElementById('t2'),items:['#c1','#c2','#c3','#c4'],fired:false},
-  {el:document.getElementById('s3'),text:document.getElementById('t3'),items:['#s3 .link'],fired:false},
-  {el:document.getElementById('s4'),text:document.getElementById('t4'),items:['#s4 .shop'],fired:false},
-  {el:document.getElementById('s5'),text:document.getElementById('t5'),items:['#s5 .soc'],fired:false},
-];
-
-function lerp(a,b,t){return a+(b-a)*Math.max(0,Math.min(1,t))}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-
-function onFrame(){
-  var scrollY=window.pageYOffset;
-  var docH=document.documentElement.scrollHeight-window.innerHeight;
-  prog.style.width=(scrollY/docH*100)+'%';
-
-  var globalProgress=scrollY/docH;
-  arc1.setAttribute('transform','rotate('+(globalProgress*720)+' 200 200)');
-  arc2.setAttribute('transform','rotate('+(180-globalProgress*540)+' 200 200)');
-  arc3.setAttribute('transform','rotate('+(globalProgress*360)+' 200 200)');
-
-  // dot orbits
-  var angle=globalProgress*Math.PI*6;
-  rDot.setAttribute('cx',200+Math.cos(angle)*180);
-  rDot.setAttribute('cy',200+Math.sin(angle)*180);
-
-  // candlestick chart builds into a green uptrend as you scroll toward the bottom
-  updateCandles(globalProgress);
-
-  // per-scene: continuous scroll-tied fade for the text block + figure out which
-  // scene is currently active (for the theme). The one-time stagger/spring reveals
-  // are handled separately below via ScrollTrigger when available, or a plain-JS
-  // fallback right here when it isn't.
-  var activeIndex=0, followP=0, heroP=0;
-  scenes.forEach(function(s,i){
-    var rect=s.el.getBoundingClientRect();
-    var enter=-rect.top/(s.el.offsetHeight-window.innerHeight);
-    var p=clamp(enter,0,1);
-    if(p>0.15) activeIndex=i;
-    if(i===0) heroP=p;
-    if(i===4) followP=p;
-
-    var textP=clamp((p-0.05)/0.25,0,1);
-    s.text.style.opacity=textP;
-    s.text.style.transform='translateY('+(30*(1-textP))+'px)';
-
-    if(!hasGSAP && p>0.1 && !s.fired){
-      s.fired=true;
-      revealSceneVanilla(s);
-    }
-  });
-
-  // ring is the hero's centerpiece and reappears briefly for the Follow section's
-  // "+" reveal — everywhere in between (Highlights/Join/Shop) it fades down to a
-  // near-invisible floor so it never sits on top of readable cards/links/tiles again
-  var ringOpacity=Math.max(
-    clamp(0.78*(1-heroP),0.04,0.8),
-    clamp(followP*0.65,0,0.65)
-  );
-  ring.style.opacity=ringOpacity;
-
-  // in the Follow section, the candlestick chart dissolves into the "+" mark
-  candleGroup.style.opacity=1-followP;
-  formPlus.setAttribute('opacity',followP);
-  formPlus.setAttribute('transform','translate(200 200) scale('+(0.7+followP*0.3)+') rotate('+(followP*180)+')');
-
-  updateTheme(activeIndex);
-
-  requestAnimationFrame(onFrame);
-}
-requestAnimationFrame(onFrame);
-
-// plain CSS-transition stagger reveal — used automatically if GSAP/ScrollTrigger
-// couldn't load, so the page never just sits blank waiting on a CDN
-function revealSceneVanilla(s){
-  var BOUNCE='cubic-bezier(.22,1.4,.36,1)'; // back-out curve, approximates a spring
-  Array.prototype.forEach.call(s.text.children,function(el,i){
-    setTimeout(function(){
-      el.style.transition='opacity .7s '+BOUNCE+', transform .7s '+BOUNCE;
-      el.style.opacity=1;
-      el.style.transform='translateY(0)';
-    },i*120);
-  });
-  s.items.forEach(function(sel){
-    var els=document.querySelectorAll(sel);
-    els.forEach(function(el,i){
-      setTimeout(function(){
-        el.style.transition='opacity .7s '+BOUNCE+', transform .7s '+BOUNCE;
-        el.style.opacity=1;
-        el.style.transform='translateY(0)';
-      },250+i*150);
-    });
-  });
-}
-
-// fade + slide + stagger with spring-like physics (GSAP elastic ease), fired once per
-// section via real ScrollTrigger instances — only set up if GSAP actually loaded
-if(hasGSAP){
-  scenes.forEach(function(s){
-    ScrollTrigger.create({
-      trigger:s.el,
-      start:'top 80%',
-      once:true,
-      onEnter:function(){
-        gsap.to(s.text.children,{opacity:1,y:0,duration:0.8,stagger:0.12,ease:'elastic.out(1,0.65)'});
-        s.items.forEach(function(sel){
-          var els=document.querySelectorAll(sel);
-          if(!els.length) return;
-          gsap.to(els,{opacity:1,y:0,duration:0.75,stagger:0.15,delay:0.25,ease:'elastic.out(1,0.6)'});
-        });
-      }
-    });
-  });
-}
-
-
-// ═══════ SCROLL-DRIVEN CANDLESTICK CHART — builds into a green uptrend by the bottom ═══════
-//
-// EDIT ME: change amt / up / word for each candle to control exactly how the chart
-// reads as people scroll. `amt` controls both the candle height (bigger amt = taller,
-// scaled automatically so any numbers you use always fit) AND the dollar figure shown
-// above the candle. `word` always shows underneath the candle — set it to whatever
-// you want (a phase name, a status, anything).
-// formats big numbers as 1.9K / 21.6K etc. instead of spelling out 1,900 / 21,604
-function formatAmt(n){
-  if(n>=1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'')+'M';
-  if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
-  return String(n);
-}
-
-var CANDLE_STORY=[
-  {amt:1432, up:false, word:'Start'},
-  {amt:1900, up:true,  word:'Adjusting'},
-  {amt:2400, up:true,  word:'Executing'},
-  {amt:2900, up:true,  word:'Progress'},
-  {amt:3500, up:true,  word:'Results'},
-  {amt:4300, up:true,  word:'Confidence'},
-  {amt:21604,up:true,  word:'Success'}
-];
-
-var updateCandles=(function(){
-  var slots=document.querySelectorAll('#candleGroup .candle-slot');
-  if(!slots.length) return function(){};
-  var baseline=255;
-  var upColor=getComputedStyle(document.documentElement).getPropertyValue('--up').trim()||'#3ce88a';
-  var downColor=getComputedStyle(document.documentElement).getPropertyValue('--ember').trim()||'#ff3b4e';
-
-  // heights are normalized against the biggest amt in the story so any numbers you
-  // plug in above always fit neatly inside the ring, no matter how big or small
-  var maxAmt=Math.max.apply(null,CANDLE_STORY.map(function(c){return c.amt}));
-  var minH=16, maxH=140;
-
-  var span=1/slots.length;      // each candle owns an equal slice of the scroll
-  var grow=span*1.35;           // slight overlap so growth feels continuous, not stepped
-
-  return function(globalProgress){
-    slots.forEach(function(slot,i){
-      var data=CANDLE_STORY[i];
-      if(!data) return;
-      var revealP=clamp((globalProgress-i*span)/grow,0,1);
-      var targetH=minH+(data.amt/maxAmt)*(maxH-minH);
-      var h=revealP*targetH;
-      var y=baseline-h;
-      var color=data.up?upColor:downColor;
-      var body=slot.querySelector('.body'),wick=slot.querySelector('.wick'),
-          numLbl=slot.querySelector('.num'),wordLbl=slot.querySelector('.word');
-
-      body.setAttribute('y',y);
-      body.setAttribute('height',h);
-      body.setAttribute('fill',color);
-      wick.setAttribute('y1',y-6);
-      wick.setAttribute('y2',baseline+6);
-      wick.setAttribute('stroke',color);
-
-      // number always shown above the candle once it starts growing
-      numLbl.setAttribute('opacity',revealP);
-      numLbl.setAttribute('y',y-12);
-      numLbl.setAttribute('fill',color);
-      numLbl.textContent=(data.up?'+$':'−$')+formatAmt(data.amt);
-
-      // word labels removed per request — candles now only show the top dollar figure
-      wordLbl.setAttribute('opacity',0);
-    });
-  };
-})();
-
-// ═══════ SECTION THEME ENGINE — fire glow + floating particles per section ═══════
-var SECTION_THEMES=[
-  {color:'#3ce88a', particles:null},                          // Hero — green glow, no particles
-  {color:'#ff3b4e', particles:null},                          // Highlights — red glow
-  {color:'#3ce88a', particles:['💵','💰','💲']},               // Join Free — green + money
-  {color:'#ffc93c', particles:['🛒','🚀']},                    // Shop — gold + cart/rocket
-  {color:'#a855f7', particles:['➕','✚']}                      // Follow — purple + plus
-];
-var themeGlow=document.getElementById('themeGlow');
-var currentThemeIndex=-1;
-var emberTimer=null;
-
-function spawnEmber(symbol,color){
-  var el=document.createElement('div');
-  el.className='ember';
-  el.textContent=symbol;
-  el.style.left=(Math.random()*90+3)+'vw';
-  el.style.color=color;
-  el.style.setProperty('--drift',(Math.random()*60-30)+'px');
-  var dur=7+Math.random()*5;
-  el.style.animationDuration=dur+'s';
-  document.body.appendChild(el);
-  setTimeout(function(){el.remove()},dur*1000);
-}
-
-function updateTheme(activeIndex){
-  if(activeIndex===currentThemeIndex) return;
-  currentThemeIndex=activeIndex;
-  var theme=SECTION_THEMES[activeIndex]||SECTION_THEMES[0];
-  document.documentElement.style.setProperty('--flame',theme.color);
-
-  if(emberTimer){clearInterval(emberTimer);emberTimer=null;}
-  if(theme.particles&&theme.particles.length){
-    emberTimer=setInterval(function(){
-      var sym=theme.particles[Math.floor(Math.random()*theme.particles.length)];
-      spawnEmber(sym,theme.color);
-    },550);
-  }
-}
-
-// (hero's reveal is now handled by the ScrollTrigger loop above — it fires immediately
-// on load since the hero section is already past its "top 80%" trigger point at scrollY=0)
-
-// disclaimer scroll
-(function(){var t=document.getElementById('discT');if(!t)return;
+/* ── Disclaimer marquee text (CSS animates the scroll) ── */
+(function(){
+  var t=document.getElementById('discTrack');
+  if(!t) return;
   var txt='⚠️ Not financial advice · Past performance ≠ future results · Trading involves risk · Some links are affiliate links · Individual results vary';
-  t.innerHTML=(txt+' · ').repeat(4);
+  t.innerHTML=(txt+' &nbsp;·&nbsp; ').repeat(4);
 })();
 
-// ═══════ PROOF WALL — auto-loads from proofs/ folder, no editing needed ═══════
-var PROOF_IMAGE_URLS=[]; // shared with the floating-photo effect below
+/* ── Proof wall: fetch once from /proofs, CSS marquee handles the motion ── */
 (function(){
   var track=document.getElementById('proofTrack');
   if(!track) return;
@@ -1357,293 +511,97 @@ var PROOF_IMAGE_URLS=[]; // shared with the floating-photo effect below
   var base='https://raw.githubusercontent.com/Learntradingnow/learntradingnow.github.io/main/proofs/';
   var exts=['png','jpg','jpeg','webp','gif','bmp'];
 
-  fetch(api).then(function(r){
-    if(!r.ok) throw new Error(r.status);
-    return r.json();
-  }).then(function(files){
-    if(!Array.isArray(files)) return;
-    var images=files.filter(function(f){
-      return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1;
-    });
-    if(images.length===0){
-      track.parentElement.style.display='none';
-      return;
-    }
-    PROOF_IMAGE_URLS=images.map(function(f){return base+encodeURIComponent(f.name)});
-    // duplicate the set so the marquee loops seamlessly
-    images.concat(images).forEach(function(f){
-      var img=document.createElement('img');
-      img.src=base+encodeURIComponent(f.name);
-      img.alt='Profit screenshot';
-      img.loading='lazy';
-      img.onclick=function(){
-        document.getElementById('lightboxImg').src=this.src;
-        document.getElementById('lightbox').classList.add('open');
-      };
-      img.onerror=function(){this.remove()};
-      track.appendChild(img);
-    });
-  }).catch(function(){
-    track.parentElement.style.display='none';
-  });
-})();
-
-// ═══════ FLOATING SIDE CONTENT — profit screenshots + stat badges drift up through the blank margins ═══════
-//
-// EDIT ME: add/remove/change any of these taglines — they float up alongside the
-// profit-wall photos in the blank space on either side of the page.
-var STAT_BADGES=[
-  '+219,829% Portfolio Challenge',
-  '+86.7% Win Rate',
-  '41K+ Traders',
-  'Every Trade Tracked in %',
-  '0DTE · Swings · LEAPS',
-  'Top 0.1% Results',
-  '+12,240% Single Trade',
-  'Live Alerts, Not Recaps'
-];
-
-(function(){
-  var lastSpawnY=0, spawnEvery=340; // px of scroll between spawns
-  var CONTENT_HALF_WIDTH=324; // 600px content column + 24px padding, half of that plus a small gap
-
-  function safeMargin(){
-    return Math.floor((window.innerWidth/2)-CONTENT_HALF_WIDTH);
-  }
-
-  // returns false if there isn't enough blank room to place anything safely
-  function placeSide(el,elemWidth){
-    var margin=safeMargin();
-    if(margin<elemWidth+24) return false; // not enough room — bail out rather than overlap content
-    var onLeft=Math.random()>0.5;
-    var offset=8+Math.random()*(margin-elemWidth-16); // stays fully within the blank margin
-    el.style.left=onLeft?offset+'px':'';
-    el.style.right=onLeft?'':offset+'px';
-    el.style.setProperty('--drift',(Math.random()*30-15)+'px'); // small drift, kept safely inside the margin
-    return true;
-  }
-
-  function spawnFloatingProof(){
-    if(!PROOF_IMAGE_URLS.length) return;
-    var url=PROOF_IMAGE_URLS[Math.floor(Math.random()*PROOF_IMAGE_URLS.length)];
-    var img=document.createElement('img');
-    img.className='float-proof';
-    img.src=url;
-    img.alt='Profit screenshot';
-    if(!placeSide(img,100)) return;
-    var dur=13+Math.random()*7;
-    img.style.animationDuration=dur+'s';
-    img.onerror=function(){this.remove()};
-    document.body.appendChild(img);
-    setTimeout(function(){img.remove()},dur*1000);
-  }
-
-  function spawnFloatingBadge(){
-    var badge=document.createElement('div');
-    badge.className='float-badge';
-    badge.textContent=STAT_BADGES[Math.floor(Math.random()*STAT_BADGES.length)];
-    badge.style.color=getComputedStyle(document.documentElement).getPropertyValue('--flame').trim()||'#c99bff';
-    if(!placeSide(badge,160)) return;
-    var dur=12+Math.random()*6;
-    badge.style.animationDuration=dur+'s';
-    document.body.appendChild(badge);
-    setTimeout(function(){badge.remove()},dur*1000);
-  }
-
-  window.addEventListener('scroll',function(){
-    if(safeMargin()<120) return; // screen too narrow for any of this to fit without overlapping content
-    var y=window.pageYOffset;
-    if(Math.abs(y-lastSpawnY)>spawnEvery){
-      lastSpawnY=y;
-      if(Math.random()>0.45 && PROOF_IMAGE_URLS.length) spawnFloatingProof();
-      else spawnFloatingBadge();
-    }
-  },{passive:true});
-})();
-
-// ═══════ COUNT-UP STATS — highlight card numbers animate from 0 to their real value ═══════
-(function(){
-  var counters=document.querySelectorAll('.card-pct[data-target]');
-  if(!counters.length) return;
-
-  function formatNum(v,decimals){
-    var s=v.toFixed(decimals);
-    var parts=s.split('.');
-    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');
-    return parts.join('.');
-  }
-
-  function animateCount(el){
-    var target=parseFloat(el.getAttribute('data-target'));
-    var decimals=parseInt(el.getAttribute('data-decimals')||'0',10);
-    var dur=1650, start=performance.now();
-    function tick(now){
-      var t=Math.min(1,(now-start)/dur);
-      var eased=1-Math.pow(1-t,3); // easeOutCubic — fast start, gentle settle
-      el.textContent='+'+formatNum(target*eased,decimals)+'%';
-      if(t<1) requestAnimationFrame(tick);
-      else el.textContent='+'+formatNum(target,decimals)+'%';
-    }
-    requestAnimationFrame(tick);
-  }
-
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){ animateCount(entry.target); io.unobserve(entry.target); }
+  fetch(api).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(files){
+      if(!Array.isArray(files)) return;
+      var images=files.filter(function(f){ return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1; });
+      if(!images.length){ track.closest('.proof-wrap').style.display='none'; return; }
+      images.concat(images).forEach(function(f){ // duplicated once so the CSS marquee loops seamlessly
+        var img=document.createElement('img');
+        img.src=base+encodeURIComponent(f.name);
+        img.alt='Profit screenshot';
+        img.loading='lazy';
+        img.onclick=function(){
+          document.getElementById('lightboxImg').src=this.src;
+          document.getElementById('lightbox').classList.add('open');
+        };
+        img.onerror=function(){ this.remove(); };
+        track.appendChild(img);
       });
-    },{threshold:0.35});
-    counters.forEach(function(el){ io.observe(el); });
-  }else{
-    counters.forEach(animateCount); // very old browsers: just count up immediately
-  }
+    }).catch(function(){ track.closest('.proof-wrap').style.display='none'; });
 })();
 
-// ═══════ 3D TILT-ON-HOVER — cards/links/shop tiles tilt toward the cursor ═══════
+/* ── Gain toasts: an occasional "+142% TSLA" style popup drifts in, then removes itself.
+     Capped active count so it can never pile up, unlike an unbounded setInterval spawner. ── */
 (function(){
-  if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return; // skip on touch devices
-  var els=document.querySelectorAll('.card, .shop, .link');
-  els.forEach(function(el){
-    el.style.transformStyle='preserve-3d';
+  var SYMBOLS=['SPY','QQQ','TSLA','NVDA','META','AAPL','0DTE'];
+  var active=0, MAX_ACTIVE=2;
+  function spawn(){
+    if(active>=MAX_ACTIVE || document.hidden){ return; }
+    active++;
+    var up=Math.random()>0.15; // mostly green, matches the real win rate vibe
+    var pct=up?(Math.random()*180+8).toFixed(0):(Math.random()*20+2).toFixed(0);
+    var sym=SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
+    var el=document.createElement('div');
+    el.className='gain-toast';
+    el.style.color=up?'#3ce88a':'#ff3b4e';
+    el.style.left=(8+Math.random()*70)+'vw';
+    el.style.top=(Math.random()>0.5?'14vh':'auto');
+    el.style.bottom=(el.style.top==='auto'?'18vh':'auto');
+    el.textContent=(up?'+':'-')+pct+'% '+sym;
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); active--; },4200);
+  }
+  setInterval(spawn,3200);
+})();
+
+/* ── Hover tilt: a subtle perspective tilt toward the cursor, JS only runs on hover/move,
+     no continuous per-frame loop, skipped entirely on touch devices ── */
+(function(){
+  if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return;
+  document.querySelectorAll('.card, .step, .shop-card').forEach(function(el){
     el.addEventListener('mousemove',function(e){
-      var rect=el.getBoundingClientRect();
-      var x=e.clientX-rect.left, y=e.clientY-rect.top;
-      var rotY=((x-rect.width/2)/(rect.width/2))*7;
-      var rotX=-((y-rect.height/2)/(rect.height/2))*7;
-      el.style.setProperty('transform',
-        'perspective(700px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) translateY(-4px) scale(1.015)',
-        'important');
+      var r=el.getBoundingClientRect();
+      var rx=((e.clientY-r.top)/r.height-0.5)*-6;
+      var ry=((e.clientX-r.left)/r.width-0.5)*6;
+      el.style.transform='perspective(700px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateY(-4px)';
     });
-    el.addEventListener('mouseleave',function(){
-      el.style.removeProperty('transform');
-    });
+    el.addEventListener('mouseleave',function(){ el.style.transform=''; });
   });
 })();
 
-// ═══════ AI CHAT ═══════
+/* ── AI chat — simple keyword matcher, no external calls ── */
 var kb={
   'price|cost|how much|pricing':'Lifetime Mentorship: $2,500 one-time (plans: 3-mo $1,200/mo, 8-mo $600/mo, 16-mo $350/mo, 30-mo $200/mo). Double Trouble Bundle: $450/mo. Scroll to the Shop section or DM @balloutt.trades.llc on Discord!',
   'mentor|1:1|coaching|mentorship':'Lifetime 1:1 Mentorship — $2,500 one-time. Live trading sessions, my personal trades, full watchlist, direct guidance. Payment plans from $200/mo. Scroll to Shop or DM @balloutt.trades.llc!',
   'shop|buy|purchase':'Scroll down to the Shop section! Lifetime Mentorship ($2,500 or plans from $200/mo) and Double Trouble Alert Bundle ($450/mo). DM @balloutt.trades.llc on Discord to purchase.',
   'alert|signal|callout':'Live options alerts with entry, TP, and SL — tracked in %. Swings, LEAPS, 0DTE. Get alerts with Double Trouble Bundle ($450/mo).',
-  'free|join|start|get started':'Join free at discord.gg/j823dz4HVd — no paywall! Scroll to "Join Free" section. Free alerts, recaps, community.',
+  'free|join|start|get started':'Join free at discord.gg/vm4BqVWWcX — no paywall! Check the "Start Here" section for the full 3-step walkthrough.',
   'strix|funded|funding':'Strix Options Funding — get funded! Use code BTLLC: strixoptionsfunding.com/?ref=balloutt',
   'result|track|win rate|performance|proof':'86.7% win rate. Best trade: META +12,240%. Best 8-day: +219,829%. June total: +11,172%. Scroll to Highlights!',
-  'discord|server':'Main: discord.gg/j823dz4HVd (free). Top Tier: discord.gg/9YXBKQHMyY (premium).',
+  'discord|server':'Main: discord.gg/vm4BqVWWcX (free). Top Tier: discord.gg/9YXBKQHMyY (premium).',
   'who|about|balloutt':'Full-time options trader, founder of Balloutt Trades LLC. Swings, LEAPS, 0DTE. 41K+ reach. Every trade posted live.',
   'social|instagram|tiktok|snap|follow':'IG: @Balloutt.on.bizz | TikTok: @BallouttTrades | Snap: @Balloutt.bb | Discord: @balloutt.trades.llc | X: @BallouttTrades',
   'hello|hi|hey|yo|sup':'Hey! Welcome to Balloutt Trades 🚀 Ask about pricing, alerts, mentorship, or how to join!',
   'double trouble|bundle':'Double Trouble Bundle: $450/mo — two analysts, real-time alerts, 0DTE/swings/LEAPS/whale alerts. DM to purchase!',
-  'navigate|where|find|section':'Just scroll! Hero → Highlights → Join Free → Shop → Follow. Or ask me anything specific!',
+  'navigate|where|find|section':'Just scroll! Hero → Start Here → Highlights → More Tools → Shop → Follow. Or ask me anything specific!',
   'refund':'Yes — if unsatisfied with mentorship, just reach out. Your money, your choice.'
 };
 function chat(){
-  var i=document.getElementById('ci'),m=i.value.trim();if(!m)return;
+  var i=document.getElementById('ci'), m=i.value.trim(); if(!m) return;
   var c=document.getElementById('cm');
-  c.innerHTML+='<div class="chat-msg user">'+m+'</div>';i.value='';c.scrollTop=c.scrollHeight;
+  c.innerHTML+='<div class="chat-msg user"></div>';
+  c.lastElementChild.textContent=m;
+  i.value=''; c.scrollTop=c.scrollHeight;
   setTimeout(function(){
     var r='Try asking about pricing, alerts, results, mentorship, or how to join! Or DM @balloutt.trades.llc on Discord.';
     var l=m.toLowerCase();
-    for(var p in kb){if(p.split('|').some(function(k){return l.includes(k)})){r=kb[p];break}}
-    c.innerHTML+='<div class="chat-msg bot">'+r+'</div>';c.scrollTop=c.scrollHeight;
-  },500);
+    for(var p in kb){ if(p.split('|').some(function(k){return l.includes(k)})){ r=kb[p]; break; } }
+    c.innerHTML+='<div class="chat-msg bot"></div>';
+    c.lastElementChild.textContent=r;
+    c.scrollTop=c.scrollHeight;
+  },450);
 }
-
-// ═══════ PREMIUM MOTION UPGRADES ═══════
-
-// 1. Floating avatar — gentle bob + rotate like floating in space
-(function(){
-  var av=document.querySelector('.hero-avatar');
-  if(!av||typeof anime==='undefined') return;
-  anime({targets:av,translateY:function(){return anime.random(-8,8)},
-    rotateZ:function(){return anime.random(-3,3)},
-    duration:function(){return anime.random(3000,5000)},
-    easing:'spring(1,40,14,0)',loop:true,direction:'alternate'});
-})();
-
-// 2. Scroll-driven spin — stats/ring rotate as you scroll
-(function(){
-  var ring=document.querySelector('.ring-container svg, #rArc1');
-  var stats=document.querySelectorAll('.stat, .stat-num');
-  window.addEventListener('scroll',function(){
-    var p=window.pageYOffset/(document.documentElement.scrollHeight-window.innerHeight);
-    if(ring) ring.style.transform='rotate('+(p*720)+'deg)';
-    stats.forEach(function(s,i){
-      s.style.transform='rotateY('+(p*360*(i%2===0?1:-1))+'deg)';
-    });
-  },{passive:true});
-})();
-
-// 3. Floating symbols — $, 📈, 🚀, 💰, 🔥 drift up behind everything
-(function(){
-  var symbols=['$','📈','🚀','💰','🔥','💎','📊','+%','$$','⚡'];
-  function spawnSymbol(){
-    var s=document.createElement('div');
-    s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
-    s.style.cssText='position:fixed;z-index:0;pointer-events:none;font-size:'+(14+Math.random()*18)+'px;'+
-      'left:'+(Math.random()*100)+'vw;bottom:-30px;opacity:0;';
-    document.body.appendChild(s);
-    if(typeof anime!=='undefined'){
-      anime({targets:s,translateY:[0,-(window.innerHeight+60)],opacity:[{value:.25,duration:300},{value:0,duration:300,delay:4000}],
-        rotate:anime.random(-45,45),duration:5000+Math.random()*4000,easing:'linear',
-        complete:function(){s.remove()}});
-    }
-  }
-  setInterval(spawnSymbol,1800);
-  spawnSymbol();
-})();
-
-// 4. Spring hover effects — cards tilt and lift
-(function(){
-  if(typeof anime==='undefined') return;
-  document.querySelectorAll('.card,.link-card,.link,.shop-card,.shop,.soc,.stat').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      anime.remove(el);
-      anime({targets:el,translateY:-6,scale:1.02,duration:400,easing:'spring(1,90,12,0)'});
-    });
-    el.addEventListener('mouseleave',function(){
-      anime.remove(el);
-      anime({targets:el,translateY:0,scale:1,duration:500,easing:'spring(1,60,14,0)'});
-    });
-  });
-  // social icons spin on hover
-  document.querySelectorAll('.soc').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      anime.remove(el);
-      anime({targets:el,rotate:'1turn',scale:1.15,duration:600,easing:'spring(1,90,10,0)'});
-    });
-    el.addEventListener('mouseleave',function(){
-      anime.remove(el);
-      anime({targets:el,rotate:0,scale:1,duration:500,easing:'spring(1,70,14,0)'});
-    });
-  });
-})();
-
-// 5. Stagger reveal on scroll for any elements not yet animated
-(function(){
-  if(typeof anime==='undefined') return;
-  function revealBatch(selector){
-    var els=document.querySelectorAll(selector);
-    if(!els.length) return;
-    var fired=false;
-    var obs=new IntersectionObserver(function(entries){
-      if(fired) return;
-      entries.forEach(function(e){
-        if(!e.isIntersecting) return;
-        fired=true;
-        anime({targets:selector,translateY:[40,0],opacity:[0,1],duration:700,
-          delay:anime.stagger(120),easing:'spring(1,80,10,0)'});
-      });
-    },{threshold:0.1});
-    els.forEach(function(el){
-      if(getComputedStyle(el).opacity==='1') return; // already visible
-      el.style.opacity='0';
-      obs.observe(el);
-    });
-  }
-  revealBatch('.shop-card,.shop');
-})();
-
 </script>
 </body>
 </html>
