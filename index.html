@@ -133,7 +133,7 @@ em{color:var(--vb);font-style:normal}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .proof-label{font-size:11px;color:var(--faint);margin-top:10px;text-align:center}
 
-/* ══════════════════════ BEGINNER STEPS — added a fourth one so Strix stays ══════════════════════ */
+/* ══════════════════════ BEGINNER STEPS ══════════════════════ */
 .step-list{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative}
 .step{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;background:var(--card);
   border:1px solid var(--bdr);text-decoration:none;position:relative;
@@ -218,9 +218,9 @@ em{color:var(--vb);font-style:normal}
 .lightbox.open{display:flex}
 .lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
 
-/* ══════════════════════ INTRO (short, CSS-driven, skippable) ══════════════════════ */
+/* ══════════════════════ INTRO (fixed: reliable auto-dismiss + tap) ══════════════════════ */
 #intro{position:fixed;inset:0;z-index:999;background:#050110;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:20px;cursor:pointer;transition:opacity .5s ease;overflow:hidden}
+  gap:20px;cursor:pointer;transition:opacity .5s ease;overflow:hidden;pointer-events:auto}
 #intro.fade{opacity:0;pointer-events:none}
 .intro-glow{position:absolute;width:min(70vw,520px);height:min(70vw,520px);border-radius:50%;
   background:radial-gradient(circle,rgba(168,85,247,.28),transparent 70%);filter:blur(50px);
@@ -255,7 +255,7 @@ em{color:var(--vb);font-style:normal}
 <div class="orb tl"></div><div class="orb tr"></div><div class="orb bl"></div><div class="orb br"></div>
 <div class="floaters" id="floaters"></div>
 
-<!-- ═══ Intro — quick brand reveal, CSS-driven, auto-dismisses, tap anywhere to skip ═══ -->
+<!-- ═══ Intro — quick brand reveal, tap anywhere or auto-dismiss after 2.5s ═══ -->
 <div id="intro">
   <div class="intro-glow"></div>
   <div class="intro-candles" id="introCandles" aria-hidden="true"></div>
@@ -298,7 +298,7 @@ em{color:var(--vb);font-style:normal}
   </div>
 </section>
 
-<!-- ═══ Start Here (beginner walkthrough) — four steps, Strix stays ═══ -->
+<!-- ═══ Start Here (beginner walkthrough) ═══ -->
 <section class="tight" id="start">
   <div class="wrap reveal">
     <p class="eyebrow v">// new here? start with these 3</p>
@@ -350,4 +350,4 @@ em{color:var(--vb);font-style:normal}
     <h2>More <em>Tools</em></h2>
     <div class="stack">
       <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.
