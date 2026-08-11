@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════ TOKENS ══════════════════════ */
 :root{
   --bg:#050110; --ink:#ffffff; --dim:#ece6f9; --faint:#c9befa;
   --v:#a855f7; --vb:#c99bff; --up:#3ce88a; --cyan:#22d3ee; --ember:#ff3b4e; --gold:#ffc93c;
@@ -24,14 +23,8 @@ body{
   font-family:"Inter",sans-serif;background:var(--bg);color:var(--ink);
   overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;
 }
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
-}
 img{max-width:100%;display:block}
 a{color:inherit}
-
-/* ══════════════════════ AMBIENT BACKGROUND — cheap, GPU-only, no WebGL ══════════════════════ */
 .bg-gradient{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
@@ -60,8 +53,6 @@ a{color:inherit}
 .orb.br{bottom:-12vw;right:-12vw;width:34vw;height:34vw;background:radial-gradient(circle,var(--gold),transparent 70%);animation-delay:4.5s}
 @keyframes orb-breathe{0%,100%{transform:scale(1);opacity:.13}50%{transform:scale(1.15);opacity:.2}}
 @media(max-width:700px){.orb{filter:blur(50px)}}
-
-/* floating trading symbols — fixed set, CSS-only loop, no JS spawning */
 .floaters{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .floaters span{position:absolute;bottom:-10%;opacity:0;font-size:20px;animation:float-up linear infinite}
 @keyframes float-up{
@@ -71,8 +62,6 @@ a{color:inherit}
   100%{transform:translateY(-115vh) rotate(20deg);opacity:0}
 }
 @media(max-width:600px){.floaters span{font-size:15px}}
-
-/* ══════════════════════ LAYOUT ══════════════════════ */
 .wrap{max-width:640px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
 section{position:relative;z-index:2;padding:96px 0}
 section.tight{padding:64px 0}
@@ -83,12 +72,8 @@ h1{font-size:clamp(30px,6vw,46px)}
 h2{font-size:clamp(24px,4.5vw,34px)}
 em{color:var(--vb);font-style:normal}
 .sub{color:var(--dim);font-size:15px;line-height:1.65;margin-top:16px;max-width:52ch}
-
-/* reveal-on-scroll — one IntersectionObserver drives all of these */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
-
-/* ══════════════════════ NAV ══════════════════════ */
 .topnav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(5,1,16,.55);border-bottom:1px solid var(--bdr)}
 .topnav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:.02em;text-decoration:none}
@@ -97,8 +82,6 @@ em{color:var(--vb);font-style:normal}
 .navlinks a{text-decoration:none;transition:color .2s}
 .navlinks a:hover{color:var(--ink)}
 @media(max-width:560px){.navlinks{display:none}}
-
-/* ══════════════════════ HERO ══════════════════════ */
 .hero{padding-top:64px;text-align:left}
 .avatar-wrap{position:relative;width:64px;height:64px;margin-bottom:20px;animation:bob 5s ease-in-out infinite}
 .hero-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);position:relative;z-index:1}
@@ -107,15 +90,12 @@ em{color:var(--vb);font-style:normal}
   background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff;text-decoration:none;font-weight:700;font-size:13px;
   box-shadow:0 8px 30px rgba(168,85,247,.35);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
 .cta:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(168,85,247,.5)}
-
 .stats-row{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
 .stat{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;min-width:88px;
   transition:transform .25s var(--ease),border-color .25s var(--ease)}
 .stat:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.35)}
 .stat-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;color:var(--up)}
 .stat-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:3px}
-
-/* ══════════════════════ HIGHLIGHT CARDS ══════════════════════ */
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:20px;
   transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
@@ -123,8 +103,6 @@ em{color:var(--vb);font-style:normal}
 .card-pct{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:24px;color:var(--up)}
 .card-label{font-size:11px;color:var(--faint);margin-top:8px;line-height:1.5}
 @media(max-width:520px){.card-grid{grid-template-columns:1fr}}
-
-/* ══════════════════════ PROOF WALL (marquee, CSS-driven) ══════════════════════ */
 .proof-wrap{margin-top:34px}
 .proof-track-outer{overflow:hidden;border-radius:14px;border:1px solid var(--bdr);mask-image:linear-gradient(90deg,transparent,black 6%,black 94%,transparent)}
 .proof-track{display:flex;gap:10px;width:max-content;animation:marquee 34s linear infinite}
@@ -132,8 +110,6 @@ em{color:var(--vb);font-style:normal}
 .proof-track img{height:100px;width:auto;border-radius:8px;cursor:pointer;flex-shrink:0}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .proof-label{font-size:11px;color:var(--faint);margin-top:10px;text-align:center}
-
-/* ══════════════════════ BEGINNER STEPS ══════════════════════ */
 .step-list{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative}
 .step{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;background:var(--card);
   border:1px solid var(--bdr);text-decoration:none;position:relative;
@@ -145,8 +121,6 @@ em{color:var(--vb);font-style:normal}
 .tag{display:inline-block;font-size:8px;letter-spacing:.08em;background:var(--up);color:#052;padding:2px 6px;border-radius:5px;font-weight:800;margin-left:6px;vertical-align:middle}
 .link-title{font-size:14px;font-weight:700}
 .link-sub{font-size:11px;color:var(--faint);margin-top:2px}
-
-/* ══════════════════════ LINK / SHOP CARDS ══════════════════════ */
 .stack{display:flex;flex-direction:column;gap:10px;margin-top:28px}
 .link-card{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
   background:var(--card);border:1px solid var(--bdr);text-decoration:none;
@@ -164,24 +138,18 @@ em{color:var(--vb);font-style:normal}
 .shop-desc{font-size:12.5px;color:var(--dim);margin-top:10px;line-height:1.6}
 .shop-cta{display:inline-block;margin-top:16px;font-size:12px;font-weight:700;padding:10px 18px;border-radius:999px;
   background:linear-gradient(135deg,var(--v),#7c3aed);color:#fff}
-
-/* ══════════════════════ SOCIALS ══════════════════════ */
 .socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .soc{display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;background:var(--card);border:1px solid var(--bdr);
   text-decoration:none;font-size:12px;font-weight:600;transition:transform .25s var(--ease),border-color .25s var(--ease)}
 .soc:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(168,85,247,.45)}
 .soc svg{width:15px;height:15px;color:var(--vb)}
 @media(max-width:560px){.socials{flex-direction:column}.soc{justify-content:flex-start}}
-
-/* ══════════════════════ DISCLAIMER MARQUEE ══════════════════════ */
 .disc-outer{overflow:hidden;margin-top:30px;border-top:1px solid var(--bdr);padding-top:16px;
   mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
 .disc-track{display:inline-block;white-space:nowrap;font-family:"JetBrains Mono",monospace;font-size:10.5px;
   letter-spacing:.05em;color:var(--faint);animation:disc-scroll 28s linear infinite}
 @keyframes disc-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .foot{font-size:11px;color:var(--faint);margin-top:20px}
-
-/* ══════════════════════ GAIN TOASTS — brief proof-of-life popups, capped count ══════════════════════ */
 .gain-toast{position:fixed;z-index:15;pointer-events:none;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;
   padding:8px 14px;border-radius:999px;background:rgba(10,3,34,.85);border:1px solid var(--bdr);backdrop-filter:blur(6px);
   opacity:0;animation:toast-life 4.2s ease-out forwards}
@@ -191,8 +159,6 @@ em{color:var(--vb);font-style:normal}
   85%{opacity:1}
   100%{opacity:0;transform:translateY(-8px) scale(.96)}
 }
-
-/* ══════════════════════ CHAT WIDGET ══════════════════════ */
 .chat-btn{position:fixed;right:22px;bottom:22px;z-index:30;width:52px;height:52px;border-radius:50%;
   background:linear-gradient(135deg,var(--v),#7c3aed);border:none;color:#fff;font-size:20px;cursor:pointer;
   box-shadow:0 10px 28px rgba(168,85,247,.4);transition:transform .25s var(--ease)}
@@ -212,15 +178,11 @@ em{color:var(--vb);font-style:normal}
 .chat-input{flex:1;background:rgba(168,85,247,.06);border:1px solid var(--bdr);border-radius:999px;padding:8px 14px;color:var(--ink);font-size:12px;outline:none}
 .chat-send{width:32px;height:32px;border-radius:50%;background:var(--v);border:none;color:#fff;cursor:pointer;flex-shrink:0}
 @media(max-width:560px){.chat-panel{right:6px;left:6px;width:auto;bottom:82px}}
-
-/* ══════════════════════ LIGHTBOX ══════════════════════ */
 .lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
 .lightbox.open{display:flex}
 .lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
-
-/* ══════════════════════ INTRO (fixed: reliable auto-dismiss + tap) ══════════════════════ */
 #intro{position:fixed;inset:0;z-index:999;background:#050110;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:20px;cursor:pointer;transition:opacity .5s ease;overflow:hidden;pointer-events:auto}
+  gap:20px;cursor:pointer;transition:opacity .5s ease;overflow:hidden}
 #intro.fade{opacity:0;pointer-events:none}
 .intro-glow{position:absolute;width:min(70vw,520px);height:min(70vw,520px);border-radius:50%;
   background:radial-gradient(circle,rgba(168,85,247,.28),transparent 70%);filter:blur(50px);
@@ -248,14 +210,10 @@ em{color:var(--vb);font-style:normal}
 </style>
 </head>
 <body>
-
-<!-- ambient background — pure CSS, no WebGL, no JS render loop -->
 <div class="bg-gradient"></div>
 <div class="bg-grid"></div>
 <div class="orb tl"></div><div class="orb tr"></div><div class="orb bl"></div><div class="orb br"></div>
 <div class="floaters" id="floaters"></div>
-
-<!-- ═══ Intro — quick brand reveal, tap anywhere or auto-dismiss after 2.5s ═══ -->
 <div id="intro">
   <div class="intro-glow"></div>
   <div class="intro-candles" id="introCandles" aria-hidden="true"></div>
@@ -266,8 +224,6 @@ em{color:var(--vb);font-style:normal}
   <div class="intro-bar"><i></i></div>
   <div class="intro-tap">tap to enter</div>
 </div>
-
-<!-- ═══ Nav ═══ -->
 <div class="topnav">
   <div class="wrap">
     <a class="brand" href="#top"><span class="mark">📈</span>BALLOUTT</a>
@@ -279,8 +235,6 @@ em{color:var(--vb);font-style:normal}
     </nav>
   </div>
 </div>
-
-<!-- ═══ Hero ═══ -->
 <section class="hero" id="top">
   <div class="wrap reveal">
     <div class="avatar-wrap">
@@ -297,8 +251,6 @@ em{color:var(--vb);font-style:normal}
     </div>
   </div>
 </section>
-
-<!-- ═══ Start Here (beginner walkthrough) ═══ -->
 <section class="tight" id="start">
   <div class="wrap reveal">
     <p class="eyebrow v">// new here? start with these 3</p>
@@ -309,23 +261,17 @@ em{color:var(--vb);font-style:normal}
         <div class="step-num">1</div>
         <div><div class="link-title">Join for Free <span class="tag">BTLLC</span></div><div class="link-sub">My main Discord — free alerts &amp; community, no paywall</div></div>
       </a>
-      <a class="step" href="https://discord.gg/QndjBxjjG">
-        <div class="step-num">2</div>
-        <div><div class="link-title">Links Room <span class="tag">FREE</span></div><div class="link-sub">Another free server with chat, resources, and more traders</div></div>
-      </a>
       <a class="step" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener">
-        <div class="step-num">3</div>
-        <div><div class="link-title">Alerts Guide (PDF)</div><div class="link-sub">A 2-minute PDF on how to read my entries, TP, and SL</div></div>
+        <div class="step-num">2</div>
+        <div><div class="link-title">Read the Alerts Guide</div><div class="link-sub">A 2-minute PDF on how to read my entries, TP, and SL</div></div>
       </a>
       <a class="step" href="https://strixoptionsfunding.com/?ref=balloutt">
-        <div class="step-num">4</div>
+        <div class="step-num">3</div>
         <div><div class="link-title">Get Funded <span class="tag">BTLLC</span></div><div class="link-sub">Strix Options Funding — trade with their capital, not just your own</div></div>
       </a>
     </div>
   </div>
 </section>
-
-<!-- ═══ Highlights ═══ -->
 <section id="highlights">
   <div class="wrap reveal">
     <p class="eyebrow">// verified results</p>
@@ -342,12 +288,29 @@ em{color:var(--vb);font-style:normal}
     </div>
   </div>
 </section>
-
-<!-- ═══ More tools ═══ -->
 <section class="tight" id="tools">
   <div class="wrap reveal">
     <p class="eyebrow">// level up further</p>
     <h2>More <em>Tools</em></h2>
     <div class="stack">
+      <a class="link-card" href="https://discord.gg/QndjBxjjG">
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
+        <div><div class="link-title">Links Room <span class="tag">FREE</span></div><div class="link-sub">Free server with chat, resources, and traders</div></div>
+      </a>
       <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
+        <div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div>
+      </a>
+      <a class="link-card" href="https://www.traderdaddy.pro/?ref=42KYBSFS">
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+        <div><div class="link-title">TraderDaddy Pro</div><div class="link-sub">Charting &amp; indicator suite</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="tight" id="shop">
+  <div class="wrap reveal">
+    <p class="eyebrow">// invest in yourself</p>
+    <h2>Shop</h2>
+    <div class="stack">
+      <a class="shop-card feat" href="https://discord.com/users
