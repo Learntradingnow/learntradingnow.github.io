@@ -115,7 +115,6 @@ em{color:var(--vb);font-style:normal}
 .stat-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;color:var(--up)}
 .stat-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:3px}
 
-
 /* ══════════════════════ HIGHLIGHT CARDS ══════════════════════ */
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:20px;
@@ -134,7 +133,7 @@ em{color:var(--vb);font-style:normal}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .proof-label{font-size:11px;color:var(--faint);margin-top:10px;text-align:center}
 
-/* ══════════════════════ BEGINNER STEPS (numbered — order genuinely matters here) ══════════════════════ */
+/* ══════════════════════ BEGINNER STEPS — added a fourth one so Strix stays ══════════════════════ */
 .step-list{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative}
 .step{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;background:var(--card);
   border:1px solid var(--bdr);text-decoration:none;position:relative;
@@ -143,6 +142,9 @@ em{color:var(--vb);font-style:normal}
 .step-num{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-family:"JetBrains Mono",monospace;font-weight:700;font-size:14px;color:#052;
   background:linear-gradient(135deg,var(--up),var(--cyan));box-shadow:0 0 0 4px rgba(60,232,138,.1)}
+.tag{display:inline-block;font-size:8px;letter-spacing:.08em;background:var(--up);color:#052;padding:2px 6px;border-radius:5px;font-weight:800;margin-left:6px;vertical-align:middle}
+.link-title{font-size:14px;font-weight:700}
+.link-sub{font-size:11px;color:var(--faint);margin-top:2px}
 
 /* ══════════════════════ LINK / SHOP CARDS ══════════════════════ */
 .stack{display:flex;flex-direction:column;gap:10px;margin-top:28px}
@@ -152,10 +154,6 @@ em{color:var(--vb);font-style:normal}
 .link-card:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.08)}
 .link-icon{width:38px;height:38px;border-radius:10px;background:rgba(168,85,247,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .link-icon svg{width:18px;height:18px;color:var(--vb)}
-.link-title{font-size:14px;font-weight:700}
-.link-sub{font-size:11px;color:var(--faint);margin-top:2px}
-.tag{display:inline-block;font-size:8px;letter-spacing:.08em;background:var(--up);color:#052;padding:2px 6px;border-radius:5px;font-weight:800;margin-left:6px;vertical-align:middle}
-
 .shop-card{padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--bdr);text-decoration:none;display:block;
   transition:transform .25s var(--ease),border-color .25s var(--ease)}
 .shop-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.4)}
@@ -300,7 +298,7 @@ em{color:var(--vb);font-style:normal}
   </div>
 </section>
 
-<!-- ═══ Start Here (beginner walkthrough) ═══ -->
+<!-- ═══ Start Here (beginner walkthrough) — four steps, Strix stays ═══ -->
 <section class="tight" id="start">
   <div class="wrap reveal">
     <p class="eyebrow v">// new here? start with these 3</p>
@@ -309,14 +307,18 @@ em{color:var(--vb);font-style:normal}
     <div class="step-list">
       <a class="step" href="https://discord.gg/Mv2u35sTvj">
         <div class="step-num">1</div>
-        <div><div class="link-title">Join for Free</div><div class="link-sub">My main Discord — no paywall, free alerts &amp; community</div></div>
+        <div><div class="link-title">Join for Free <span class="tag">BTLLC</span></div><div class="link-sub">My main Discord — free alerts &amp; community, no paywall</div></div>
+      </a>
+      <a class="step" href="https://discord.gg/QndjBxjjG">
+        <div class="step-num">2</div>
+        <div><div class="link-title">Links Room <span class="tag">FREE</span></div><div class="link-sub">Another free server with chat, resources, and more traders</div></div>
       </a>
       <a class="step" href="https://learntradingnow.github.io/balloutt-callouts-guide.pdf" target="_blank" rel="noopener">
-        <div class="step-num">2</div>
-        <div><div class="link-title">Read the Alerts Guide</div><div class="link-sub">A 2-minute PDF on how to read my entries, TP, and SL</div></div>
+        <div class="step-num">3</div>
+        <div><div class="link-title">Alerts Guide (PDF)</div><div class="link-sub">A 2-minute PDF on how to read my entries, TP, and SL</div></div>
       </a>
       <a class="step" href="https://strixoptionsfunding.com/?ref=balloutt">
-        <div class="step-num">3</div>
+        <div class="step-num">4</div>
         <div><div class="link-title">Get Funded <span class="tag">BTLLC</span></div><div class="link-sub">Strix Options Funding — trade with their capital, not just your own</div></div>
       </a>
     </div>
@@ -348,293 +350,4 @@ em{color:var(--vb);font-style:normal}
     <h2>More <em>Tools</em></h2>
     <div class="stack">
       <a class="link-card" href="https://discord.gg/9YXBKQHMyY">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg></span>
-        <div><div class="link-title">Top Tier Trading Arsenal</div><div class="link-sub">Premium alerts &amp; analyst coverage</div></div>
-      </a>
-      <a class="link-card" href="https://www.traderdaddy.pro/?ref=42KYBSFS">
-        <span class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
-        <div><div class="link-title">TraderDaddy Pro</div><div class="link-sub">Charting &amp; indicator suite</div></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ Shop ═══ -->
-<section class="tight" id="shop">
-  <div class="wrap reveal">
-    <p class="eyebrow">// invest in yourself</p>
-    <h2>Shop</h2>
-    <div class="stack">
-      <a class="shop-card feat" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
-        <div class="shop-name">Lifetime Mentorship</div>
-        <div class="shop-price">$2,500 <small>one-time</small></div>
-        <div class="shop-desc">1:1 live sessions, my personal trades, full watchlist — lifetime access. Plans from $200/mo.</div>
-        <span class="shop-cta">💎 DM to Purchase</span>
-      </a>
-      <a class="shop-card" href="https://discord.com/users/823730914655338538" target="_blank" rel="noopener">
-        <div class="shop-name">Double Trouble Bundle</div>
-        <div class="shop-price">$450 <small>/mo</small></div>
-        <div class="shop-desc">Two analysts, real-time alerts with TP/SL. 0DTE, swings, LEAPS, whale alerts.</div>
-        <span class="shop-cta">🔥 DM to Purchase</span>
-      </a>
-      <a class="shop-card" href="https://discord.gg/23Pyxa2Spt">
-        <div class="shop-name">BBTRADES VIP</div>
-        <div class="shop-price">$250 <small>one-time</small></div>
-        <div class="shop-desc">Join the free BBTRADES server, then unlock VIP perks. Also available at $200/yr or $30/mo — pick what fits.</div>
-        <span class="shop-cta">🚀 Join &amp; Upgrade</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ Follow ═══ -->
-<section id="follow">
-  <div class="wrap reveal">
-    <p class="eyebrow">// connect</p>
-    <h2>Follow <em>Balloutt</em></h2>
-    <nav class="socials">
-      <a class="soc" href="https://www.instagram.com/Balloutt.on.bizz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg>@Balloutt.on.bizz</a>
-      <a class="soc" href="https://www.tiktok.com/@BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.2 1.6 3.7 3.7 3.9v2.6c-1.2.1-2.4-.2-3.6-.9v5.7c0 3.3-2.4 5.7-5.5 5.7-2.9 0-5.1-2.1-5.1-4.9 0-2.9 2.3-5 5.4-4.7v2.7c-.4-.1-.9-.2-1.3-.1-1.2.2-2 1-1.9 2.3.1 1.2 1 2 2.2 2 1.3 0 2.2-1 2.2-2.5V3h3.9Z"/></svg>@BallouttTrades</a>
-      <a class="soc" href="https://discord.gg/Mv2u35sTvj"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0 1-1.9-.9l.5-.4a13.6 13.6 0 0 0 11.6 0l.4.4a12 12 0 0 1-1.9.9l.6 1a19 19 0 0 0 5.7-2.9c.4-4.2-.6-7.6-2.5-10.6Z"/></svg>@balloutt.trades.llc</a>
-      <a class="soc" href="https://x.com/BallouttTrades"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.2 21H1L8.6 12.2 1.4 3h6.8l4.7 6.2L17.5 3Zm-1.2 16.2h1.8L7.8 4.7H5.9l10.4 14.5Z"/></svg>@BallouttTrades</a>
-      <a class="soc" href="https://www.snapchat.com/add/Balloutt.bb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c2.8 0 4.5 2.1 4.5 4.9v2c.3.2.8.3 1.2.2.6-.2 1 .1 1.1.5.1.5-.3.8-1 1-.5.2-1.3.4-1.4.9-.1.4.5 1.2 1.3 2 .8.7 1.8 1.3 2.6 1.5.4.1.6.4.5.8-.2.7-1.7 1-2.5 1.1-.2 0-.3.2-.4.5-.1.4-.2.8-.6.8-.5.1-1.2-.3-2.2-.3-1.4 0-1.9 1.1-3.5 1.1s-2.1-1.1-3.5-1.1c-1 0-1.7.4-2.2.3-.4 0-.5-.4-.6-.8-.1-.3-.2-.5-.4-.5-.8-.1-2.3-.4-2.5-1.1-.1-.4.1-.7.5-.8.8-.2 1.8-.8 2.6-1.5.8-.8 1.4-1.6 1.3-2-.1-.5-.9-.7-1.4-.9-.7-.2-1.1-.5-1-1 .1-.4.5-.7 1.1-.5.4.1.9 0 1.2-.2v-2C7.5 4.5 9.2 2.4 12 2.4Z"/></svg>@Balloutt.bb</a>
-    </nav>
-    <div class="disc-outer"><div class="disc-track" id="discTrack"></div></div>
-    <div class="foot">© 2026 Balloutt Trades LLC</div>
-  </div>
-</section>
-
-<!-- ═══ Chat ═══ -->
-<button class="chat-btn" onclick="document.getElementById('cp').classList.toggle('open')" aria-label="Open chat">💬</button>
-<div class="chat-panel" id="cp">
-  <div class="chat-head"><h3>Balloutt AI</h3><button class="chat-close" onclick="document.getElementById('cp').classList.remove('open')">✕</button></div>
-  <div class="chat-msgs" id="cm"><div class="chat-msg bot">Hey! Ask me about alerts, mentorship, pricing, or how to join. 🚀</div></div>
-  <div class="chat-input-wrap"><input class="chat-input" id="ci" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')chat()"><button class="chat-send" onclick="chat()">↑</button></div>
-</div>
-
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-  <img id="lightboxImg" src="" alt="Enlarged screenshot">
-</div>
-
-<script>
-/* ═══════════════════════════════════════════════════════════════
-   Everything below is plain vanilla JS. No GSAP, no Three.js/Vanta,
-   no Lenis, no anime.js. Motion lives in CSS (GPU-composited) and
-   only runs when it needs to — no perpetual per-frame loops, no
-   DOM nodes spawned/destroyed forever in the background.
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── Intro: candles build, "BALLOUTT TRADES" spells itself out letter by letter,
-     "LLC" settles in underneath, then the whole thing dismisses (tap anywhere to skip) ── */
-(function(){
-  var candleHost=document.getElementById('introCandles');
-  // 'green:true' bars use the .down class (green, per the swapped palette); last bar is the big finisher
-  var bars=[
-    {h:10,green:false},{h:18,green:true},{h:8,green:false},
-    {h:24,green:true},{h:14,green:false},{h:20,green:true},
-    {h:38,green:true}
-  ];
-  bars.forEach(function(b,i){
-    var el=document.createElement('i');
-    if(b.green) el.className='down';
-    el.style.height=b.h+'px';
-    el.style.animationDelay=(i*0.06)+'s';
-    candleHost.appendChild(el);
-  });
-
-  var phrase='BALLOUTT TRADES';
-  var main=document.getElementById('introMain');
-  var letterIndex=0;
-  phrase.split('').forEach(function(ch){
-    if(ch===' '){
-      var sp=document.createElement('span');
-      sp.className='sp';
-      main.appendChild(sp);
-      return;
-    }
-    var s=document.createElement('span');
-    s.textContent=ch;
-    s.style.animationDelay=(0.4+letterIndex*0.045)+'s';
-    main.appendChild(s);
-    letterIndex++;
-  });
-
-  var suffix=document.getElementById('introSuffix');
-  suffix.style.animationDelay=(0.4+letterIndex*0.045+0.3)+'s';
-
-  var intro=document.getElementById('intro');
-  function dismiss(){
-    if(intro.classList.contains('fade')) return;
-    intro.classList.add('fade');
-    setTimeout(function(){ intro.style.display='none'; },550);
-  }
-  intro.addEventListener('click',dismiss);
-  setTimeout(dismiss,2500);
-})();
-
-/* ── Floating trading symbols — a fixed set, CSS animates them, JS just seeds positions once ── */
-(function(){
-  var symbols=['$','📈','🚀','💰','🔥','💎','📊','⚡'];
-  var host=document.getElementById('floaters');
-  var count=window.innerWidth<600?6:10;
-  for(var i=0;i<count;i++){
-    var s=document.createElement('span');
-    s.textContent=symbols[i%symbols.length];
-    s.style.left=(Math.random()*94+2)+'vw';
-    s.style.animationDuration=(14+Math.random()*10)+'s';
-    s.style.animationDelay=(Math.random()*-20)+'s';
-    host.appendChild(s);
-  }
-})();
-
-/* ── Scroll reveal: one observer, toggles a class, CSS does the animating ── */
-(function(){
-  var els=document.querySelectorAll('.reveal, .card, .link-card, .shop-card, .step');
-  if(!('IntersectionObserver' in window)){ els.forEach(function(el){el.classList.add('in')}); return; }
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  },{threshold:0.12});
-  els.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
-})();
-
-/* ── Count-up stats — animates once when a card scrolls into view ── */
-(function(){
-  var counters=document.querySelectorAll('.card-pct[data-target]');
-  if(!counters.length) return;
-  function formatNum(v,decimals){
-    var s=v.toFixed(decimals), parts=s.split('.');
-    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');
-    return parts.join('.');
-  }
-  function animateCount(el){
-    var target=parseFloat(el.getAttribute('data-target'));
-    var decimals=parseInt(el.getAttribute('data-decimals')||'0',10);
-    var dur=1400, start=performance.now();
-    function tick(now){
-      var t=Math.min(1,(now-start)/dur), eased=1-Math.pow(1-t,3);
-      el.textContent='+'+formatNum(target*eased,decimals)+'%';
-      if(t<1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting){ animateCount(e.target); io.unobserve(e.target);} });
-    },{threshold:0.4});
-    counters.forEach(function(el){ io.observe(el); });
-  }else{ counters.forEach(animateCount); }
-})();
-
-/* ── Disclaimer marquee text (CSS animates the scroll) ── */
-(function(){
-  var t=document.getElementById('discTrack');
-  if(!t) return;
-  var txt='⚠️ Not financial advice · Past performance ≠ future results · Trading involves risk · Some links are affiliate links · Individual results vary';
-  t.innerHTML=(txt+' &nbsp;·&nbsp; ').repeat(4);
-})();
-
-/* ── Proof wall: fetch once from /proofs, CSS marquee handles the motion ── */
-(function(){
-  var track=document.getElementById('proofTrack');
-  if(!track) return;
-  var api='https://api.github.com/repos/Learntradingnow/learntradingnow.github.io/contents/proofs';
-  var base='https://raw.githubusercontent.com/Learntradingnow/learntradingnow.github.io/main/proofs/';
-  var exts=['png','jpg','jpeg','webp','gif','bmp'];
-
-  fetch(api).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(files){
-      if(!Array.isArray(files)) return;
-      var images=files.filter(function(f){ return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1; });
-      if(!images.length){ track.closest('.proof-wrap').style.display='none'; return; }
-      images.concat(images).forEach(function(f){ // duplicated once so the CSS marquee loops seamlessly
-        var img=document.createElement('img');
-        img.src=base+encodeURIComponent(f.name);
-        img.alt='Profit screenshot';
-        img.loading='lazy';
-        img.onclick=function(){
-          document.getElementById('lightboxImg').src=this.src;
-          document.getElementById('lightbox').classList.add('open');
-        };
-        img.onerror=function(){ this.remove(); };
-        track.appendChild(img);
-      });
-    }).catch(function(){ track.closest('.proof-wrap').style.display='none'; });
-})();
-
-/* ── Gain toasts: an occasional "+142% TSLA" style popup drifts in, then removes itself.
-     Capped active count so it can never pile up, unlike an unbounded setInterval spawner. ── */
-(function(){
-  var SYMBOLS=['SPY','QQQ','TSLA','NVDA','META','AAPL','0DTE'];
-  var active=0, MAX_ACTIVE=2;
-  function spawn(){
-    if(active>=MAX_ACTIVE || document.hidden){ return; }
-    active++;
-    var up=Math.random()>0.15; // mostly green, matches the real win rate vibe
-    var pct=up?(Math.random()*180+8).toFixed(0):(Math.random()*20+2).toFixed(0);
-    var sym=SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
-    var el=document.createElement('div');
-    el.className='gain-toast';
-    el.style.color=up?'#3ce88a':'#ff3b4e';
-    el.style.left=(8+Math.random()*70)+'vw';
-    el.style.top=(Math.random()>0.5?'14vh':'auto');
-    el.style.bottom=(el.style.top==='auto'?'18vh':'auto');
-    el.textContent=(up?'+':'-')+pct+'% '+sym;
-    document.body.appendChild(el);
-    setTimeout(function(){ el.remove(); active--; },4200);
-  }
-  setInterval(spawn,3200);
-})();
-
-/* ── Hover tilt: a subtle perspective tilt toward the cursor, JS only runs on hover/move,
-     no continuous per-frame loop, skipped entirely on touch devices ── */
-(function(){
-  if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return;
-  document.querySelectorAll('.card, .step, .shop-card').forEach(function(el){
-    el.addEventListener('mousemove',function(e){
-      var r=el.getBoundingClientRect();
-      var rx=((e.clientY-r.top)/r.height-0.5)*-6;
-      var ry=((e.clientX-r.left)/r.width-0.5)*6;
-      el.style.transform='perspective(700px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateY(-4px)';
-    });
-    el.addEventListener('mouseleave',function(){ el.style.transform=''; });
-  });
-})();
-
-/* ── AI chat — simple keyword matcher, no external calls ── */
-var kb={
-  'price|cost|how much|pricing':'Lifetime Mentorship: $2,500 one-time (plans: 3-mo $1,200/mo, 8-mo $600/mo, 16-mo $350/mo, 30-mo $200/mo). Double Trouble Bundle: $450/mo. BBTRADES VIP: $250 one-time, $200/yr, or $30/mo. Scroll to the Shop section or DM @balloutt.trades.llc on Discord!',
-  'mentor|1:1|coaching|mentorship':'Lifetime 1:1 Mentorship — $2,500 one-time. Live trading sessions, my personal trades, full watchlist, direct guidance. Payment plans from $200/mo. Scroll to Shop or DM @balloutt.trades.llc!',
-  'shop|buy|purchase':'Scroll down to the Shop section! Lifetime Mentorship ($2,500 or plans from $200/mo), Double Trouble Alert Bundle ($450/mo), and BBTRADES VIP ($250 one-time, $200/yr, or $30/mo). DM @balloutt.trades.llc on Discord to purchase.',
-  'bbtrades|bb trades':'BBTRADES is a free server — join at discord.gg/23Pyxa2Spt. VIP upgrade is $250 one-time, $200/yr, or $30/mo.',
-  'alert|signal|callout':'Live options alerts with entry, TP, and SL — tracked in %. Swings, LEAPS, 0DTE. Get alerts with Double Trouble Bundle ($450/mo).',
-  'free|join|start|get started':'Join free at discord.gg/Mv2u35sTvj — no paywall! Check the "Start Here" section for the full 3-step walkthrough.',
-  'strix|funded|funding':'Strix Options Funding — get funded! Use code BTLLC: strixoptionsfunding.com/?ref=balloutt',
-  'result|track|win rate|performance|proof':'86.7% win rate. Best trade: META +12,240%. Best 8-day: +219,829%. June total: +11,172%. Scroll to Highlights!',
-  'discord|server':'Main: discord.gg/Mv2u35sTvj (free). Top Tier: discord.gg/9YXBKQHMyY (premium). BBTRADES: discord.gg/23Pyxa2Spt (free, with optional VIP).',
-  'who|about|balloutt':'Full-time options trader, founder of Balloutt Trades LLC. Swings, LEAPS, 0DTE. 41K+ reach. Every trade posted live.',
-  'social|instagram|tiktok|snap|follow':'IG: @Balloutt.on.bizz | TikTok: @BallouttTrades | Snap: @Balloutt.bb | Discord: @balloutt.trades.llc | X: @BallouttTrades',
-  'hello|hi|hey|yo|sup':'Hey! Welcome to Balloutt Trades 🚀 Ask about pricing, alerts, mentorship, or how to join!',
-  'double trouble|bundle':'Double Trouble Bundle: $450/mo — two analysts, real-time alerts, 0DTE/swings/LEAPS/whale alerts. DM to purchase!',
-  'navigate|where|find|section':'Just scroll! Hero → Start Here → Highlights → More Tools → Shop → Follow. Or ask me anything specific!',
-  'refund':'Yes — if unsatisfied with mentorship, just reach out. Your money, your choice.'
-};
-function chat(){
-  var i=document.getElementById('ci'), m=i.value.trim(); if(!m) return;
-  var c=document.getElementById('cm');
-  c.innerHTML+='<div class="chat-msg user"></div>';
-  c.lastElementChild.textContent=m;
-  i.value=''; c.scrollTop=c.scrollHeight;
-  setTimeout(function(){
-    var r='Try asking about pricing, alerts, results, mentorship, or how to join! Or DM @balloutt.trades.llc on Discord.';
-    var l=m.toLowerCase();
-    for(var p in kb){ if(p.split('|').some(function(k){return l.includes(k)})){ r=kb[p]; break; } }
-    c.innerHTML+='<div class="chat-msg bot"></div>';
-    c.lastElementChild.textContent=r;
-    c.scrollTop=c.scrollHeight;
-  },450);
-}
-</script>
-</body>
-</html>
+        <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.5a13 13 0 0 1 3.7 1.9 15.6 15.6 0 0 0-14.2 0A13 13 0 0 1 8.6 3.5L8.4 3a19 19 0 0 0-4.7 1.4C1.3 8 .6 11.5.9 15a19 19 0 0 0 5.7 2.9l.6-1a12 12 0 0
