@@ -96,6 +96,10 @@ em{color:var(--vb);font-style:normal}
 .navlinks{display:flex;gap:22px;font-size:12px;font-weight:600;color:var(--faint)}
 .navlinks a{text-decoration:none;transition:color .2s}
 .navlinks a:hover{color:var(--ink)}
+.nav-cta{padding:9px 18px;border-radius:999px;background:linear-gradient(135deg,var(--v),#7c3aed);
+  color:#fff;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(168,85,247,.3);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(168,85,247,.45)}
 @media(max-width:560px){.navlinks{display:none}}
 
 /* ══════════════════════ HERO ══════════════════════ */
@@ -133,6 +137,10 @@ em{color:var(--vb);font-style:normal}
 .proof-track img{height:100px;width:auto;border-radius:8px;cursor:pointer;flex-shrink:0}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .proof-label{font-size:11px;color:var(--faint);margin-top:10px;text-align:center}
+.proof-retry-btn{display:block;width:100%;margin-top:10px;padding:14px 16px;background:var(--card);
+  border:1px solid var(--bdr);border-radius:14px;color:var(--vb);font-weight:700;font-size:13px;
+  cursor:pointer;font-family:inherit;transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.proof-retry-btn:hover{transform:translateY(-2px);border-color:rgba(168,85,247,.4)}
 
 /* ══════════════════════ BEGINNER STEPS (numbered — order genuinely matters here) ══════════════════════ */
 .step-list{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative}
@@ -279,6 +287,7 @@ em{color:var(--vb);font-style:normal}
       <a href="#shop">Shop</a>
       <a href="#follow">Follow</a>
     </nav>
+    <a class="nav-cta" href="https://discord.gg/Mv2u35sTvj">Join Free</a>
   </div>
 </div>
 
@@ -291,7 +300,7 @@ em{color:var(--vb);font-style:normal}
     <p class="eyebrow">// balloutt trades llc</p>
     <h1>One Stop Shop <em>Always Networking</em></h1>
     <p class="sub">Full-time trader. Swings, LEAPS, 0DTE. Every entry, every exit, tracked in %. <strong style="color:var(--vb)">Top 0.1% results.</strong></p>
-    <a class="cta" href="https://discord.gg/Mv2u35sTvj">🔥 Tap In for FREE</a>
+    <a class="cta" href="https://discord.gg/Mv2u35sTvj">🔥 Join for Free</a>
     <div class="stats-row">
       <div class="stat"><div class="stat-num">2.4K</div><div class="stat-label">Snapchat</div></div>
       <div class="stat"><div class="stat-num">1.1K</div><div class="stat-label">TikTok</div></div>
@@ -336,9 +345,10 @@ em{color:var(--vb);font-style:normal}
     <div class="card"><div class="card-pct" data-target="2765" data-decimals="0">+0%</div><div class="card-label">August 2026 Recap</div></div>
     <div class="card"><div class="card-pct" data-target="1860" data-decimals="0">+0%</div><div class="card-label"> TSLA 350C 8/21 | 0.83 → 16.27 | overnight hold</div></div>
     </div>
-    <div class="proof-wrap">
+    <div class="proof-wrap" id="proofWrap">
       <div class="proof-track-outer"><div class="proof-track" id="proofTrack"></div></div>
-      <p class="proof-label">Receipts from me &amp; members — tap to enlarge</p>
+      <button class="proof-retry-btn" id="proofRetryBtn" type="button" style="display:none">⚡ Click here to view the proof wall</button>
+      <p class="proof-label" id="proofLabel">Loading recent screenshots…</p>
     </div>
   </div>
 </section>
@@ -537,32 +547,57 @@ em{color:var(--vb);font-style:normal}
   t.innerHTML=(txt+' &nbsp;·&nbsp; ').repeat(4);
 })();
 
-/* ── Proof wall: fetch once from /proofs, CSS marquee handles the motion ── */
+/* ── Proof wall: fetch once from /proofs, CSS marquee handles the motion.
+     GitHub's unauthenticated API is rate-limited, so this occasionally fails
+     under real traffic — instead of hiding silently, it shows a visible
+     loading state and a real retry button if it comes back empty-handed. ── */
 (function(){
   var track=document.getElementById('proofTrack');
-  if(!track) return;
+  var wrap=document.getElementById('proofWrap');
+  var label=document.getElementById('proofLabel');
+  var retryBtn=document.getElementById('proofRetryBtn');
+  if(!track || !wrap) return;
   var api='https://api.github.com/repos/Learntradingnow/learntradingnow.github.io/contents/proofs';
   var base='https://raw.githubusercontent.com/Learntradingnow/learntradingnow.github.io/main/proofs/';
   var exts=['png','jpg','jpeg','webp','gif','bmp'];
 
-  fetch(api).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(files){
-      if(!Array.isArray(files)) return;
-      var images=files.filter(function(f){ return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1; });
-      if(!images.length){ track.closest('.proof-wrap').style.display='none'; return; }
-      images.concat(images).forEach(function(f){ // duplicated once so the CSS marquee loops seamlessly
-        var img=document.createElement('img');
-        img.src=base+encodeURIComponent(f.name);
-        img.alt='Profit screenshot';
-        img.loading='lazy';
-        img.onclick=function(){
-          document.getElementById('lightboxImg').src=this.src;
-          document.getElementById('lightbox').classList.add('open');
-        };
-        img.onerror=function(){ this.remove(); };
-        track.appendChild(img);
+  function loadProofs(){
+    track.innerHTML='';
+    retryBtn.style.display='none';
+    label.textContent='Loading recent screenshots…';
+    wrap.style.display='';
+
+    fetch(api).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(files){
+        if(!Array.isArray(files)) throw new Error('bad response');
+        var images=files.filter(function(f){ return exts.indexOf(f.name.split('.').pop().toLowerCase())!==-1; });
+        if(!images.length){
+          // genuinely empty proofs/ folder — nothing to show, not an error state
+          wrap.style.display='none';
+          return;
+        }
+        images.concat(images).forEach(function(f){ // duplicated once so the CSS marquee loops seamlessly
+          var img=document.createElement('img');
+          img.src=base+encodeURIComponent(f.name);
+          img.alt='Profit screenshot';
+          img.loading='lazy';
+          img.onclick=function(){
+            document.getElementById('lightboxImg').src=this.src;
+            document.getElementById('lightbox').classList.add('open');
+          };
+          img.onerror=function(){ this.remove(); };
+          track.appendChild(img);
+        });
+        label.textContent='Receipts from me & members — tap to enlarge';
+      })
+      .catch(function(){
+        label.textContent="Couldn't load screenshots just now.";
+        retryBtn.style.display='block';
       });
-    }).catch(function(){ track.closest('.proof-wrap').style.display='none'; });
+  }
+
+  retryBtn.addEventListener('click', loadProofs);
+  loadProofs();
 })();
 
 /* ── Gain toasts: an occasional "+142% TSLA" style popup drifts in, then removes itself.
